@@ -1,10 +1,27 @@
+import { cva, type VariantProps } from "class-variance-authority"
 import { twMerge } from "tailwind-merge"
 
-type ContainerProps = {
+const container = cva("mx-auto w-full px-6", {
+  variants: {
+    width: {
+      page: "max-w-7xl",
+      content: "max-w-6xl",
+      prose: "max-w-2xl",
+    },
+  },
+  defaultVariants: {
+    width: "page",
+  },
+})
+
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof container> {
   children: React.ReactNode
-  className?: string
 }
 
-export function Container({ children, className }: ContainerProps) {
-  return <div className={twMerge("mx-auto w-full max-w-7xl px-4", className)}>{children}</div>
+export function Container({ children, className, width, ...props }: ContainerProps) {
+  return (
+    <div className={twMerge(container({ width, className }))} {...props}>
+      {children}
+    </div>
+  )
 }

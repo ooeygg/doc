@@ -9,6 +9,17 @@ export const defaultMetadata: Metadata = {
     siteName: siteConfig.name,
     url: siteConfig.url,
     type: "website",
+    images: [
+      {
+        url: "/api/og/default",
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/api/og/default"],
+  },
 }

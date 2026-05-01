@@ -1,7 +1,11 @@
+import type { Metadata } from "next"
+import { ContactPage } from "components/marketing/ContactPage"
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Reach out to Dr. Cynthia Higgins for programs, media, or partnership inquiries.",
+}
+
 export default function Page() {
-  return (
-    <section className="mx-auto max-w-2xl px-4 py-16">
-      <h1 className="text-4xl font-bold">Contact</h1>
-    </section>
-  )
+  return <ContactPage />
 }

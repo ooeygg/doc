@@ -1,5 +1,11 @@
 "use client"
 
+import { useCallback } from "react"
+import { track, type AnalyticsEvent } from "lib/analytics"
+
 export function useAnalytics() {
-  return { track: (_event: string, _props?: Record<string, unknown>) => {} }
+  const fire = useCallback(<E extends AnalyticsEvent>(event: E, props?: Record<string, string | number | boolean | undefined>) => {
+    track(event, props)
+  }, [])
+  return { track: fire }
 }

@@ -2,17 +2,18 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { Button } from "./Button"
 
 const meta: Meta<typeof Button> = {
-  title: "Button",
+  title: "UI/Button",
   component: Button,
   args: {
     intent: "primary",
     underline: false,
-    children: "Button",
+    children: "Book a consult",
     size: "lg",
+    href: "#",
   },
   argTypes: {
     intent: {
-      options: ["primary", "secondary"],
+      options: ["primary", "secondary", "ghost", "gold"],
       control: { type: "select" },
     },
     size: {
@@ -24,8 +25,20 @@ const meta: Meta<typeof Button> = {
 
 type Story = StoryObj<typeof Button>
 
-export const Default: Story = {
-  render: (args) => <Button {...args} />,
+export const Primary: Story = {
+  args: { intent: "primary" },
+}
+
+export const Secondary: Story = {
+  args: { intent: "secondary", children: "Learn more" },
+}
+
+export const Ghost: Story = {
+  args: { intent: "ghost", children: "Read article" },
+}
+
+export const Gold: Story = {
+  args: { intent: "gold", children: "Start your journey" },
 }
 
 export default meta

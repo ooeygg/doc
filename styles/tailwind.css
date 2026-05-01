@@ -1,5 +1,18 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-bone: var(--color-bone);
+  --color-ink: var(--color-ink);
+  --color-jade-900: var(--color-jade-900);
+  --color-jade-600: var(--color-jade-600);
+  --color-gold-500: var(--color-gold-500);
+  --color-mist-100: var(--color-mist-100);
+  --color-rose-300: var(--color-rose-300);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still

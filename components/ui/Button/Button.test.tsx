@@ -8,7 +8,14 @@ describe("Button", () => {
     expect(screen.getByText("Click me")).toBeInTheDocument()
   })
 
-  it("applies correct intent classes", () => {
+  it("renders primary intent (jade) by default", () => {
+    const { container } = render(<Button href="/test">Primary</Button>)
+    const link = container.querySelector("a")
+    expect(link).toHaveClass("bg-jade-900")
+    expect(link).toHaveClass("text-bone")
+  })
+
+  it("renders secondary intent as outlined jade", () => {
     const { container } = render(
       <Button href="/test" intent="secondary">
         Secondary
@@ -16,7 +23,30 @@ describe("Button", () => {
     )
     const link = container.querySelector("a")
     expect(link).toHaveClass("bg-transparent")
-    expect(link).toHaveClass("text-blue-400")
+    expect(link).toHaveClass("text-jade-900")
+    expect(link).toHaveClass("border-jade-900")
+  })
+
+  it("renders ghost intent without border", () => {
+    const { container } = render(
+      <Button href="/test" intent="ghost">
+        Ghost
+      </Button>
+    )
+    const link = container.querySelector("a")
+    expect(link).toHaveClass("border-transparent")
+    expect(link).toHaveClass("text-jade-900")
+  })
+
+  it("renders gold intent with ink text", () => {
+    const { container } = render(
+      <Button href="/test" intent="gold">
+        Book
+      </Button>
+    )
+    const link = container.querySelector("a")
+    expect(link).toHaveClass("bg-gold-500")
+    expect(link).toHaveClass("text-ink")
   })
 
   it("applies correct size classes", () => {
@@ -28,5 +58,14 @@ describe("Button", () => {
     const link = container.querySelector("a")
     expect(link).toHaveClass("text-sm")
     expect(link).toHaveClass("min-w-20")
+  })
+
+  it("applies underline when set", () => {
+    const { container } = render(
+      <Button href="/test" underline>
+        Underline
+      </Button>
+    )
+    expect(container.querySelector("a")).toHaveClass("underline")
   })
 })

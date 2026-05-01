@@ -1,21 +1,12 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { HomePage } from "components/marketing/HomePage"
+import { defaultMetadata } from "config/seo"
+import { siteConfig } from "config/site"
 
 export const metadata: Metadata = {
-  title: "Next.js Enterprise Boilerplate",
-  twitter: {
-    card: "summary_large_image",
-  },
-  openGraph: {
-    url: "https://next-enterprise.vercel.app/",
-    images: [
-      {
-        width: 1200,
-        height: 630,
-        url: "https://raw.githubusercontent.com/Blazity/next-enterprise/main/.github/assets/project-logo.png",
-      },
-    ],
-  },
+  ...defaultMetadata,
+  title: `${siteConfig.name} — Energy-medicine psychiatry`,
+  description: siteConfig.description,
 }
 
 export default function Page() {
