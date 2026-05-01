@@ -28,7 +28,7 @@ export function FAQ() {
                     <span className="font-display text-2xl">{entry.question}</span>
                     <span
                       aria-hidden
-                      className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-divider text-gold transition-transform duration-300 group-data-[state=open]:rotate-45"
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-divider text-gold transition-transform duration-300 group-data-[state=open]:rotate-45"
                     >
                       +
                     </span>

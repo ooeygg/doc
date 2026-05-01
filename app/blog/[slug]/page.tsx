@@ -43,7 +43,7 @@ export default async function Page({ params }: PageProps) {
             <p className="font-body mt-6 text-lg leading-relaxed opacity-80">{post.excerpt}</p>
           ) : null}
           {post.coverImage ? (
-            <div className="bg-surface-alt relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-3xl">
+            <div className="bg-surface-alt relative mt-10 aspect-video w-full overflow-hidden rounded-3xl">
               <Image
                 src={urlFor(post.coverImage).width(1600).height(900).url()}
                 alt={post.coverImage.alt ?? post.title}

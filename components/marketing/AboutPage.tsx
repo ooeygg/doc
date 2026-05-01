@@ -30,7 +30,7 @@ function Reveal({ children, delay = 0, className }: { children: React.ReactNode;
 export function AboutPage() {
   const statsRef = useRef<HTMLDivElement>(null)
   const statsInView = useInView(statsRef, { once: true, margin: "-8% 0px" })
-  const credRef = useRef<HTMLDivElement>(null)
+  const credRef = useRef<HTMLUListElement>(null)
   const credInView = useInView(credRef, { once: true, margin: "-8% 0px" })
 
   return (

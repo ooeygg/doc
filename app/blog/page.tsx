@@ -26,7 +26,7 @@ export default async function Page() {
             <li key={post._id}>
               <Link href={`/blog/${post.slug}`} className="group block focus-visible:outline-none">
                 {post.coverImage ? (
-                  <div className="bg-surface-alt relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-2xl">
+                  <div className="bg-surface-alt relative mb-4 aspect-4/3 w-full overflow-hidden rounded-2xl">
                     <Image
                       src={urlFor(post.coverImage).width(800).height(600).url()}
                       alt={post.coverImage.alt ?? post.title}

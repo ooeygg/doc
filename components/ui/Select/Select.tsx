@@ -85,7 +85,7 @@ export function Select({
                 <RadixSelect.Item
                   key={opt.value}
                   value={opt.value}
-                  className="relative flex cursor-pointer select-none items-center rounded-xl px-3 py-2 text-sm outline-none data-[highlighted]:bg-surface-alt data-[state=checked]:font-medium"
+                  className="relative flex cursor-pointer select-none items-center rounded-xl px-3 py-2 text-sm outline-none data-highlighted:bg-surface-alt data-[state=checked]:font-medium"
                 >
                   <RadixSelect.ItemText>{opt.label}</RadixSelect.ItemText>
                 </RadixSelect.Item>

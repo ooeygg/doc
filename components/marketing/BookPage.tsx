@@ -34,7 +34,7 @@ export function BookPage() {
             }}
           />
         ) : (
-          <div className="h-[780px]" aria-hidden />
+          <div className="h-195" aria-hidden />
         )}
       </div>
     </Section>

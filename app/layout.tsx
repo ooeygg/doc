@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Grain texture — very subtle film-like noise over the entire page */}
         <div
           aria-hidden
-          className="grain-texture pointer-events-none fixed inset-0 z-[9998] opacity-[0.028]"
+          className="grain-texture pointer-events-none fixed inset-0 z-9998 opacity-[0.028]"
         />
         {children}
         {env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ? (
