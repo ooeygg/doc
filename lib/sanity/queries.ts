@@ -46,17 +46,21 @@ const ALL_TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(publishedAt de
 }`
 
 export async function getAllPosts(): Promise<PostSummary[]> {
+  if (!sanityClient) return []
   return sanityClient.fetch(POST_LIST_QUERY, {}, { next: { tags: [POSTS_TAG] } })
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  if (!sanityClient) return null
   return sanityClient.fetch(POST_BY_SLUG_QUERY, { slug }, { next: { tags: [POSTS_TAG, `post:${slug}`] } })
 }
 
 export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
+  if (!sanityClient) return []
   return sanityClient.fetch(FEATURED_TESTIMONIALS_QUERY, {}, { next: { tags: [TESTIMONIALS_TAG] } })
 }
 
 export async function getAllTestimonials(): Promise<Testimonial[]> {
+  if (!sanityClient) return []
   return sanityClient.fetch(ALL_TESTIMONIALS_QUERY, {}, { next: { tags: [TESTIMONIALS_TAG] } })
 }
