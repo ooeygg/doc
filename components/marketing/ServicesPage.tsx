@@ -73,7 +73,7 @@ export function ServicesPage() {
         <div className="grid gap-8 md:grid-cols-4">
           {SESSION_FLOW.map((s) => (
             <div key={s.step}>
-              <p className="font-display text-gold-500 text-4xl">{s.step}</p>
+              <p className="font-display text-gold text-4xl">{s.step}</p>
               <p className="font-display mt-2 text-2xl text-bone">{s.title}</p>
               <p className="font-body text-bone/70 mt-3 text-sm leading-relaxed">{s.description}</p>
             </div>

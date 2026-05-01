@@ -7,7 +7,7 @@ describe("Eyebrow", () => {
     render(<Eyebrow>Approach</Eyebrow>)
     const label = screen.getByText("Approach")
     expect(label).toBeInTheDocument()
-    expect(label).toHaveClass("text-gold-500")
+    expect(label).toHaveClass("text-gold")
   })
 
   it("supports tone variants", () => {

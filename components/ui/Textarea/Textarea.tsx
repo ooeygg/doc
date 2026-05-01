@@ -1,4 +1,4 @@
-import { useId, forwardRef } from "react"
+import { forwardRef, useId } from "react"
 import { twMerge } from "tailwind-merge"
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -28,15 +28,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
         aria-invalid={error ? "true" : undefined}
         aria-describedby={describedBy}
         className={twMerge(
-          "font-body min-h-32 rounded-md border border-mist-100 bg-bone px-3 py-2 text-ink",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade-600",
-          error ? "border-rose-300" : "",
+          "font-body min-h-32 rounded-2xl border border-divider bg-surface px-4 py-3 text-ink placeholder:text-ink-muted",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-1",
+          "transition-[border-color,box-shadow] duration-200",
+          error ? "border-error" : "",
           className
         )}
         {...props}
       />
       {error ? (
-        <p id={`${fieldId}-error`} className="font-body text-xs text-rose-300">
+        <p id={`${fieldId}-error`} className="font-body text-xs text-error">
           {error}
         </p>
       ) : hint ? (

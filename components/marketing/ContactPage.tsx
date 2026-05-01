@@ -71,10 +71,10 @@ export function ContactPage() {
                 id="contact-name"
                 {...register("name")}
                 aria-invalid={errors.name ? "true" : undefined}
-                className="bg-bone"
+                className="bg-surface"
               />
               {errors.name ? (
-                <p className="font-body text-rose-300 text-xs">{errors.name.message}</p>
+                <p className="font-body text-error text-xs">{errors.name.message}</p>
               ) : null}
             </div>
             <div className="flex flex-col gap-1.5">
@@ -86,10 +86,10 @@ export function ContactPage() {
                 type="email"
                 {...register("email")}
                 aria-invalid={errors.email ? "true" : undefined}
-                className="bg-bone"
+                className="bg-surface"
               />
               {errors.email ? (
-                <p className="font-body text-rose-300 text-xs">{errors.email.message}</p>
+                <p className="font-body text-error text-xs">{errors.email.message}</p>
               ) : null}
             </div>
           </div>
@@ -109,14 +109,14 @@ export function ContactPage() {
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="font-body inline-flex h-12 items-center rounded-xl bg-jade-900 px-6 text-base font-medium text-bone hover:enabled:bg-jade-600 disabled:opacity-50"
+              className="font-body inline-flex h-12 items-center rounded-full bg-gold btn-gradient px-7 text-base font-medium text-ink shadow-[0_2px_12px_rgba(210,167,74,0.25)] hover:enabled:bg-gold-hover hover:enabled:-translate-y-px disabled:opacity-50 transition-[transform,box-shadow,background-color] duration-200"
             >
               {status === "submitting" ? "Sending…" : "Send message"}
             </button>
             {status === "success" ? (
-              <p className="font-body text-sm text-jade-600">Thank you we'll be in touch shortly.</p>
+              <p className="font-body text-sm text-gold">Thank you we'll be in touch shortly.</p>
             ) : status === "error" ? (
-              <p className="font-body text-rose-300 text-sm">Something went wrong. Please try again.</p>
+              <p className="font-body text-error text-sm">Something went wrong. Please try again.</p>
             ) : null}
           </div>
         </form>

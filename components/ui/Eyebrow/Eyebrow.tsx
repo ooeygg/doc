@@ -4,9 +4,9 @@ import { twMerge } from "tailwind-merge"
 const eyebrow = cva(["inline-block", "text-xs", "font-body", "font-medium", "uppercase", "tracking-widest"], {
   variants: {
     tone: {
-      gold: ["text-gold-500"],
+      gold: ["text-gold"],
       ink: ["text-ink"],
-      mist: ["text-mist-100"],
+      muted: ["text-ink-muted"],
       bone: ["text-bone"],
     },
   },

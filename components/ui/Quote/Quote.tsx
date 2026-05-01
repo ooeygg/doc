@@ -12,7 +12,7 @@ export interface QuoteProps {
 export function Quote({ quote, attribution, context, avatarSrc, className }: QuoteProps) {
   return (
     <figure className={twMerge("relative flex flex-col gap-6", className)}>
-      <span aria-hidden className="font-display text-gold-500 -mb-6 text-7xl leading-none">
+      <span aria-hidden className="font-display text-gold -mb-6 text-7xl leading-none">
         &ldquo;
       </span>
       <blockquote className="font-display text-2xl leading-snug md:text-3xl">{quote}</blockquote>

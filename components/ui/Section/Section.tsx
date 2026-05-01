@@ -1,13 +1,17 @@
+"use client"
+
 import { cva, type VariantProps } from "class-variance-authority"
-import { useId } from "react"
-import { twMerge } from "tailwind-merge"
 import { Eyebrow } from "components/ui/Eyebrow/Eyebrow"
+import { motion, useInView } from "framer-motion"
+import { fadeUp, slideRight } from "lib/motion"
+import { useId, useRef } from "react"
+import { twMerge } from "tailwind-merge"
 
 const section = cva(["py-24", "md:py-32", "lg:py-40"], {
   variants: {
     surface: {
       bone: ["bg-bone", "text-ink"],
-      mist: ["bg-mist-100", "text-ink"],
+      mist: ["bg-surface-alt", "text-ink"],
       ink: ["bg-ink", "text-bone"],
     },
   },
@@ -33,6 +37,9 @@ export function Section({
   ...props
 }: SectionProps) {
   const headingId = useId()
+  const headerRef = useRef<HTMLElement>(null)
+  const isInView = useInView(headerRef, { once: true, margin: "-8% 0px" })
+
   return (
     <section
       className={twMerge(section({ surface, className }))}
@@ -41,15 +48,26 @@ export function Section({
     >
       <div className={twMerge("mx-auto w-full max-w-6xl px-6", containerClassName)}>
         {(eyebrow || heading) && (
-          <header className="mb-12 max-w-3xl">
-            {eyebrow ? <Eyebrow tone={surface === "ink" ? "gold" : "gold"}>{eyebrow}</Eyebrow> : null}
+          <header ref={headerRef} className="mb-12 max-w-3xl">
+            {eyebrow ? (
+              <motion.div
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                variants={slideRight}
+              >
+                <Eyebrow tone={surface === "ink" ? "bone" : "gold"}>{eyebrow}</Eyebrow>
+              </motion.div>
+            ) : null}
             {heading ? (
-              <h2
+              <motion.h2
                 id={headingId}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                variants={fadeUp}
                 className="font-display mt-4 text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl"
               >
                 {heading}
-              </h2>
+              </motion.h2>
             ) : null}
           </header>
         )}

@@ -1,12 +1,12 @@
-import type { Metadata } from "next"
-import { PortableText } from "next-sanity"
-import Image from "next/image"
-import { notFound } from "next/navigation"
 import { Button } from "components/ui/Button/Button"
 import { Card } from "components/ui/Card/Card"
 import { Section } from "components/ui/Section/Section"
 import { urlFor } from "lib/sanity/image"
 import { getPostBySlug } from "lib/sanity/queries"
+import type { Metadata } from "next"
+import { PortableText } from "next-sanity"
+import Image from "next/image"
+import { notFound } from "next/navigation"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -43,7 +43,7 @@ export default async function Page({ params }: PageProps) {
             <p className="font-body mt-6 text-lg leading-relaxed opacity-80">{post.excerpt}</p>
           ) : null}
           {post.coverImage ? (
-            <div className="bg-mist-100 relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-3xl">
+            <div className="bg-surface-alt relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-3xl">
               <Image
                 src={urlFor(post.coverImage).width(1600).height(900).url()}
                 alt={post.coverImage.alt ?? post.title}
@@ -55,7 +55,7 @@ export default async function Page({ params }: PageProps) {
             </div>
           ) : null}
           {post.body ? (
-            <div className="prose-style font-body mt-12 max-w-2xl text-lg leading-relaxed [&_h2]:font-display [&_h2]:mt-12 [&_h2]:text-3xl [&_h3]:font-display [&_h3]:mt-8 [&_h3]:text-2xl [&_p]:mt-6 [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-gold-500">
+            <div className="prose-style font-body mt-12 max-w-2xl text-lg leading-relaxed [&_h2]:font-display [&_h2]:mt-12 [&_h2]:text-3xl [&_h3]:font-display [&_h3]:mt-8 [&_h3]:text-2xl [&_p]:mt-6 [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-gold">
               <PortableText value={post.body} />
             </div>
           ) : null}

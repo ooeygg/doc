@@ -6,9 +6,9 @@ const badge = cva(
   {
     variants: {
       variant: {
-        accolade: ["border", "border-gold-500", "text-ink", "bg-bone"],
-        press: ["bg-mist-100", "text-ink"],
-        category: ["bg-jade-900", "text-bone"],
+        accolade: ["border", "border-gold", "text-ink", "bg-surface"],
+        press: ["bg-surface-alt", "text-ink"],
+        category: ["bg-gold", "text-ink"],
       },
     },
     defaultVariants: {

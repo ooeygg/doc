@@ -1,13 +1,14 @@
 "use client"
 
 import * as Dialog from "@radix-ui/react-dialog"
+import { Button } from "components/ui/Button/Button"
+import { siteConfig } from "config/site"
+import { motion } from "framer-motion"
+import { track } from "lib/analytics"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
-import { Button } from "components/ui/Button/Button"
-import { siteConfig } from "config/site"
-import { track } from "lib/analytics"
 
 const PRIMARY_LINKS = siteConfig.nav.filter((item) => item.href !== "/book")
 
@@ -17,7 +18,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
+    const onScroll = () => setScrolled(window.scrollY > 60)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
@@ -30,16 +31,21 @@ export function Navbar() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
 
   return (
-    <header
+    <motion.header
       className={twMerge(
-        "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
-        scrolled ? "bg-bone/95 border-mist-100 border-b backdrop-blur" : "bg-transparent"
+        "fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,box-shadow] duration-500",
+        scrolled
+          ? "border-divider border-b bg-bone/90 shadow-[0_2px_24px_rgba(17,17,17,0.06)] backdrop-blur-md"
+          : "bg-transparent"
       )}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="font-display text-xl tracking-tight text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade-600 focus-visible:ring-offset-2"
+          className="font-display text-xl tracking-tight text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
         >
           Dr. Cynthia Higgins
         </Link>
@@ -52,8 +58,8 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={twMerge(
-                  "font-body relative text-sm tracking-wide text-ink transition-colors hover:text-jade-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade-600 focus-visible:ring-offset-2",
-                  active && "after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:bg-jade-600"
+                  "font-body link-underline relative text-sm tracking-wide text-ink transition-colors duration-200 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2",
+                  active && "text-gold [&::after]:w-full"
                 )}
                 aria-current={active ? "page" : undefined}
               >
@@ -76,23 +82,23 @@ export function Navbar() {
             <button
               type="button"
               aria-label="Open menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink hover:bg-mist-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade-600 md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold md:hidden"
             >
               <span aria-hidden className="block space-y-1.5">
-                <span className="block h-0.5 w-5 bg-current" />
-                <span className="block h-0.5 w-5 bg-current" />
-                <span className="block h-0.5 w-5 bg-current" />
+                <span className={twMerge("block h-0.5 w-5 bg-current transition-transform duration-300", open && "translate-y-2 rotate-45")} />
+                <span className={twMerge("block h-0.5 w-5 bg-current transition-opacity duration-300", open && "opacity-0")} />
+                <span className={twMerge("block h-0.5 w-5 bg-current transition-transform duration-300", open && "-translate-y-2 -rotate-45")} />
               </span>
             </button>
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 z-50 bg-ink/60 backdrop-blur-sm" />
-            <Dialog.Content className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-bone p-6 shadow-xl">
+            <Dialog.Content className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-surface p-6 shadow-xl">
               <div className="flex items-center justify-between">
                 <Dialog.Title className="font-display text-xl text-ink">Menu</Dialog.Title>
                 <Dialog.Close
                   aria-label="Close menu"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink hover:bg-mist-100"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-surface-alt"
                 >
                   ✕
                 </Dialog.Close>
@@ -102,7 +108,7 @@ export function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="font-display rounded-md px-2 py-3 text-2xl text-ink hover:bg-mist-100"
+                    className="font-display rounded-xl px-2 py-3 text-2xl text-ink hover:bg-surface-alt"
                   >
                     {item.label}
                   </Link>
@@ -122,6 +128,6 @@ export function Navbar() {
           </Dialog.Portal>
         </Dialog.Root>
       </div>
-    </header>
+    </motion.header>
   )
 }

@@ -1,32 +1,134 @@
 @import 'tailwindcss';
 
 @theme {
+  /* Warm neutral + muted gold palette */
   --color-bone: var(--color-bone);
+  --color-surface: var(--color-surface);
+  --color-surface-alt: var(--color-surface-alt);
   --color-ink: var(--color-ink);
-  --color-jade-900: var(--color-jade-900);
-  --color-jade-600: var(--color-jade-600);
-  --color-gold-500: var(--color-gold-500);
-  --color-mist-100: var(--color-mist-100);
-  --color-rose-300: var(--color-rose-300);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-gold: var(--color-gold);
+  --color-gold-hover: var(--color-gold-hover);
+  --color-gold-active: var(--color-gold-active);
+  --color-divider: var(--color-divider);
+  --color-error: var(--color-error);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-divider, currentColor);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  body {
+    line-height: 1.7;
+    /* Subtle vignette */
+    background-color: var(--color-bone);
+  }
+
+  /* Animated link underline: left → right */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── Gradient utilities ──────────────────────────────────────────────────── */
+@utility gradient-gold-overlay {
+  background-image: linear-gradient(135deg, rgba(210, 167, 74, 0.07) 0%, transparent 55%);
+}
+
+@utility gradient-surface-depth {
+  background-image: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bone) 100%);
+}
+
+@utility btn-gradient {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* ── Grain texture overlay ───────────────────────────────────────────────── */
+/* Applied to a fixed <div aria-hidden> in the root layout */
+@utility grain-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ── Hero vignette ───────────────────────────────────────────────────────── */
+@utility vignette {
+  box-shadow: inset 0 0 120px rgba(17, 17, 17, 0.06);
+}
+
+/* ── Radix Accordion animated collapse ─────────────────────────────────── */
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+@utility animate-accordion-down {
+  animation: accordion-down 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@utility animate-accordion-up {
+  animation: accordion-up 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ── Image reveal container ──────────────────────────────────────────────── */
+/* Use on a container div; the inner img/motion.div gets the hover zoom */
+@utility img-reveal {
+  overflow: hidden;
+  & img, & [data-zoom] {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  &:hover img, &:hover [data-zoom] {
+    transform: scale(1.04);
   }
 }

@@ -1,10 +1,10 @@
-import type { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
 import { Badge } from "components/ui/Badge/Badge"
 import { Section } from "components/ui/Section/Section"
 import { urlFor } from "lib/sanity/image"
 import { getAllPosts } from "lib/sanity/queries"
+import type { Metadata } from "next"
+import Image from "next/image"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -26,7 +26,7 @@ export default async function Page() {
             <li key={post._id}>
               <Link href={`/blog/${post.slug}`} className="group block focus-visible:outline-none">
                 {post.coverImage ? (
-                  <div className="bg-mist-100 relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-2xl">
+                  <div className="bg-surface-alt relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-2xl">
                     <Image
                       src={urlFor(post.coverImage).width(800).height(600).url()}
                       alt={post.coverImage.alt ?? post.title}

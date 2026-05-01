@@ -1,12 +1,12 @@
-import { ImageResponse } from "next/og"
 import { siteConfig } from "config/site"
 import { getPostBySlug } from "lib/sanity/queries"
+import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
 
-const JADE_900 = "#0f3a2e"
-const BONE = "#f7f3ec"
-const GOLD_500 = "#b89255"
+const BG = "#111111"
+const SURFACE = "#F4F3F1"
+const GOLD = "#D2A74A"
 
 type RouteParams = { slug: string[] }
 
@@ -34,13 +34,13 @@ export async function GET(request: Request, ctx: { params: Promise<RouteParams> 
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: JADE_900,
+          backgroundColor: BG,
           padding: 80,
-          color: BONE,
-          border: `1px solid ${GOLD_500}`,
+          color: SURFACE,
+          border: `1px solid ${GOLD}`,
         }}
       >
-        <div style={{ fontFamily: "serif", fontSize: 24, color: GOLD_500, letterSpacing: 4, textTransform: "uppercase" }}>
+        <div style={{ fontFamily: "serif", fontSize: 24, color: GOLD, letterSpacing: 4, textTransform: "uppercase" }}>
           {siteConfig.name}
         </div>
         <div

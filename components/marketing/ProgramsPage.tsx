@@ -34,11 +34,11 @@ export function ProgramsPage() {
             >
               <Card surface="bone" accent="gold" className="flex h-full flex-col gap-3 transition-transform group-hover:-translate-y-0.5">
                 {p.priceTier ? (
-                  <p className="font-body text-xs uppercase tracking-widest text-gold-500">{TIER_LABEL[p.priceTier]}</p>
+                  <p className="font-body text-xs uppercase tracking-widest text-gold">{TIER_LABEL[p.priceTier]}</p>
                 ) : null}
                 <h2 className="font-display text-3xl">{p.title}</h2>
                 <p className="font-body text-sm opacity-80">{p.description}</p>
-                <p className="font-body mt-auto text-xs tracking-widest uppercase text-jade-600">
+                <p className="font-body mt-auto text-xs tracking-widest uppercase text-gold">
                   {p.durationWeeks ? `${p.durationWeeks} weeks · ` : ""}Schedule a consult →
                 </p>
               </Card>

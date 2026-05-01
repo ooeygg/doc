@@ -64,9 +64,10 @@ export function Select({
           aria-invalid={error ? "true" : undefined}
           aria-describedby={describedBy}
           className={twMerge(
-            "font-body inline-flex h-11 items-center justify-between rounded-md border border-mist-100 bg-bone px-3 text-left text-ink",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade-600",
-            error ? "border-rose-300" : "",
+            "font-body inline-flex h-11 w-full items-center justify-between rounded-full border border-divider bg-surface px-4 text-left text-ink placeholder:text-ink-muted",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-1",
+            "transition-[border-color,box-shadow] duration-200",
+            error ? "border-error" : "",
             className
           )}
         >
@@ -77,14 +78,14 @@ export function Select({
           <RadixSelect.Content
             position="popper"
             sideOffset={6}
-            className="font-body z-50 overflow-hidden rounded-md border border-mist-100 bg-bone text-ink shadow-lg"
+            className="font-body z-50 overflow-hidden rounded-2xl border border-divider bg-surface text-ink shadow-lg"
           >
             <RadixSelect.Viewport className="p-1">
               {options.map((opt) => (
                 <RadixSelect.Item
                   key={opt.value}
                   value={opt.value}
-                  className="relative flex cursor-pointer select-none items-center rounded px-3 py-2 text-sm outline-none data-[highlighted]:bg-mist-100 data-[state=checked]:font-medium"
+                  className="relative flex cursor-pointer select-none items-center rounded-xl px-3 py-2 text-sm outline-none data-[highlighted]:bg-surface-alt data-[state=checked]:font-medium"
                 >
                   <RadixSelect.ItemText>{opt.label}</RadixSelect.ItemText>
                 </RadixSelect.Item>
@@ -94,7 +95,7 @@ export function Select({
         </RadixSelect.Portal>
       </RadixSelect.Root>
       {error ? (
-        <p id={`${fieldId}-error`} className="font-body text-xs text-rose-300">
+        <p id={`${fieldId}-error`} className="font-body text-xs text-error">
           {error}
         </p>
       ) : hint ? (
