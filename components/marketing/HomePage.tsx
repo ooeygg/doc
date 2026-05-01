@@ -7,13 +7,11 @@ import { Outcomes } from "components/sections/Outcomes"
 import { Proof } from "components/sections/Proof"
 import { Services } from "components/sections/Services"
 import { Testimonials } from "components/sections/Testimonials"
-import { TrustStrip } from "components/sections/TrustStrip"
 
 export function HomePage() {
   return (
     <>
       <Hero />
-      <TrustStrip />
       <Approach />
       <Services />
       <AboutPreview />

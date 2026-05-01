@@ -16,6 +16,13 @@ const config: NextConfig = {
     { source: "/health", destination: "/api/health" },
     { source: "/ping", destination: "/api/health" },
   ],
+  redirects: async () => [
+    {
+      source: "/programs",
+      destination: "https://cynthiahiggins.xperiencify.io/",
+      permanent: false,
+    },
+  ],
 }
 
 export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(config) : config

@@ -17,10 +17,3 @@ export const press: ReadonlyArray<PressFeature> = [
   { outlet: "Inner View" },
   { outlet: "MysticMag" },
 ] as const
-
-export const trustStripPoints: ReadonlyArray<string> = [
-  "MD",
-  "Psychiatrist",
-  "27 years",
-  "Energy Psychiatrist of the Year 2019",
-] as const
