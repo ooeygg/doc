@@ -36,3 +36,4 @@ storybook-static/
 
 /.npm-only-allow
 .pnpm-store/
+.vercel

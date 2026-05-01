@@ -21,7 +21,7 @@ export function BookPage() {
         continuing makes sense.
       </p>
       <div className="bg-mist-100 mt-12 overflow-hidden rounded-3xl">
-        {mounted ? (
+        {mounted && env.NEXT_PUBLIC_CALENDLY_URL ? (
           <InlineWidget
             url={env.NEXT_PUBLIC_CALENDLY_URL}
             styles={{ height: "780px" }}

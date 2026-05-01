@@ -26,6 +26,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true })
   }
 
+  if (!env.RESEND_API_KEY || !env.RESEND_FROM_EMAIL || !env.RESEND_TO_EMAIL) {
+    return NextResponse.json({ ok: false, error: "email_not_configured" }, { status: 503 })
+  }
+
   const resend = new Resend(env.RESEND_API_KEY)
   const submittedAt = new Date().toISOString()
   const { name, email, topic, message } = parsed.data
