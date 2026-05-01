@@ -26,9 +26,9 @@ export function AboutPreview() {
   return (
     <Section surface="bone" eyebrow="About" heading="Meet Dr. Higgins">
       <div ref={containerRef} className="grid items-center gap-12 md:grid-cols-12">
-        {/* Image with parallax */}
-        <div className="md:col-span-5">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-surface-alt">
+        {/* Images with parallax */}
+        <div className="flex flex-col gap-4 md:col-span-5">
+          <div className="relative aspect-4/5 w-full overflow-hidden rounded-3xl bg-surface-alt">
             <motion.div className="absolute inset-0 scale-[1.1]" style={{ y: imageY }}>
               <Image
                 src={doctor.portrait.src}
@@ -38,6 +38,15 @@ export function AboutPreview() {
                 className="object-cover"
               />
             </motion.div>
+          </div>
+          <div className="relative aspect-3/2 w-full overflow-hidden rounded-2xl bg-surface-alt">
+            <Image
+              src="/assets/images/higgins-2.png"
+              alt="Dr. Cynthia Higgins with a sunflower"
+              fill
+              sizes="(min-width: 768px) 40vw, 100vw"
+              className="object-cover object-top"
+            />
           </div>
         </div>
 

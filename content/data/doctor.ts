@@ -4,10 +4,10 @@ export const doctor: DoctorBio = {
   name: "Dr. Cynthia Higgins, MD",
   tagline: "Psychiatrist · Energy-Medicine Practitioner · Author",
   portrait: {
-    src: "/assets/images/higgins3.png",
+    src: "/assets/images/higgins-1.png",
     alt: "Portrait of Dr. Cynthia Higgins",
-    width: 1189,
-    height: 1323,
+    width: 700,
+    height: 901,
   },
   paragraphs: [
     "Dr. Cynthia Higgins is a board-certified psychiatrist with 27 years of clinical practice and 24 years of training in contemplative and energetic disciplines. She holds a Bachelor's in Molecular Biology and earned her MD at the USF Morsani College of Medicine.",

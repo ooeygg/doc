@@ -6,6 +6,7 @@ import { programs } from "content/data/programs"
 import { motion, useInView } from "framer-motion"
 import { track } from "lib/analytics"
 import { fadeUp, staggerContainer } from "lib/motion"
+import Image from "next/image"
 import { useRef } from "react"
 
 export function Programs() {
@@ -13,10 +14,19 @@ export function Programs() {
   const isInView = useInView(gridRef, { once: true, margin: "-8% 0px" })
 
   return (
-    <Section eyebrow="Programs" heading="Self-paced and group offerings" surface="bone">
+    <Section eyebrow="Programs" heading="Self-paced and group offerings" surface="bone" className="relative overflow-hidden">
+      {/* Background image */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <Image
+          src="/assets/images/sand-feet.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.07]"
+        />
+      </div>
       <motion.div
         ref={gridRef}
-        className="grid gap-6 md:grid-cols-3"
+        className="relative z-10 grid gap-6 md:grid-cols-3"
         variants={staggerContainer(0.1)}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}

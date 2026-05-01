@@ -5,6 +5,7 @@ import { Button } from "components/ui/Button/Button"
 import { siteConfig } from "config/site"
 import { motion } from "framer-motion"
 import { track } from "lib/analytics"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -45,9 +46,17 @@ export function Navbar() {
       <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="font-display text-xl tracking-tight text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+          aria-label="Dr. Cynthia Higgins – Home"
         >
-          Dr. Cynthia Higgins
+          <Image
+            src="/assets/images/higgins-logo.png"
+            alt="Work of Angels – Dr. Cynthia Higgins"
+            width={120}
+            height={40}
+            priority
+            className="h-10 w-auto"
+          />
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">

@@ -4,6 +4,7 @@ import { Button } from "components/ui/Button/Button"
 import { Section } from "components/ui/Section/Section"
 import { motion, useInView } from "framer-motion"
 import { fadeUp, staggerContainer } from "lib/motion"
+import Image from "next/image"
 import { useRef } from "react"
 
 export function CTA() {
@@ -11,10 +12,19 @@ export function CTA() {
   const isInView = useInView(contentRef, { once: true, margin: "-8% 0px" })
 
   return (
-    <Section surface="ink">
+    <Section surface="ink" className="relative overflow-hidden">
+      {/* Background image */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <Image
+          src="/assets/images/sand-hands.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.12]"
+        />
+      </div>
       <motion.div
         ref={contentRef}
-        className="mx-auto flex max-w-3xl flex-col items-center text-center"
+        className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center"
         variants={staggerContainer(0.14)}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
