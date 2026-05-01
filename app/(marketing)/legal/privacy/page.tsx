@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
 import { Container } from "components/layout/Container"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = { title: "Privacy Policy" }
 
@@ -19,7 +19,7 @@ export default function Page() {
         <p>
           For questions about how your information is handled, please reach out via the contact page.
         </p>
-        <p className="opacity-60">Placeholder copy — full policy to be reviewed by counsel before launch.</p>
+        <p className="opacity-60">Placeholder copy full policy to be reviewed by counsel before launch.</p>
       </div>
     </Container>
   )

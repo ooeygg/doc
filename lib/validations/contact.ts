@@ -7,7 +7,7 @@ export const contactSchema = z.object({
   email: z.string().trim().email("Please enter a valid email"),
   topic: z.enum(contactTopics).optional(),
   message: z.string().trim().min(10, "A few sentences help us reply well").max(4000),
-  // Honeypot — must be empty for legitimate submissions
+  // Honeypot must be empty for legitimate submissions
   hp: z.string().max(0).optional().or(z.literal("")),
 })
 

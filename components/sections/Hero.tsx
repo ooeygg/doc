@@ -1,9 +1,9 @@
 "use client"
 
-import Image from "next/image"
 import { Button } from "components/ui/Button/Button"
 import { doctor } from "content/data/doctor"
 import { track } from "lib/analytics"
+import Image from "next/image"
 
 export function Hero() {
   return (
@@ -16,7 +16,7 @@ export function Hero() {
           </h1>
           <p className="font-body mt-8 max-w-xl text-lg leading-relaxed opacity-80">
             Where psychiatry meets energy medicine. A practice for people who are ready to stop compartmentalizing their
-            healing — and integrate body, mind, biography, and spirit into a single trajectory.
+            healing and integrate body, mind, biography, and spirit into a single trajectory.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Button href="/book" intent="primary" onClick={() => track("cta_click_hero", { target: "/book" })}>

@@ -1,11 +1,11 @@
-import type { Metadata } from "next"
 import { ModalitiesPage } from "components/marketing/ModalitiesPage"
 import { modalities } from "content/data/modalities"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Modalities",
   description:
-    "Integrated Energy Therapy®, EFT, Source Tapping™, Whole Life Integration™, and Instant Miracle Mastery™ — the modalities used in the practice.",
+    "Integrated Energy Therapy®, EFT, Source Tapping™, Whole Life Integration™, and Instant Miracle Mastery™ the modalities used in the practice.",
 }
 
 export default function Page() {

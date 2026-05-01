@@ -14,7 +14,7 @@ export const faq: ReadonlyArray<FAQEntry> = [
   {
     question: "Is this medical care or spiritual work?",
     answer:
-      "It is both, fully integrated. Dr. Higgins is a board-certified psychiatrist with 27 years of clinical practice; she is also trained in energy medicine and contemplative spiritual practice. Sessions move between the two as the work calls for it — never one or the other in isolation.",
+      "It is both, fully integrated. Dr. Higgins is a board-certified psychiatrist with 27 years of clinical practice; she is also trained in energy medicine and contemplative spiritual practice. Sessions move between the two as the work calls for it never one or the other in isolation.",
   },
   {
     question: "How long does the work take?",
@@ -29,6 +29,6 @@ export const faq: ReadonlyArray<FAQEntry> = [
   {
     question: "How do I get started?",
     answer:
-      "Book a consult through the Book page. You'll receive a confirmation and a short intake form. From there, the first session is scheduled and you'll receive the secure video link. There's no long onboarding — most clients are in their first real session within a week.",
+      "Book a consult through the Book page. You'll receive a confirmation and a short intake form. From there, the first session is scheduled and you'll receive the secure video link. There's no long onboarding most clients are in their first real session within a week.",
   },
 ] as const

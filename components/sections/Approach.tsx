@@ -12,7 +12,7 @@ const PILLARS = [
   },
   {
     title: "Psychology",
-    description: "27 years of clinical psychiatry — diagnosis, integration, and steady, evidence-based work.",
+    description: "27 years of clinical psychiatry diagnosis, integration, and steady, evidence-based work.",
   },
   {
     title: "Spirituality",

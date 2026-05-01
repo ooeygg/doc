@@ -1,14 +1,14 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
 import { Input } from "components/ui/Input/Input"
 import { Section } from "components/ui/Section/Section"
 import { Select } from "components/ui/Select/Select"
 import { Textarea } from "components/ui/Textarea/Textarea"
 import { track } from "lib/analytics"
 import { contactSchema, contactTopics, type ContactInput } from "lib/validations/contact"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 
 const TOPIC_OPTIONS = [
   { value: "consult", label: "Booking a consult" },
@@ -57,8 +57,8 @@ export function ContactPage() {
       <div className="grid items-start gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="font-body text-lg leading-relaxed">
-            For new-client inquiries, the fastest path is the booking page. For everything else — programs, media,
-            partnerships — use this form and we'll be in touch within two business days.
+            For new-client inquiries, the fastest path is the booking page. For everything else programs, media,
+            partnerships use this form and we'll be in touch within two business days.
           </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="md:col-span-7 grid gap-6" noValidate>
@@ -114,7 +114,7 @@ export function ContactPage() {
               {status === "submitting" ? "Sending…" : "Send message"}
             </button>
             {status === "success" ? (
-              <p className="font-body text-sm text-jade-600">Thank you — we'll be in touch shortly.</p>
+              <p className="font-body text-sm text-jade-600">Thank you we'll be in touch shortly.</p>
             ) : status === "error" ? (
               <p className="font-body text-rose-300 text-sm">Something went wrong. Please try again.</p>
             ) : null}

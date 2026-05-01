@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
 import { Container } from "components/layout/Container"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = { title: "Terms of Use" }
 
@@ -16,7 +16,7 @@ export default function Page() {
           Use of any service requires explicit written or scheduled engagement with Dr. Higgins's practice. Programs
           purchased through Xperiencify are governed by the terms presented at checkout.
         </p>
-        <p className="opacity-60">Placeholder copy — full terms to be reviewed by counsel before launch.</p>
+        <p className="opacity-60">Placeholder copy full terms to be reviewed by counsel before launch.</p>
       </div>
     </Container>
   )

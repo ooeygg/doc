@@ -1,4 +1,4 @@
-# Dr. Higgins — Phase 1 Build Tickets
+# Dr. Higgins Phase 1 Build Tickets
 
 Project key: **DRH** · Source plan: `/Users/michaelyenny/.claude/plans/ancient-juggling-mochi.md`
 
@@ -17,7 +17,7 @@ Priority: **P0** = launch-blocking, **P1** = launch-recommended, **P2** = post-l
 | DRH-5 | Global layout chrome | Done |
 | DRH-6 | Homepage composition | Done |
 | DRH-7 | Marketing pages | Done |
-| DRH-8 | Sanity CMS (blog + testimonials) | Done (assets-only — Studio config lives outside this repo) |
+| DRH-8 | Sanity CMS (blog + testimonials) | Done (assets-only Studio config lives outside this repo) |
 | DRH-9 | API routes & transactional email | Done |
 | DRH-10 | SEO & PWA surface | Done (icons/OG image still need asset files in `public/`) |
 | DRH-11 | Analytics | Done |
@@ -25,9 +25,9 @@ Priority: **P0** = launch-blocking, **P1** = launch-recommended, **P2** = post-l
 
 ---
 
-## DRH-2 — Epic: Foundations
+## DRH-2 Epic: Foundations
 
-### DRH-13 — Add brand color tokens to `styles/variables.css` ✅
+### DRH-13 Add brand color tokens to `styles/variables.css` ✅
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** S · **Priority:** P0 · **Labels:** design-system, css · **Status:** Done
 
 **Description**
@@ -43,7 +43,7 @@ Replace the empty `:root {}` with the jade/bone/gold luxury-medical palette defi
 
 ---
 
-### DRH-14 — Bind tokens via `@theme` in `styles/tailwind.css` ✅
+### DRH-14 Bind tokens via `@theme` in `styles/tailwind.css` ✅
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** S · **Priority:** P0 · **Labels:** design-system, tailwind · **Status:** Done
 
 **Description**
@@ -61,7 +61,7 @@ Tailwind v4 reads tokens from `@theme`. Bind the CSS variables from DRH-13 so ut
 
 ---
 
-### DRH-15 — Load Cormorant Garamond + Inter via `next/font` ✅
+### DRH-15 Load Cormorant Garamond + Inter via `next/font` ✅
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** S · **Priority:** P0 · **Labels:** typography · **Status:** Done
 
 **Description**
@@ -79,7 +79,7 @@ Load fonts in `app/layout.tsx` using `next/font/google` with `display: 'swap'`. 
 
 ---
 
-### DRH-16 — Real `siteConfig` (nav, brand, urls) ✅
+### DRH-16 Real `siteConfig` (nav, brand, urls) ✅
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** XS · **Priority:** P0 · **Labels:** config · **Status:** Done
 
 **Description**
@@ -95,7 +95,7 @@ Update `config/site.ts` with the final marketing nav. Drop `/pricing` from nav, 
 
 ---
 
-### DRH-17 — Real SEO defaults in `config/seo.ts` ✅
+### DRH-17 Real SEO defaults in `config/seo.ts` ✅
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** XS · **Priority:** P0 · **Labels:** seo · **Status:** Done
 
 **Description**
@@ -113,7 +113,7 @@ Replace placeholder description, add proper OG image fallback (referencing the O
 
 ---
 
-### DRH-18 — Extend `env.mjs` with Resend / Sanity / Calendly / Xperiencify ✅
+### DRH-18 Extend `env.mjs` with Resend / Sanity / Calendly / Xperiencify ✅
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** S · **Priority:** P0 · **Labels:** config, env · **Status:** Done
 
 **Description**
@@ -131,9 +131,9 @@ Add validated env vars per plan §6. Server: `RESEND_API_KEY`, `RESEND_FROM_EMAI
 
 ---
 
-## DRH-3 — Epic: UI primitive library
+## DRH-3 Epic: UI primitive library
 
-### DRH-19 — Repalettize `Button` (jade primary, gold accent) ✅
+### DRH-19 Repalettize `Button` (jade primary, gold accent) ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** S · **Priority:** P0 · **Labels:** design-system · **Status:** Done
 
 **Description**
@@ -143,7 +143,7 @@ The boilerplate `Button` is hard-coded blue. Extend `cva` variants to `intent: "
 - [x] `intent="primary"` = filled jade with bone text.
 - [x] `intent="secondary"` = transparent jade outline.
 - [x] `intent="ghost"` = no border, jade text, hover bone bg.
-- [x] `intent="gold"` = gold fill, ink text — used sparingly for hero CTA.
+- [x] `intent="gold"` = gold fill, ink text used sparingly for hero CTA.
 - [x] Existing `size`, `underline`, `href` props still work.
 - [x] `Button.test.tsx` updated to cover new intents.
 - [x] Storybook story updated.
@@ -157,7 +157,7 @@ The boilerplate `Button` is hard-coded blue. Extend `cva` variants to `intent: "
 
 ---
 
-### DRH-20 — Extend `Card` with `surface` variants ✅
+### DRH-20 Extend `Card` with `surface` variants ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** XS · **Priority:** P1 · **Labels:** design-system · **Status:** Done
 
 **Acceptance criteria**
@@ -172,7 +172,7 @@ The boilerplate `Button` is hard-coded blue. Extend `cva` variants to `intent: "
 
 ---
 
-### DRH-21 — New primitive: `Section` ✅
+### DRH-21 New primitive: `Section` ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** S · **Priority:** P0 · **Labels:** design-system · **Status:** Done
 
 **Description**
@@ -190,7 +190,7 @@ Wraps `<section>` with consistent vertical rhythm (`py-24 md:py-32 lg:py-40`) an
 
 ---
 
-### DRH-22 — New primitive: `Eyebrow` ✅
+### DRH-22 New primitive: `Eyebrow` ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** XS · **Priority:** P0 · **Labels:** design-system · **Status:** Done
 
 **Acceptance criteria**
@@ -202,7 +202,7 @@ Wraps `<section>` with consistent vertical rhythm (`py-24 md:py-32 lg:py-40`) an
 
 ---
 
-### DRH-23 — New primitive: `Badge` ✅
+### DRH-23 New primitive: `Badge` ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** XS · **Priority:** P1 · **Labels:** design-system · **Status:** Done
 
 **Acceptance criteria**
@@ -214,7 +214,7 @@ Wraps `<section>` with consistent vertical rhythm (`py-24 md:py-32 lg:py-40`) an
 
 ---
 
-### DRH-24 — New primitive: `Quote` ✅
+### DRH-24 New primitive: `Quote` ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** S · **Priority:** P0 · **Labels:** design-system · **Status:** Done
 
 **Acceptance criteria**
@@ -227,7 +227,7 @@ Wraps `<section>` with consistent vertical rhythm (`py-24 md:py-32 lg:py-40`) an
 
 ---
 
-### DRH-25 — New primitives: `Textarea` + `Select` ✅
+### DRH-25 New primitives: `Textarea` + `Select` ✅
 **Type:** Task · **Parent:** DRH-3 · **Estimate:** S · **Priority:** P1 · **Labels:** design-system, forms · **Status:** Done
 
 **Description**
@@ -243,9 +243,9 @@ Form primitives needed by Contact form (DRH-52). `Select` uses `@radix-ui/react-
 
 ---
 
-## DRH-4 — Epic: Content data layer
+## DRH-4 Epic: Content data layer
 
-### DRH-26 — Define content types in `types/content.ts` ✅
+### DRH-26 Define content types in `types/content.ts` ✅
 **Type:** Task · **Parent:** DRH-4 · **Estimate:** S · **Priority:** P0 · **Labels:** types · **Status:** Done
 
 **Acceptance criteria**
@@ -257,7 +257,7 @@ Form primitives needed by Contact form (DRH-52). `Select` uses `@radix-ui/react-
 
 ---
 
-### DRH-27 — Author `content/data/modalities.ts` ✅
+### DRH-27 Author `content/data/modalities.ts` ✅
 **Type:** Task · **Parent:** DRH-4 · **Estimate:** S · **Priority:** P0 · **Labels:** content · **Status:** Done
 
 **Description**
@@ -275,7 +275,7 @@ IET®, EFT, Source Tapping™, Whole Life Integration™, Instant Miracle Master
 
 ---
 
-### DRH-28 — Author `content/data/credentials.ts` ✅
+### DRH-28 Author `content/data/credentials.ts` ✅
 **Type:** Task · **Parent:** DRH-4 · **Estimate:** S · **Priority:** P0 · **Labels:** content · **Status:** Done
 
 **Acceptance criteria**
@@ -290,7 +290,7 @@ IET®, EFT, Source Tapping™, Whole Life Integration™, Instant Miracle Master
 
 ---
 
-### DRH-29 — Author `content/data/faq.ts` ✅
+### DRH-29 Author `content/data/faq.ts` ✅
 **Type:** Task · **Parent:** DRH-4 · **Estimate:** S · **Priority:** P0 · **Labels:** content, copy · **Status:** Done
 
 **Description**
@@ -307,7 +307,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-30 — Author `content/data/programs.ts` ✅
+### DRH-30 Author `content/data/programs.ts` ✅
 **Type:** Task · **Parent:** DRH-4 · **Estimate:** XS · **Priority:** P1 · **Labels:** content · **Status:** Done
 
 **Acceptance criteria**
@@ -321,7 +321,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-31 — Author `content/data/doctor.ts` ✅
+### DRH-31 Author `content/data/doctor.ts` ✅
 **Type:** Task · **Parent:** DRH-4 · **Estimate:** XS · **Priority:** P0 · **Labels:** content, copy · **Status:** Done
 
 **Acceptance criteria**
@@ -335,9 +335,9 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-## DRH-5 — Epic: Global layout chrome
+## DRH-5 Epic: Global layout chrome
 
-### DRH-32 — Build `Navbar` (sticky, transparent → solid, mobile drawer) ✅
+### DRH-32 Build `Navbar` (sticky, transparent → solid, mobile drawer) ✅
 **Type:** Story · **Parent:** DRH-5 · **Estimate:** M · **Priority:** P0 · **Labels:** frontend, layout · **Status:** Done
 
 **Acceptance criteria**
@@ -355,13 +355,13 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-33 — Build `Footer` (4-col + lead capture) ✅
+### DRH-33 Build `Footer` (4-col + lead capture) ✅
 **Type:** Story · **Parent:** DRH-5 · **Estimate:** M · **Priority:** P0 · **Labels:** frontend, layout · **Status:** Done
 
 **Acceptance criteria**
 - [x] Columns: Brand, Modalities, Resources, Legal.
 - [x] Inline lead-capture form posting to `/api/lead` (DRH-62).
-- [ ] Social links (when supplied — placeholder).
+- [ ] Social links (when supplied placeholder).
 
 **Files**
 - `components/layout/Footer.tsx`
@@ -370,9 +370,9 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-## DRH-6 — Epic: Homepage
+## DRH-6 Epic: Homepage
 
-### DRH-34 — Section: `Hero` ✅
+### DRH-34 Section: `Hero` ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** M · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -388,7 +388,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-35 — Section: `TrustStrip` (new) ✅
+### DRH-35 Section: `TrustStrip` (new) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -402,7 +402,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-36 — Section: `Approach` (new — 4 pillars) ✅
+### DRH-36 Section: `Approach` (new 4 pillars) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -416,7 +416,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-37 — Section: `Services` (modality cards) ✅
+### DRH-37 Section: `Services` (modality cards) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -430,7 +430,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-38 — Section: `AboutPreview` (new) ✅
+### DRH-38 Section: `AboutPreview` (new) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -444,7 +444,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-39 — Section: `Outcomes` (new — Heal · Grow · Attract) ✅
+### DRH-39 Section: `Outcomes` (new Heal · Grow · Attract) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -456,7 +456,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-40 — Section: `Proof` (accolades + press) ✅
+### DRH-40 Section: `Proof` (accolades + press) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -470,7 +470,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-41 — Section: `Testimonials` (Sanity-driven) ✅
+### DRH-41 Section: `Testimonials` (Sanity-driven) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** M · **Priority:** P0 · **Labels:** sections, cms · **Status:** Done
 
 **Acceptance criteria**
@@ -485,7 +485,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-42 — Section: `FAQ` (Radix Accordion) ✅
+### DRH-42 Section: `FAQ` (Radix Accordion) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** sections, a11y · **Status:** Done
 
 **Acceptance criteria**
@@ -500,7 +500,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-43 — Section: `CTA` (final call-to-book) ✅
+### DRH-43 Section: `CTA` (final call-to-book) ✅
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** XS · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
@@ -513,7 +513,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 
 ---
 
-### DRH-44 — Compose `HomePage` ✅
+### DRH-44 Compose `HomePage` ✅
 **Type:** Story · **Parent:** DRH-6 · **Estimate:** S · **Priority:** P0 · **Labels:** marketing · **Status:** Done
 
 **Description**
@@ -531,9 +531,9 @@ Replace the boilerplate "Next.js Enterprise" content with the section compositio
 
 ---
 
-## DRH-7 — Epic: Marketing pages
+## DRH-7 Epic: Marketing pages
 
-### DRH-45 — `AboutPage` (full bio + accolades + portrait) ✅
+### DRH-45 `AboutPage` (full bio + accolades + portrait) ✅
 **Type:** Story · **Parent:** DRH-7 · **Estimate:** M · **Priority:** P0 · **Labels:** marketing · **Status:** Done
 
 **Files**
@@ -544,7 +544,7 @@ Replace the boilerplate "Next.js Enterprise" content with the section compositio
 
 ---
 
-### DRH-46 — `ServicesPage` ✅
+### DRH-46 `ServicesPage` ✅
 **Type:** Story · **Parent:** DRH-7 · **Estimate:** M · **Priority:** P0 · **Labels:** marketing · **Status:** Done
 
 **Acceptance criteria**
@@ -558,7 +558,7 @@ Replace the boilerplate "Next.js Enterprise" content with the section compositio
 
 ---
 
-### DRH-47 — `ModalitiesPage` (new route `/modalities`) ✅
+### DRH-47 `ModalitiesPage` (new route `/modalities`) ✅
 **Type:** Story · **Parent:** DRH-7 · **Estimate:** M · **Priority:** P0 · **Labels:** marketing, seo · **Status:** Done
 
 **Acceptance criteria**
@@ -574,7 +574,7 @@ Replace the boilerplate "Next.js Enterprise" content with the section compositio
 
 ---
 
-### DRH-48 — `ProgramsPage` (Xperiencify deep-links) ✅
+### DRH-48 `ProgramsPage` (Xperiencify deep-links) ✅
 **Type:** Story · **Parent:** DRH-7 · **Estimate:** S · **Priority:** P1 · **Labels:** marketing · **Status:** Done
 
 **Files**
@@ -585,7 +585,7 @@ Replace the boilerplate "Next.js Enterprise" content with the section compositio
 
 ---
 
-### DRH-49 — `BookPage` (Calendly inline embed) ✅
+### DRH-49 `BookPage` (Calendly inline embed) ✅
 **Type:** Story · **Parent:** DRH-7 · **Estimate:** S · **Priority:** P0 · **Labels:** marketing, conversion · **Status:** Done
 
 **Description**
@@ -605,7 +605,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-50 — `ContactPage` (Resend-backed form) ✅
+### DRH-50 `ContactPage` (Resend-backed form) ✅
 **Type:** Story · **Parent:** DRH-7 · **Estimate:** M · **Priority:** P0 · **Labels:** marketing, forms · **Status:** Done
 
 **Acceptance criteria**
@@ -622,7 +622,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-51 — Drop `/pricing` from nav, add safe redirect ✅
+### DRH-51 Drop `/pricing` from nav, add safe redirect ✅
 **Type:** Task · **Parent:** DRH-7 · **Estimate:** XS · **Priority:** P1 · **Labels:** routing · **Status:** Done
 
 **Acceptance criteria**
@@ -638,8 +638,8 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-52 — Legal pages: `/legal/{privacy,terms,disclaimer}` ✅
-**Type:** Story · **Parent:** DRH-7 · **Estimate:** S · **Priority:** P0 · **Labels:** marketing, legal · **Status:** Done (placeholder copy — needs counsel review)
+### DRH-52 Legal pages: `/legal/{privacy,terms,disclaimer}` ✅
+**Type:** Story · **Parent:** DRH-7 · **Estimate:** S · **Priority:** P0 · **Labels:** marketing, legal · **Status:** Done (placeholder copy needs counsel review)
 
 **Acceptance criteria**
 - [x] Three new routes with prose-width `Container` variant.
@@ -653,9 +653,9 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-## DRH-8 — Epic: Sanity CMS
+## DRH-8 Epic: Sanity CMS
 
-### DRH-53 — Wire `sanityClient` ✅
+### DRH-53 Wire `sanityClient` ✅
 **Type:** Task · **Parent:** DRH-8 · **Estimate:** S · **Priority:** P0 · **Labels:** cms · **Status:** Done
 
 **Acceptance criteria**
@@ -669,8 +669,8 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-54 — Sanity schemas: `post`, `author`, `category` ✅
-**Type:** Task · **Parent:** DRH-8 · **Estimate:** M · **Priority:** P0 · **Labels:** cms, schemas · **Status:** Done (assets-only — Studio deploy is a separate manual step)
+### DRH-54 Sanity schemas: `post`, `author`, `category` ✅
+**Type:** Task · **Parent:** DRH-8 · **Estimate:** M · **Priority:** P0 · **Labels:** cms, schemas · **Status:** Done (assets-only Studio deploy is a separate manual step)
 
 **Acceptance criteria**
 - [x] Schemas under `lib/sanity/schemas/` as plain objects (no `sanity` runtime dep).
@@ -685,7 +685,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-55 — Sanity schema: `testimonial` ✅
+### DRH-55 Sanity schema: `testimonial` ✅
 **Type:** Task · **Parent:** DRH-8 · **Estimate:** XS · **Priority:** P0 · **Labels:** cms, schemas · **Status:** Done
 
 **Acceptance criteria**
@@ -698,7 +698,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-56 — GROQ query helpers + image URL builder ✅
+### DRH-56 GROQ query helpers + image URL builder ✅
 **Type:** Task · **Parent:** DRH-8 · **Estimate:** S · **Priority:** P0 · **Labels:** cms · **Status:** Done
 
 **Acceptance criteria**
@@ -715,7 +715,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-57 — Wire blog routes ✅
+### DRH-57 Wire blog routes ✅
 **Type:** Story · **Parent:** DRH-8 · **Estimate:** M · **Priority:** P0 · **Labels:** cms, marketing · **Status:** Done
 
 **Acceptance criteria**
@@ -732,7 +732,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-58 — Revalidate webhook route ✅
+### DRH-58 Revalidate webhook route ✅
 **Type:** Task · **Parent:** DRH-8 · **Estimate:** S · **Priority:** P0 · **Labels:** cms, api · **Status:** Done (route shipped; Sanity-side webhook config is a manual one-time step)
 
 **Acceptance criteria**
@@ -747,9 +747,9 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-## DRH-9 — Epic: API & email
+## DRH-9 Epic: API & email
 
-### DRH-59 — Install runtime deps ✅
+### DRH-59 Install runtime deps ✅
 **Type:** Task · **Parent:** DRH-9 · **Estimate:** XS · **Priority:** P0 · **Labels:** deps · **Status:** Done
 
 **Description**
@@ -764,7 +764,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-60 — Validation schema for contact form ✅
+### DRH-60 Validation schema for contact form ✅
 **Type:** Task · **Parent:** DRH-9 · **Estimate:** XS · **Priority:** P0 · **Labels:** validation · **Status:** Done
 
 **Acceptance criteria**
@@ -778,7 +778,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-61 — `POST /api/contact` (Resend + zod + rate limit) ✅
+### DRH-61 `POST /api/contact` (Resend + zod + rate limit) ✅
 **Type:** Story · **Parent:** DRH-9 · **Estimate:** M · **Priority:** P0 · **Labels:** api, email · **Status:** Done
 
 **Acceptance criteria**
@@ -795,7 +795,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-62 — `POST /api/lead` (footer email capture) ✅
+### DRH-62 `POST /api/lead` (footer email capture) ✅
 **Type:** Task · **Parent:** DRH-9 · **Estimate:** S · **Priority:** P1 · **Labels:** api, email · **Status:** Done
 
 **Acceptance criteria**
@@ -810,11 +810,11 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-63 — React Email templates ✅
+### DRH-63 React Email templates ✅
 **Type:** Task · **Parent:** DRH-9 · **Estimate:** S · **Priority:** P0 · **Labels:** email, design-system · **Status:** Done
 
 **Acceptance criteria**
-- [x] `emails/ContactInquiry.tsx` — sent to Dr. Higgins's team on contact form submit.
+- [x] `emails/ContactInquiry.tsx` sent to Dr. Higgins's team on contact form submit.
 - [x] Uses brand palette (jade/bone/gold) via React Email Tailwind preset.
 - [ ] Manual Gmail + Apple Mail check pending stakeholder dry-run.
 
@@ -825,7 +825,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-64 — `GET /api/og/[...slug]` dynamic OG images ✅
+### DRH-64 `GET /api/og/[...slug]` dynamic OG images ✅
 **Type:** Task · **Parent:** DRH-9 · **Estimate:** M · **Priority:** P1 · **Labels:** seo · **Status:** Done
 
 **Acceptance criteria**
@@ -841,9 +841,9 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-## DRH-10 — Epic: SEO & PWA
+## DRH-10 Epic: SEO & PWA
 
-### DRH-65 — `app/sitemap.ts` ✅
+### DRH-65 `app/sitemap.ts` ✅
 **Type:** Task · **Parent:** DRH-10 · **Estimate:** S · **Priority:** P0 · **Labels:** seo · **Status:** Done
 
 **Acceptance criteria**
@@ -857,7 +857,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-66 — `app/robots.ts` ✅
+### DRH-66 `app/robots.ts` ✅
 **Type:** Task · **Parent:** DRH-10 · **Estimate:** XS · **Priority:** P0 · **Labels:** seo · **Status:** Done
 
 **Acceptance criteria**
@@ -869,14 +869,14 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-67 — `app/manifest.ts` + favicons ✅
+### DRH-67 `app/manifest.ts` + favicons ✅
 **Type:** Task · **Parent:** DRH-10 · **Estimate:** S · **Priority:** P0 · **Labels:** pwa, branding · **Status:** Done (manifest + placeholder SVG shipped; raster icon assets still need to be supplied)
 
 **Acceptance criteria**
 - [x] Manifest with brand name, theme color (`--color-jade-900`), icons declared.
 - [x] Placeholder SVG favicon (`public/favicon.svg`) using brand colors (jade bg, gold "CH" monogram).
-- [ ] Full raster favicon set (192, 512, apple-touch-icon PNGs) — needs final designed assets in `public/`.
-- [ ] OG fallback image — dynamic OG covers default; static fallback to be added.
+- [ ] Full raster favicon set (192, 512, apple-touch-icon PNGs) needs final designed assets in `public/`.
+- [ ] OG fallback image dynamic OG covers default; static fallback to be added.
 
 **Files**
 - `app/manifest.ts` (new)
@@ -885,7 +885,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-68 — Per-page metadata audit ✅
+### DRH-68 Per-page metadata audit ✅
 **Type:** Task · **Parent:** DRH-10 · **Estimate:** S · **Priority:** P0 · **Labels:** seo · **Status:** Done
 
 **Acceptance criteria**
@@ -899,9 +899,9 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-## DRH-11 — Epic: Analytics
+## DRH-11 Epic: Analytics
 
-### DRH-69 — Plausible client + script ✅
+### DRH-69 Plausible client + script ✅
 **Type:** Task · **Parent:** DRH-11 · **Estimate:** S · **Priority:** P1 · **Labels:** analytics · **Status:** Done
 
 **Acceptance criteria**
@@ -917,7 +917,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-70 — `useAnalytics` hook + CTA instrumentation ✅
+### DRH-70 `useAnalytics` hook + CTA instrumentation ✅
 **Type:** Task · **Parent:** DRH-11 · **Estimate:** S · **Priority:** P1 · **Labels:** analytics · **Status:** Done
 
 **Acceptance criteria**
@@ -938,9 +938,9 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-## DRH-12 — Epic: QA & launch readiness
+## DRH-12 Epic: QA & launch readiness
 
-### DRH-71 — Vitest coverage for new primitives ✅
+### DRH-71 Vitest coverage for new primitives ✅
 **Type:** Task · **Parent:** DRH-12 · **Estimate:** S · **Priority:** P1 · **Labels:** testing · **Status:** Done
 
 **Acceptance criteria**
@@ -949,7 +949,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-72 — Playwright e2e: contact form ✅
+### DRH-72 Playwright e2e: contact form ✅
 **Type:** Task · **Parent:** DRH-12 · **Estimate:** S · **Priority:** P1 · **Labels:** testing, e2e · **Status:** Done
 
 **Acceptance criteria**
@@ -961,7 +961,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-73 — Playwright e2e: book page Calendly load ✅
+### DRH-73 Playwright e2e: book page Calendly load ✅
 **Type:** Task · **Parent:** DRH-12 · **Estimate:** S · **Priority:** P1 · **Labels:** testing, e2e · **Status:** Done
 
 **Acceptance criteria**
@@ -972,7 +972,7 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-74 — Lighthouse audit pass
+### DRH-74 Lighthouse audit pass
 **Type:** Task · **Parent:** DRH-12 · **Estimate:** S · **Priority:** P0 · **Labels:** performance · **Status:** Deferred to staging deploy
 
 **Acceptance criteria**
@@ -983,12 +983,12 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-### DRH-75 — Storybook stories for new primitives ✅
-**Type:** Task · **Parent:** DRH-12 · **Estimate:** S · **Priority:** P2 · **Labels:** design-system, docs · **Status:** Stories shipped — Storybook build blocked by upstream peer-dep mismatch (out of scope)
+### DRH-75 Storybook stories for new primitives ✅
+**Type:** Task · **Parent:** DRH-12 · **Estimate:** S · **Priority:** P2 · **Labels:** design-system, docs · **Status:** Stories shipped Storybook build blocked by upstream peer-dep mismatch (out of scope)
 
 **Acceptance criteria**
 - [x] Stories for Section, Eyebrow, Badge, Quote, Textarea, Select.
-- [ ] `pnpm build-storybook` runs (verified failing 2026-05-01 with `SB_CORE-SERVER_0004 NoMatchingExportError` — `@storybook/addon-toolbars@8.6.14` vs `storybook@10.3.6`. Fix is a coordinated Storybook 10 upgrade across all `@storybook/*` packages and is out of this scope).
+- [ ] `pnpm build-storybook` runs (verified failing 2026-05-01 with `SB_CORE-SERVER_0004 NoMatchingExportError` `@storybook/addon-toolbars@8.6.14` vs `storybook@10.3.6`. Fix is a coordinated Storybook 10 upgrade across all `@storybook/*` packages and is out of this scope).
 
 ---
 

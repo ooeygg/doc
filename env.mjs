@@ -8,20 +8,20 @@ export const env = createEnv({
       .optional()
       .transform((value) => value === "true"),
 
-    RESEND_API_KEY: z.string().min(1),
-    RESEND_FROM_EMAIL: z.string().email(),
-    RESEND_TO_EMAIL: z.string().email(),
+    RESEND_API_KEY: z.string().min(1).optional(),
+    RESEND_FROM_EMAIL: z.string().email().optional(),
+    RESEND_TO_EMAIL: z.string().email().optional(),
     RESEND_AUDIENCE_ID: z.string().min(1).optional(),
 
-    SANITY_PROJECT_ID: z.string().min(1),
+    SANITY_PROJECT_ID: z.string().min(1).optional(),
     SANITY_DATASET: z.string().min(1).default("production"),
     SANITY_API_VERSION: z.string().min(1).default("2024-10-01"),
-    SANITY_REVALIDATE_SECRET: z.string().min(1),
+    SANITY_REVALIDATE_SECRET: z.string().min(1).optional(),
   },
   client: {
-    NEXT_PUBLIC_SITE_URL: z.string().url(),
-    NEXT_PUBLIC_CALENDLY_URL: z.string().url(),
-    NEXT_PUBLIC_XPERIENCIFY_URL: z.string().url(),
+    NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
+    NEXT_PUBLIC_CALENDLY_URL: z.string().url().optional(),
+    NEXT_PUBLIC_XPERIENCIFY_URL: z.string().url().optional(),
     NEXT_PUBLIC_PLAUSIBLE_DOMAIN: z.string().min(1).optional(),
   },
   runtimeEnv: {

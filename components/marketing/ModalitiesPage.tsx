@@ -14,7 +14,7 @@ export function ModalitiesPage() {
       <Section eyebrow="Modalities" heading="The toolkit, in detail" surface="bone">
         <p className="font-body max-w-2xl text-lg leading-relaxed opacity-80">
           The work uses a small, deliberate set of modalities. Each one earns its place by reaching what the others
-          can't — and they're chosen for the moment, not deployed by default.
+          can't and they're chosen for the moment, not deployed by default.
         </p>
       </Section>
 

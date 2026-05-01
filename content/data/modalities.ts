@@ -14,7 +14,7 @@ export const modalities: ReadonlyArray<Modality> = [
     name: "Emotional Freedom Techniques",
     summary: "Tap meridian points to discharge the emotional charge driving stuck patterns.",
     description:
-      "EFT — also known as tapping — combines focused attention on a specific concern with light percussion of meridian acupressure points. The result is a measurable drop in stress, anxiety, and physiological reactivity, and a reliable way to interrupt the loops that keep you stuck.",
+      "EFT also known as tapping combines focused attention on a specific concern with light percussion of meridian acupressure points. The result is a measurable drop in stress, anxiety, and physiological reactivity, and a reliable way to interrupt the loops that keep you stuck.",
   },
   {
     slug: "source-tapping",
@@ -30,7 +30,7 @@ export const modalities: ReadonlyArray<Modality> = [
     trademark: "tm",
     summary: "A signature framework that aligns body, mind, biography, and soul into a single trajectory.",
     description:
-      "Whole Life Integration™ is Dr. Higgins's signature method for clients who are ready to stop compartmentalizing — career, relationships, health, spirituality — and live from a single, integrated center. The work weaves clinical psychiatry, energy medicine, and spiritual practice into one coherent path.",
+      "Whole Life Integration™ is Dr. Higgins's signature method for clients who are ready to stop compartmentalizing career, relationships, health, spirituality and live from a single, integrated center. The work weaves clinical psychiatry, energy medicine, and spiritual practice into one coherent path.",
   },
   {
     slug: "instant-miracle-mastery",

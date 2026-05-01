@@ -25,12 +25,12 @@ const SESSION_FLOW = [
   {
     step: "2",
     title: "Mapping",
-    description: "We trace the presenting concern back to its actual root — biographical, somatic, and energetic.",
+    description: "We trace the presenting concern back to its actual root biographical, somatic, and energetic.",
   },
   {
     step: "3",
     title: "Working",
-    description: "Targeted intervention — clinical, energetic, or both — calibrated to what the system is ready for.",
+    description: "Targeted intervention clinical, energetic, or both calibrated to what the system is ready for.",
   },
   {
     step: "4",

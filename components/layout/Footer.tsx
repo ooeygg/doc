@@ -1,10 +1,10 @@
 "use client"
 
-import Link from "next/link"
-import { useState, type FormEvent } from "react"
 import { Input } from "components/ui/Input/Input"
 import { siteConfig } from "config/site"
 import { modalities } from "content/data/modalities"
+import Link from "next/link"
+import { useState, type FormEvent } from "react"
 
 const RESOURCES = [
   { label: "Blog", href: "/blog" },
@@ -48,7 +48,7 @@ export function Footer() {
         <div className="md:col-span-1">
           <p className="font-display text-2xl">{siteConfig.name}</p>
           <p className="font-body mt-4 max-w-xs text-sm opacity-70">
-            Energy-medicine psychiatry — heal trauma, restore vitality, integrate body, mind, and spirit.
+            Energy-medicine psychiatry heal trauma, restore vitality, integrate body, mind, and spirit.
           </p>
           <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-2">
             <label htmlFor="footer-email" className="font-body text-xs uppercase tracking-widest text-gold-500">
@@ -76,7 +76,7 @@ export function Footer() {
             {state === "success" ? (
               <p className="font-body text-xs text-gold-500">Thank you. We'll be in touch.</p>
             ) : state === "error" ? (
-              <p className="font-body text-rose-300 text-xs">Something went wrong — please try again.</p>
+              <p className="font-body text-rose-300 text-xs">Something went wrong please try again.</p>
             ) : null}
           </form>
         </div>

@@ -1,5 +1,5 @@
 :root {
-  /* Brand palette — luxury-medical (jade / bone / gold) */
+  /* Brand palette luxury-medical (jade / bone / gold) */
   --color-bone: #f7f3ec;
   --color-ink: #14201c;
   --color-jade-900: #0f3a2e;
@@ -8,7 +8,7 @@
   --color-mist-100: #ebe6dc;
   --color-rose-300: #d6a89a;
 
-  /* Typography — bound by next/font in DRH-15 */
+  /* Typography bound by next/font in DRH-15 */
   --font-display: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
   --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }

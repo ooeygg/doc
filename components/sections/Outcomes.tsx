@@ -12,7 +12,7 @@ const OUTCOMES = [
   },
   {
     title: "Attract",
-    description: "Move from contraction into clarity — the relationships, work, and life that meet who you've become.",
+    description: "Move from contraction into clarity the relationships, work, and life that meet who you've become.",
   },
 ] as const
 

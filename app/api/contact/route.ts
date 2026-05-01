@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server"
-import { Resend } from "resend"
-import { ContactInquiry } from "emails/ContactInquiry"
 import { env } from "config/env"
+import { ContactInquiry } from "emails/ContactInquiry"
 import { clientIp, rateLimit } from "lib/rateLimit"
 import { contactSchema } from "lib/validations/contact"
+import { NextResponse } from "next/server"
+import { Resend } from "resend"
 
 export async function POST(request: Request) {
   const ip = clientIp(request)
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     )
   }
 
-  // Honeypot — silently succeed for bots
+  // Honeypot silently succeed for bots
   if (parsed.data.hp && parsed.data.hp.length > 0) {
     return NextResponse.json({ ok: true })
   }
