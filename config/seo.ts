@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
 import { siteConfig } from "config/site"
+import type { Metadata } from "next"
 
 export const defaultMetadata: Metadata = {
   title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
@@ -21,5 +21,10 @@ export const defaultMetadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     images: ["/api/og/default"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
 }

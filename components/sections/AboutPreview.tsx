@@ -23,8 +23,8 @@ export function AboutPreview() {
   return (
     <section ref={containerRef} className="overflow-hidden bg-bone">
       <div className="grid md:grid-cols-12">
-        {/* Portrait — fills left columns edge-to-edge, no padding */}
-        <div className="relative h-[80vw] md:col-span-5 md:h-auto lg:col-span-6">
+        {/* portrait  fills left columns edge-to-edge */}
+        <div className="relative h-[72vw] min-h-[260px] md:col-span-5 md:h-auto lg:col-span-6">
           <motion.div className="absolute inset-0 scale-[1.08]" style={{ y: imageY }}>
             <Image
               src={doctor.portrait.src}
@@ -34,18 +34,24 @@ export function AboutPreview() {
               className="object-cover object-top"
             />
           </motion.div>
-          {/* Right blend into bone */}
+          {/* right blend into bone */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 w-20"
+            className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-28"
             style={{ background: "linear-gradient(to left, #F4F3F1, transparent)" }}
+          />
+          {/* bottom blend for mobile */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-20 md:hidden"
+            style={{ background: "linear-gradient(to top, #F4F3F1, transparent)" }}
           />
         </div>
 
-        {/* Text */}
+        {/* text */}
         <motion.div
           ref={textRef}
-          className="flex flex-col justify-center px-8 py-16 md:col-span-7 md:px-12 lg:col-span-6 lg:px-16 xl:px-24"
+          className="flex flex-col justify-center px-8 py-14 md:col-span-7 md:px-12 lg:col-span-6 lg:px-16 xl:px-24"
           variants={staggerContainer(0.12)}
           initial="hidden"
           animate={textInView ? "visible" : "hidden"}

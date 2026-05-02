@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Dr. Cynthia Higgins",
   url: "https://drcynthiahiggins.com",
   description:
-    "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD heal trauma, restore vitality, and integrate body, mind, and spirit.",
+    "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD. Heal trauma, restore vitality, and integrate body, mind, and spirit.",
   nav: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },

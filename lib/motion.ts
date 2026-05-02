@@ -1,6 +1,6 @@
 /**
  * Centralized motion tokens and variants.
- * Use these everywhere — never hard-code animation values in components.
+ * Use these everywhere  never hard-code animation values in components.
  *
  * Philosophy: slow, cinematic, intentional.
  * Animate transform + opacity ONLY.
@@ -18,9 +18,9 @@ export const dur = {
 
 // ── Easing tokens ────────────────────────────────────────────────────────────
 export const ease = {
-  /** Smooth deceleration — default for reveals */
+  /** Smooth deceleration  default for reveals */
   out: [0.25, 0.46, 0.45, 0.94] as const,
-  /** Fast start, smooth end — for hero / cinematic entrances */
+  /** Fast start, smooth end  for hero / cinematic entrances */
   expo: [0.16, 1, 0.3, 1] as const,
   /** Balanced in-out */
   inOut: [0.76, 0, 0.24, 1] as const,
@@ -38,7 +38,7 @@ export const trans = {
 
 // ── Variants ─────────────────────────────────────────────────────────────────
 
-/** Simple upward fade — for general scroll reveals */
+/** Simple upward fade  for general scroll reveals */
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 32 },
   visible: {
@@ -48,13 +48,13 @@ export const fadeUp: Variants = {
   },
 }
 
-/** Fade only — no movement */
+/** Fade only  no movement */
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: dur.slow, ease: ease.out } },
 }
 
-/** Subtle scale-in — for cards and images */
+/** Subtle scale-in  for cards and images */
 export const scaleReveal: Variants = {
   hidden: { opacity: 0, scale: 0.96 },
   visible: {
@@ -64,7 +64,7 @@ export const scaleReveal: Variants = {
   },
 }
 
-/** Stagger container — wrap around lists of children */
+/** Stagger container  wrap around lists of children */
 export const staggerContainer = (staggerDelay = 0.1, delayChildren = 0): Variants => ({
   hidden: {},
   visible: {
@@ -75,7 +75,7 @@ export const staggerContainer = (staggerDelay = 0.1, delayChildren = 0): Variant
   },
 })
 
-/** Hero headline — large entrance */
+/** Hero headline  large entrance */
 export const heroText: Variants = {
   hidden: { opacity: 0, y: 48 },
   visible: {
@@ -85,7 +85,7 @@ export const heroText: Variants = {
   },
 }
 
-/** Hero stagger wrapper — staggers heroText children */
+/** Hero stagger wrapper  staggers heroText children */
 export const heroStagger: Variants = {
   hidden: {},
   visible: {
@@ -93,7 +93,7 @@ export const heroStagger: Variants = {
   },
 }
 
-/** Slide in from left — for decorative lines / eyebrows */
+/** Slide in from left  for decorative lines / eyebrows */
 export const slideRight: Variants = {
   hidden: { opacity: 0, x: -24 },
   visible: {

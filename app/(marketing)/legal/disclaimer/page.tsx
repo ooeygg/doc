@@ -1,7 +1,11 @@
 import { Container } from "components/layout/Container"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = { title: "Medical Disclaimer" }
+export const metadata: Metadata = {
+  title: "Medical Disclaimer",
+  description: "Important medical disclaimer for drcynthiahiggins.com. Content is for educational purposes only and does not constitute medical advice.",
+  robots: { index: false, follow: false },
+}
 
 export default function Page() {
   return (
@@ -17,7 +21,7 @@ export default function Page() {
           emergency, call 911 or your local emergency number, or go to your nearest emergency room.
         </p>
         <p>
-          Energy-medicine modalities described here are complementary practices, used alongside not in place of —
+          Energy-medicine modalities described here are complementary practices, used alongside not in place of
           conventional medical and mental-health care.
         </p>
         <p className="opacity-60">Placeholder copy to be reviewed by stakeholder before launch.</p>

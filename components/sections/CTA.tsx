@@ -6,13 +6,19 @@ import { fadeUp, staggerContainer } from "lib/motion"
 import Image from "next/image"
 import { useRef } from "react"
 
+const HEADING_LINES = [
+  { text: "Start Your", gold: false },
+  { text: "Healing", gold: true },
+  { text: "Journey", gold: false },
+] as const
+
 export function CTA() {
   const contentRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(contentRef, { once: true, margin: "-8% 0px" })
 
   return (
     <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-ink">
-      {/* Full-bleed background */}
+      {/* full-bleed background */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <Image
           src="/assets/images/sand-hands.png"
@@ -38,16 +44,23 @@ export function CTA() {
         <motion.p variants={fadeUp} className="font-body text-[0.65rem] uppercase tracking-[0.25em] text-gold">
           Begin here
         </motion.p>
-        <motion.h2
-          variants={fadeUp}
-          className="font-display mt-6 text-5xl leading-[1.06] tracking-tight text-bone md:text-6xl lg:text-7xl"
-        >
-          Start Your
-          <br />
-          <em className="not-italic text-gold">Healing</em>
-          <br />
-          Journey
-        </motion.h2>
+
+        {/* line-by-line clip reveal */}
+        <h2 className="font-display mt-6 text-[clamp(2.8rem,7vw,5rem)] leading-[1.06] tracking-tight text-bone md:text-6xl lg:text-7xl">
+          {HEADING_LINES.map(({ text, gold }, i) => (
+            <span key={i} className="block overflow-hidden leading-[1.1]">
+              <motion.span
+                className={gold ? "block text-gold" : "block"}
+                initial={{ y: "105%" }}
+                animate={isInView ? { y: "0%" } : { y: "105%" }}
+                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 + i * 0.12 }}
+              >
+                {text}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
+
         <motion.p variants={fadeUp} className="font-body mt-8 max-w-md text-lg leading-relaxed text-bone/60">
           A single conversation is often enough to know whether this is the right work for where
           you actually are.

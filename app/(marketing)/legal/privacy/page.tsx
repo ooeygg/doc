@@ -1,7 +1,11 @@
 import { Container } from "components/layout/Container"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = { title: "Privacy Policy" }
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Privacy policy for drcynthiahiggins.com. We collect only what is necessary to respond to inquiries and run the practice.",
+  robots: { index: false, follow: false },
+}
 
 export default function Page() {
   return (

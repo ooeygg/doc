@@ -88,7 +88,7 @@ export interface ButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElemen
 export function Button({ className, intent, size, underline, ...props }: ButtonProps) {
   const ref = useRef<HTMLAnchorElement>(null)
 
-  // Magnetic effect — disabled when prefers-reduced-motion
+  // Magnetic effect  disabled when prefers-reduced-motion
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!ref.current) return
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return

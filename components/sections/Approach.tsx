@@ -18,7 +18,7 @@ const PILLARS = [
   {
     num: "03",
     title: "Psychology",
-    description: "27 years of clinical psychiatry — diagnosis, integration, and steady evidence-based work.",
+    description: "27 years of clinical psychiatry  diagnosis, integration, and steady evidence-based work.",
   },
   {
     num: "04",
@@ -34,7 +34,7 @@ export function Approach() {
   return (
     <section className="bg-ink py-24 md:py-32 lg:py-40">
       <div className="mx-auto max-w-6xl px-8 md:px-12 lg:px-16">
-        {/* Section header */}
+        {/* section header */}
         <div className="mb-16 grid gap-4 md:grid-cols-12">
           <div className="md:col-span-4">
             <p className="font-body text-[0.65rem] uppercase tracking-[0.25em] text-gold">Approach</p>
@@ -48,7 +48,7 @@ export function Approach() {
           </div>
         </div>
 
-        {/* Editorial row list */}
+        {/* editorial row list */}
         <motion.div
           ref={ref}
           variants={staggerContainer(0.08)}
@@ -59,8 +59,17 @@ export function Approach() {
             <motion.div
               key={p.num}
               variants={fadeUp}
-              className="group grid grid-cols-12 items-baseline gap-4 border-t border-bone/10 py-8 last:border-b last:border-bone/10"
+              className="group relative grid grid-cols-12 items-baseline gap-4 border-t border-bone/10 py-8 last:border-b last:border-bone/10"
             >
+              {/* animated gold accent line that draws left-to-right on scroll-enter */}
+              <motion.div
+                className="pointer-events-none absolute left-0 top-0 h-px origin-left bg-gold"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              />
+
               <span className="font-body col-span-1 text-xs tabular-nums text-gold/60">{p.num}</span>
               <h3 className="font-display col-span-11 text-2xl text-bone transition-colors duration-300 group-hover:text-gold md:col-span-5 md:text-3xl lg:text-4xl">
                 {p.title}

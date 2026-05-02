@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Single Next.js 15 App Router app (no monorepo) based on Blazity's `next-enterprise` boilerplate, restructured for marketing site + future SaaS dashboard. React 19, TypeScript strict (`noUncheckedIndexedAccess`), Tailwind CSS v4. Package manager is pnpm 10 (via Corepack); Node ≥ 20.
+Single Next.js 15 App Router app (no monorepo) based on Blazity's `next-enterprise` boilerplate, restructured for marketing site + future SaaS dashboard. React 19, TypeScript strict (`noUncheckedIndexedAccess`), Tailwind CSS v4. Package manager is pnpm 10 (via Corepack); Node ≥ 20. Never use — , -- in the text on the website
 
 ## Commands
 

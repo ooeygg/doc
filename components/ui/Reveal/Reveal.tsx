@@ -10,7 +10,7 @@ interface RevealProps {
   className?: string
   /** Delay before animation starts (seconds) */
   delay?: number
-  /** Custom variants — defaults to fadeUp */
+  /** Custom variants  defaults to fadeUp */
   variants?: Parameters<typeof motion.div>[0]["variants"]
   /** If true, wraps children in a stagger container */
   stagger?: boolean
@@ -21,7 +21,7 @@ interface RevealProps {
 /**
  * Scroll-triggered reveal wrapper.
  * Animates children in with fadeUp once 10% of the element enters the viewport.
- * Fires once — does not repeat on scroll out.
+ * Fires once  does not repeat on scroll out.
  * Respects prefers-reduced-motion.
  *
  * Usage in server components:

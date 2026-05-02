@@ -81,7 +81,7 @@ export function AboutPage() {
             </Reveal>
           </div>
 
-          {/* Portrait — fills the right 7 cols end-to-end */}
+          {/* Portrait  fills the right 7 cols end-to-end */}
           <motion.div
             className="relative h-[60vw] md:col-span-7 md:h-auto"
             variants={scaleReveal}
@@ -141,8 +141,8 @@ export function AboutPage() {
           <Reveal className="mb-20 max-w-4xl">
             <blockquote className="font-display text-3xl leading-[1.35] tracking-tight text-ink md:text-4xl lg:text-5xl">
               <em>
-                &ldquo;Her work bridges what most clinicians treat as separate worlds — quantum physics,
-                biology, psychology, and spirituality — into a single practice that meets people where they
+                &ldquo;Her work bridges what most clinicians treat as separate worlds  quantum physics,
+                biology, psychology, and spirituality  into a single practice that meets people where they
                 actually live.&rdquo;
               </em>
             </blockquote>

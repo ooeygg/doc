@@ -1,7 +1,11 @@
 import { Container } from "components/layout/Container"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = { title: "Terms of Use" }
+export const metadata: Metadata = {
+  title: "Terms of Use",
+  description: "Terms of use for drcynthiahiggins.com. By using this site you agree to these terms.",
+  robots: { index: false, follow: false },
+}
 
 export default function Page() {
   return (

@@ -16,13 +16,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const post = await getPostBySlug(slug).catch(() => null)
   if (!post) return {}
+  const ogImage = `/api/og/blog/${post.slug}`
   return {
     title: post.title,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [`/api/og/blog/${post.slug}`],
+      type: "article",
+      images: [{ url: ogImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt ?? undefined,
+      images: [ogImage],
     },
   }
 }
