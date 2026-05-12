@@ -18,13 +18,12 @@ const jsonLd = {
       name: "Dr. Cynthia Higgins, MD",
       jobTitle: "Psychiatrist",
       description:
-        "Board-certified psychiatrist with 27 years of clinical practice and 24 years of training in energy medicine and contemplative practice.",
+        "Psychiatrist with 27 years of clinical practice and 24 years of training in energy medicine and contemplative practice.",
       url: siteConfig.url,
       image: `${siteConfig.url}/assets/images/higgins-1.png`,
       alumniOf: [{ "@type": "CollegeOrUniversity", name: "USF Morsani College of Medicine" }],
       hasCredential: [
         { "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: "MD" },
-        { "@type": "EducationalOccupationalCredential", name: "Board Certified Psychiatrist", credentialCategory: "certification" },
       ],
       award: ["Energy Psychiatrist of the Year 2019", "Empowered Woman of the Year 2022"],
     },

@@ -14,7 +14,7 @@ export const faq: ReadonlyArray<FAQEntry> = [
   {
     question: "Is this medical care or spiritual work?",
     answer:
-      "It is both, fully integrated. Dr. Higgins is a board-certified psychiatrist with 27 years of clinical practice; she is also trained in energy medicine and contemplative spiritual practice. Sessions move between the two as the work calls for it never one or the other in isolation.",
+      "It is both, fully integrated. Dr. Higgins is a  psychiatrist with 27 years of clinical practice; she is also trained in energy medicine and contemplative spiritual practice. Sessions move between the two as the work calls for it never one or the other in isolation.",
   },
   {
     question: "How long does the work take?",

@@ -8,7 +8,7 @@ import { useRef } from "react"
 
 const HEADING_LINES = [
   { text: "Start Your", gold: false },
-  { text: "Healing", gold: true },
+  { text: "Growth", gold: true },
   { text: "Journey", gold: false },
 ] as const
 

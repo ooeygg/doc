@@ -1,6 +1,7 @@
 "use client"
 
 import { Input } from "components/ui/Input/Input"
+import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "components/ui/SocialIcons"
 import { siteConfig } from "config/site"
 import { modalities } from "content/data/modalities"
 import Link from "next/link"
@@ -48,7 +49,7 @@ export function Footer() {
         <div className="md:col-span-1">
           <p className="font-display text-2xl">{siteConfig.name}</p>
           <p className="font-body mt-4 max-w-xs text-sm opacity-70">
-            Energy-medicine psychiatry heal trauma, restore vitality, integrate body, mind, and spirit.
+            Energy-medicine psychiatry transforms trauma, restores vitality, and integrates body, mind, and spirit.
           </p>
           <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-2">
             <label htmlFor="footer-email" className="font-body text-xs uppercase tracking-widest text-gold">
@@ -108,9 +109,58 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-6 py-6 text-sm opacity-60 md:flex-row md:items-center md:justify-between">
-          <p>
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </p>
+          <div className="flex items-center gap-6">
+            <p>
+              © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+            </p>
+            <div className="flex items-center gap-3">
+              {siteConfig.socials?.linkedin && (
+                <a
+                  href={siteConfig.socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="LinkedIn"
+                  className="hover:text-gold"
+                >
+                  <IconLinkedin />
+                </a>
+              )}
+              {siteConfig.socials?.alignable && (
+                <a
+                  href={siteConfig.socials.alignable}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="Alignable"
+                  className="hover:text-gold flex items-center gap-1 text-sm"
+                >
+                  <span>Alignable</span>
+                  <IconExternal />
+                </a>
+              )}
+              {siteConfig.socials?.youtube && (
+                <a
+                  href={siteConfig.socials.youtube}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="YouTube"
+                  className="hover:text-gold"
+                >
+                  <IconYoutube />
+                </a>
+              )}
+              {siteConfig.socials?.facebook && (
+                <a
+                  href={siteConfig.socials.facebook}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="Facebook"
+                  className="hover:text-gold"
+                >
+                  <IconFacebook />
+                </a>
+              )}
+            </div>
+          </div>
           <p className="font-body">Information on this site is educational, not medical advice.</p>
         </div>
       </div>

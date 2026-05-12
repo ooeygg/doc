@@ -8,7 +8,7 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Essays and reflections on energy psychiatry, integration, and the work of healing.",
+  description: "Essays and reflections on energy psychiatry, integration, and the work of growth.",
 }
 
 export const revalidate = 3600

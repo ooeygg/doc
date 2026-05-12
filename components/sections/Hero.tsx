@@ -15,7 +15,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP)
 const TICKER_ITEMS = [
   "27 Years Clinical Practice",
   "Energy Psychiatrist of the Year",
-  "Board Certified",
   "Whole Life Integration™",
   "Energy Medicine",
   "Empowered Woman of the Year",
@@ -154,7 +153,7 @@ export function Hero() {
               --color-gold (#D2A74A, ~2:1) so all text meets WCAG AA.
             */}
             <h1 className="font-display mt-5 text-[clamp(2rem,8vw,4rem)] tracking-tight text-ink">
-              <LineReveal delay={0.3}>Healing</LineReveal>
+              <LineReveal delay={0.3}>Growth</LineReveal>
               <LineReveal className="italic text-[#8A6A20]" delay={0.56}>Begins</LineReveal>
               <LineReveal className="italic text-[#8A6A20]" delay={0.68}>Here</LineReveal>
             </h1>
@@ -167,7 +166,7 @@ export function Hero() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 1.0 }}
             >
               Where psychiatry meets energy medicine: a practice for people ready to stop
-              compartmentalizing their healing.
+              compartmentalizing their growth.
             </motion.p>
 
             {/* CTAs */}

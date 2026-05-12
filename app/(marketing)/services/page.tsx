@@ -5,7 +5,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Traditional psychiatric care combined with energy medicine: diagnosis, treatment, and whole-person healing with Dr. Cynthia Higgins, MD.",
+    "Traditional psychiatric care combined with energy medicine: diagnosis, treatment, and whole-person wellness with Dr. Cynthia Higgins, MD.",
   openGraph: {
     title: "Services | Dr. Cynthia Higgins",
     description:
@@ -20,7 +20,7 @@ const jsonLd = {
   "@id": `${siteConfig.url}/#practice`,
   name: siteConfig.name,
   description:
-    "Traditional psychiatric care combined with energy medicine: diagnosis, treatment, and whole-person healing.",
+    "Traditional psychiatric care combined with energy medicine: diagnosis, treatment, and whole-person wellness.",
   url: `${siteConfig.url}/services`,
   medicalSpecialty: "Psychiatry",
   founder: { "@id": `${siteConfig.url}/#person` },

@@ -9,7 +9,7 @@ import { useRef } from "react"
 
 const OUTCOMES = [
   {
-    title: "Heal",
+    title: "Scale",
     description: "Trauma, chronic anxiety, depression, and the patterns that have outlasted talk therapy alone.",
   },
   {
@@ -27,7 +27,7 @@ export function Outcomes() {
   const isInView = useInView(gridRef, { once: true, margin: "-8% 0px" })
 
   return (
-    <Section eyebrow="Outcomes" heading="Heal · Grow · Attract" surface="ink">
+    <Section eyebrow="Outcomes" heading="Scale · Grow · Attract" surface="ink">
       <div className="grid gap-12 md:grid-cols-12 md:items-center">
         {/* Outcomes grid + CTA */}
         <div className="md:col-span-8">
@@ -62,7 +62,7 @@ export function Outcomes() {
           <div className="relative aspect-3/4 w-full overflow-hidden rounded-3xl shadow-[0_32px_64px_rgba(0,0,0,0.3)]">
             <Image
               src="/assets/images/higgins-5.png"
-              alt="Dr. Cynthia Higgins holding a healing orb on the beach"
+              alt="Dr. Cynthia Higgins holding a luminous orb on the beach"
               fill
               sizes="(min-width: 768px) 33vw, 100vw"
               className="object-cover"

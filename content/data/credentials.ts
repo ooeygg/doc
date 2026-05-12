@@ -3,7 +3,7 @@ import type { Award, Credential, PressFeature } from "types/content"
 export const credentials: ReadonlyArray<Credential> = [
   { title: "Bachelor's in Molecular Biology" },
   { title: "MD", detail: "USF Morsani College of Medicine" },
-  { title: "Board-certified psychiatrist", detail: "27 years of clinical practice" },
+  { title: " psychiatrist", detail: "27 years of clinical practice" },
   { title: "Spiritual training", detail: "24 years of contemplative and energetic study" },
 ] as const
 

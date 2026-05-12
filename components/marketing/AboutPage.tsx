@@ -133,7 +133,6 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* ── 3. PULL QUOTE + HEALING SESSION ────────────────────────────────── */}
       <section className="bg-bone py-24 md:py-36">
         <div className="mx-auto max-w-6xl px-8 md:px-16">
 
@@ -148,7 +147,6 @@ export function AboutPage() {
             </blockquote>
           </Reveal>
 
-          {/* Healing image + second/third paragraphs */}
           <div className="grid items-start gap-12 md:grid-cols-12">
             <motion.div
               className="md:col-span-6"
@@ -160,7 +158,7 @@ export function AboutPage() {
               <div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl">
                 <Image
                   src="/assets/images/higgins-3.png"
-                  alt="Dr. Cynthia Higgins during a healing session"
+                  alt="Dr. Cynthia Higgins during a strategy session"
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover object-center"

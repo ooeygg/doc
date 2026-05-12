@@ -8,7 +8,7 @@ const PILLARS = [
   {
     num: "01",
     title: "Quantum physics",
-    description: "Energy, frequency, and information as the substrate underneath every healing modality.",
+    description: "Energy, frequency, and information as the substrate underneath every growth modality.",
   },
   {
     num: "02",

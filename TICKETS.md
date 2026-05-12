@@ -504,7 +504,7 @@ Six entries minimum: insurance, virtual vs in-person, "is this medical or spirit
 **Type:** Task · **Parent:** DRH-6 · **Estimate:** XS · **Priority:** P0 · **Labels:** sections · **Status:** Done
 
 **Acceptance criteria**
-- [x] Headline: "Start Your Healing Journey".
+- [x] Headline: "Start Your Journey".
 - [x] Single high-contrast gold CTA → `/book`.
 - [x] Surface = ink (dark) for emphasis.
 
