@@ -9,7 +9,7 @@ export const siteConfig = {
     { label: "Services", href: "/services" },
     { label: "Modalities", href: "/modalities" },
     { label: "Programs", href: "/programs" },
-    { label: "Blog", href: "/blog" },
+    { label: "Speaking Events", href: "/speaking-events" },
     { label: "Book", href: "/book" },
   ],
   socials: {

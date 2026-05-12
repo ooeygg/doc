@@ -1,6 +1,5 @@
-import { siteConfig } from "config/site";
-import { getAllPosts } from "lib/sanity/queries";
-import type { MetadataRoute } from "next";
+import { siteConfig } from "config/site"
+import type { MetadataRoute } from "next"
 
 // Legal pages are noindexed (placeholder copy) — keep them out of the sitemap
 const STATIC_PATHS: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }> = [
@@ -11,7 +10,7 @@ const STATIC_PATHS: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap
   { path: "/programs",  changeFrequency: "monthly", priority: 0.8 },
   { path: "/book",      changeFrequency: "monthly", priority: 0.9 },
   { path: "/contact",   changeFrequency: "yearly",  priority: 0.6 },
-  { path: "/blog",      changeFrequency: "weekly",  priority: 0.8 },
+  { path: "/speaking-events", changeFrequency: "monthly", priority: 0.8 },
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -24,13 +23,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority,
   }))
 
-  const posts = await getAllPosts().catch(() => [])
-  const postEntries: MetadataRoute.Sitemap = posts.map((p) => ({
-    url: `${base}/blog/${p.slug}`,
-    lastModified: p._updatedAt ? new Date(p._updatedAt) : new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }))
-
-  return [...staticEntries, ...postEntries]
+  return staticEntries
 }

@@ -18,6 +18,16 @@ const config: NextConfig = {
   ],
   redirects: async () => [
     {
+      source: "/blog",
+      destination: "/speaking-events",
+      permanent: true,
+    },
+    {
+      source: "/blog/:path*",
+      destination: "/speaking-events",
+      permanent: true,
+    },
+    {
       source: "/programs",
       destination: "https://cynthiahiggins.xperiencify.io/",
       permanent: false,

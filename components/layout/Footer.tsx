@@ -1,14 +1,14 @@
 "use client"
 
 import { Input } from "components/ui/Input/Input"
-import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "components/ui/SocialIcons"
+import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons"
 import { siteConfig } from "config/site"
 import { modalities } from "content/data/modalities"
 import Link from "next/link"
 import { useState, type FormEvent } from "react"
 
 const RESOURCES = [
-  { label: "Blog", href: "/blog" },
+  { label: "Speaking Events", href: "/speaking-events" },
   { label: "FAQ", href: "/#faq" },
   { label: "Programs", href: "/programs" },
   { label: "Services", href: "/services" },

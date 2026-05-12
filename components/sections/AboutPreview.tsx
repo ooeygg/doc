@@ -67,6 +67,12 @@ export function AboutPreview() {
             <br />
             Higgins
           </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="font-display mt-6 text-2xl leading-[1.35] tracking-tight text-ink md:text-[1.9rem]"
+          >
+            {doctor.missionStatement}
+          </motion.p>
           <motion.p variants={fadeUp} className="font-body mt-8 text-base leading-relaxed text-ink-muted lg:text-lg">
             {first}
           </motion.p>

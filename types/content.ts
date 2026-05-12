@@ -40,6 +40,7 @@ export type Program = {
 export type DoctorBio = {
   readonly name: string
   readonly tagline: string
+  readonly missionStatement: string
   readonly portrait: {
     readonly src: string
     readonly alt: string

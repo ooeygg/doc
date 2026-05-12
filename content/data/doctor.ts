@@ -3,6 +3,8 @@ import type { DoctorBio } from "types/content"
 export const doctor: DoctorBio = {
   name: "Dr. Cynthia Higgins, MD",
   tagline: "Psychiatrist · Energy-Medicine Practitioner · Author",
+  missionStatement:
+    "I help people break unwanted patterns to access deeper, richer, and more joyful life experiences through energy techniques.",
   portrait: {
     src: "/assets/images/higgins-1.png",
     alt: "Portrait of Dr. Cynthia Higgins",

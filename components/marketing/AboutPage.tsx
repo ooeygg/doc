@@ -69,12 +69,21 @@ export function AboutPage() {
             </Reveal>
 
             <Reveal delay={0.15} className="mt-8">
+              <div className="border-l-2 border-gold/60 pl-5">
+                <p className="font-body text-[0.72rem] uppercase tracking-[0.2em] text-gold/80">Guiding statement</p>
+                <p className="font-display mt-3 text-2xl leading-[1.35] tracking-tight text-ink md:text-3xl">
+                  {doctor.missionStatement}
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.18} className="mt-8">
               <p className="font-body text-base leading-relaxed text-ink-muted lg:text-lg">
                 {doctor.paragraphs[0]}
               </p>
             </Reveal>
 
-            <Reveal delay={0.2} className="mt-10">
+            <Reveal delay={0.22} className="mt-10">
               <Button href="/book" intent="primary">
                 Book a consult
               </Button>
