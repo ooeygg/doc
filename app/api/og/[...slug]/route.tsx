@@ -2,7 +2,7 @@ import { siteConfig } from "config/site"
 import { getPostBySlug } from "lib/sanity/queries"
 import { ImageResponse } from "next/og"
 
-export const runtime = "edge"
+export const runtime = "nodejs"
 
 const BG = "#111111"
 const SURFACE = "#F4F3F1"
