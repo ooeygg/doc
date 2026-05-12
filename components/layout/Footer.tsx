@@ -1,11 +1,11 @@
 "use client"
 
 import { Input } from "components/ui/Input/Input"
-import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons"
 import { siteConfig } from "config/site"
 import { modalities } from "content/data/modalities"
 import Link from "next/link"
 import { useState, type FormEvent } from "react"
+import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons"
 
 const RESOURCES = [
   { label: "Speaking Events", href: "/speaking-events" },

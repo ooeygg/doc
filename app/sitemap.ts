@@ -1,5 +1,5 @@
-import { siteConfig } from "config/site"
-import type { MetadataRoute } from "next"
+import { siteConfig } from "config/site";
+import type { MetadataRoute } from "next";
 
 // Legal pages are noindexed (placeholder copy) — keep them out of the sitemap
 const STATIC_PATHS: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }> = [
