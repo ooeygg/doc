@@ -38,6 +38,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             strategy="afterInteractive"
           />
         ) : null}
+        {env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID ? (
+          <Script
+            id="hs-script-loader"
+            src={`//js.hs-scripts.com/${env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID}.js`}
+            strategy="afterInteractive"
+          />
+        ) : null}
       </body>
     </html>
   )

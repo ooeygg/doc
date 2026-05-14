@@ -1,6 +1,7 @@
 "use client"
 
 import * as Dialog from "@radix-ui/react-dialog"
+import workOfAngelsLogo from "assets/logos/workofangels.webp"
 import { Button } from "components/ui/Button/Button"
 import { siteConfig } from "config/site"
 import { motion } from "framer-motion"
@@ -50,10 +51,8 @@ export function Navbar() {
           aria-label="Dr. Cynthia Higgins – Home"
         >
           <Image
-            src="/assets/images/higgins-logo.png"
+            src={workOfAngelsLogo}
             alt="Work of Angels – Dr. Cynthia Higgins"
-            width={120}
-            height={40}
             priority
             className="h-10 w-auto"
           />

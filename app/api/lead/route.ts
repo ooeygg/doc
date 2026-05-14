@@ -1,8 +1,7 @@
-import { NextResponse } from "next/server"
-import { Resend } from "resend"
-import { env } from "config/env"
+import { syncHubSpotContact } from "lib/hubspot"
 import { clientIp, rateLimit } from "lib/rateLimit"
 import { leadSchema } from "lib/validations/lead"
+import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   const ip = clientIp(request)
@@ -21,19 +20,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true })
   }
 
-  if (!env.RESEND_AUDIENCE_ID) {
-    return NextResponse.json({ ok: false, error: "audience_not_configured" }, { status: 500 })
-  }
+  const result = await syncHubSpotContact({
+    email: parsed.data.email,
+  })
 
-  const resend = new Resend(env.RESEND_API_KEY)
-  try {
-    await resend.contacts.create({
-      audienceId: env.RESEND_AUDIENCE_ID,
-      email: parsed.data.email,
-      unsubscribed: false,
-    })
-  } catch {
-    return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 })
+  if (!result.success) {
+    return NextResponse.json(
+      { ok: false, error: result.errors[0] ?? "sync_failed" },
+      { status: 502 }
+    )
   }
 
   return NextResponse.json({ ok: true })

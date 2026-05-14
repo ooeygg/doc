@@ -1,9 +1,7 @@
-import { env } from "config/env"
-import { ContactInquiry } from "emails/ContactInquiry"
+import { syncHubSpotContact } from "lib/hubspot"
 import { clientIp, rateLimit } from "lib/rateLimit"
 import { contactSchema } from "lib/validations/contact"
 import { NextResponse } from "next/server"
-import { Resend } from "resend"
 
 export async function POST(request: Request) {
   const ip = clientIp(request)
@@ -21,29 +19,24 @@ export async function POST(request: Request) {
     )
   }
 
-  // Honeypot silently succeed for bots
   if (parsed.data.hp && parsed.data.hp.length > 0) {
     return NextResponse.json({ ok: true })
   }
 
-  if (!env.RESEND_API_KEY || !env.RESEND_FROM_EMAIL || !env.RESEND_TO_EMAIL) {
-    return NextResponse.json({ ok: false, error: "email_not_configured" }, { status: 503 })
-  }
-
-  const resend = new Resend(env.RESEND_API_KEY)
-  const submittedAt = new Date().toISOString()
   const { name, email, topic, message } = parsed.data
+  const noteBody = topic ? `Topic: ${topic}\n\n${message}` : message
 
-  try {
-    await resend.emails.send({
-      from: env.RESEND_FROM_EMAIL,
-      to: env.RESEND_TO_EMAIL,
-      replyTo: email,
-      subject: `New inquiry from ${name}`,
-      react: ContactInquiry({ name, email, topic, message, submittedAt }),
-    })
-  } catch {
-    return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 })
+  const result = await syncHubSpotContact({
+    email,
+    fullName: name,
+    message: noteBody,
+  })
+
+  if (!result.success) {
+    return NextResponse.json(
+      { ok: false, error: result.errors[0] ?? "sync_failed" },
+      { status: 502 }
+    )
   }
 
   return NextResponse.json({ ok: true })
