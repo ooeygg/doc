@@ -27,11 +27,6 @@ const config: NextConfig = {
       destination: "/speaking-events",
       permanent: true,
     },
-    {
-      source: "/programs",
-      destination: "https://cynthiahiggins.xperiencify.io/",
-      permanent: false,
-    },
   ],
 }
 
