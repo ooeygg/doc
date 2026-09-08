@@ -5,6 +5,16 @@ export const siteConfig = {
   url: new URL(env.NEXT_PUBLIC_SITE_URL ?? "https://www.workofangelsllc.com").origin,
   description:
     "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD at Work of Angels, LLC. Explore care that integrates body, mind, and spirit.",
+  office: {
+    name: "Sarasota Chiropractic Clinic",
+    address: {
+      streetAddress: "2801 Fruitville Rd, #180",
+      addressLocality: "Sarasota",
+      addressRegion: "FL",
+      postalCode: "34237",
+      addressCountry: "US",
+    },
+  },
   nav: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },

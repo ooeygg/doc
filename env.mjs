@@ -17,8 +17,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
-    NEXT_PUBLIC_CALENDLY_URL: z.string().url().optional(),
-    NEXT_PUBLIC_BOOKSY_BOOKING_URL: z.preprocess(
+    NEXT_PUBLIC_CALENDLY_URL: z.preprocess(
       (value) => (typeof value === "string" ? value.trim() || undefined : value),
       z
         .string()
@@ -42,7 +41,6 @@ export const env = createEnv({
 
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
-    NEXT_PUBLIC_BOOKSY_BOOKING_URL: process.env.NEXT_PUBLIC_BOOKSY_BOOKING_URL,
     NEXT_PUBLIC_XPERIENCIFY_URL: process.env.NEXT_PUBLIC_XPERIENCIFY_URL,
     NEXT_PUBLIC_PLAUSIBLE_DOMAIN: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN,
     NEXT_PUBLIC_HUBSPOT_PORTAL_ID: process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID,

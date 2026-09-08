@@ -20,6 +20,7 @@ const jsonLd = {
         "Psychiatrist with 27 years of clinical practice and 24 years of training in energy medicine and contemplative practice.",
       url: siteConfig.url,
       image: `${siteConfig.url}/assets/images/higgins-1.png`,
+      address: { "@type": "PostalAddress", ...siteConfig.office.address },
       alumniOf: [{ "@type": "CollegeOrUniversity", name: "USF Morsani College of Medicine" }],
       hasCredential: [{ "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: "MD" }],
       award: ["Energy Psychiatrist of the Year 2019", "Empowered Woman of the Year 2022"],
@@ -32,6 +33,7 @@ const jsonLd = {
       description: siteConfig.description,
       url: siteConfig.url,
       image: siteImage.url,
+      address: { "@type": "PostalAddress", ...siteConfig.office.address },
       logo: {
         "@type": "ImageObject",
         url: siteImage.url,

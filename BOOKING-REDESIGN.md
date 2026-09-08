@@ -1,8 +1,8 @@
 # Work of Angels booking page
 
-The native `/book` redesign is implemented and available locally. Activating the Booksy handoff still requires the practice's existing Booksy URL. This checkout originally used Calendly, including `NEXT_PUBLIC_CALENDLY_URL` and `react-calendly`; no Booksy destination was present in its source or local configuration.
+The native `/book` redesign is implemented and available locally. The scheduling provider is Calendly, as confirmed by the practice. Both booking actions use the existing `NEXT_PUBLIC_CALENDLY_URL`, currently `https://calendly.com/chiggins1806`.
 
-Set `NEXT_PUBLIC_BOOKSY_BOOKING_URL` to the existing HTTPS booking URL before building for deployment. With that value, both consultation buttons say “Schedule my consultation,” open the configured destination in a new tab, and use `rel="noopener noreferrer"`. While it is missing, the page displays “Request a consultation” and links to `/contact`. It does not invent a scheduling destination or claim that the contact link opens Booksy.
+Both consultation buttons say “Schedule my consultation,” open Calendly in a new tab, and use `rel="noopener noreferrer"`. Calendly collects appointment details and handles scheduling. If configuration is missing in another environment, the page displays “Request a consultation” and links to `/contact`. There is no booking form, scheduler script, or embedded appointment UI on `/book`.
 
 ## Files changed by this task
 
@@ -16,8 +16,8 @@ Set `NEXT_PUBLIC_BOOKSY_BOOKING_URL` to the existing HTTPS booking URL before bu
 | [app/globals.css](app/globals.css)                                     | Imports the scoped booking stylesheet through the existing root CSS entry point.                                                                 |
 | [app/layout.tsx](app/layout.tsx)                                       | References the existing SVG favicon and uses explicit HTTPS for the existing HubSpot script. Import and formatting cleanup.                      |
 | [next.config.ts](next.config.ts)                                       | Enables AVIF with WebP fallback and permits image quality 60 alongside 75.                                                                       |
-| [env.mjs](env.mjs)                                                     | Optional HTTPS Booksy URL validation; blank configuration becomes undefined.                                                                     |
-| [.env.example](.env.example)                                           | Documents the Booksy URL variable and missing-configuration behavior.                                                                            |
+| [env.mjs](env.mjs)                                                     | Optional HTTPS Calendly URL validation; blank configuration becomes undefined.                                                                   |
+| [.env.example](.env.example)                                           | Documents the Calendly URL variable and missing-configuration behavior.                                                                          |
 | [lib/booking.ts](lib/booking.ts)                                       | Central booking destination reads validated configuration.                                                                                       |
 | [lib/analytics.ts](lib/analytics.ts)                                   | Adds the `booking_started` event to the existing analytics event type.                                                                           |
 | [e2e/book.spec.ts](e2e/book.spec.ts)                                   | Replaces the obsolete embedded-scheduler test with responsive, keyboard, reduced-motion, no-JavaScript, and external-handoff coverage.           |
@@ -36,7 +36,7 @@ Set `NEXT_PUBLIC_BOOKSY_BOOKING_URL` to the existing HTTPS booking URL before bu
 | [styles/booking.css](styles/booking.css)                                                                     | Scoped editorial grid, typography, section tones, responsive layouts, focus, and restrained hover treatment.             |
 | [BOOKING-REDESIGN.md](BOOKING-REDESIGN.md)                                                                   | This handoff report.                                                                                                     |
 
-Concurrent edits to other marketing routes, SEO/site configuration, and logo assets appeared during this task. They were preserved and are not attributed to the booking redesign. The generated `next-env.d.ts` import was restored after the production build.
+Concurrent edits to other marketing routes, SEO/site configuration, and logo assets appeared during this task. They were preserved and are not attributed to the booking redesign.
 
 ## Visual and interaction decisions
 
@@ -52,28 +52,28 @@ Accessibility includes one H1, ordered H2/H3 structure, named sections, a semant
 
 ## Scheduling and analytics
 
-The page no longer imports `react-calendly`, renders an iframe, or loads a scheduler script. Booksy will own availability, intake, and appointment completion at the configured external URL. No API was inspected or reconstructed.
+The page no longer imports `react-calendly`, renders an iframe, or loads a scheduler script. Calendly owns availability, intake, and appointment completion at the configured external URL. No API was inspected or reconstructed.
 
-Configured CTA clicks call the existing Plausible adapter with `booking_started` and `{ source: "book_page", provider: "booksy", placement: "hero" | "final" }`. There is no event on page load or on the unconfigured contact fallback. Booking still works when Plausible is absent. Existing analytics infrastructure is retained.
+Configured CTA clicks call the existing Plausible adapter with `booking_started` and `{ source: "book_page", provider: "calendly", placement: "hero" | "final" }`. There is no event on page load or on the unconfigured contact fallback. Booking still works when Plausible is absent. Existing analytics infrastructure is retained.
 
 ## Validation
 
-| Check                 | Result                                                                                                                                                                                                                             |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TypeScript            | `pnpm typecheck` passed.                                                                                                                                                                                                           |
-| Unit tests            | `pnpm exec vitest run`: 23 passed across eight files.                                                                                                                                                                              |
-| Production build      | `pnpm build` passed; `/book` is statically prerendered.                                                                                                                                                                            |
-| Changed-file lint     | ESLint 10 passed for every changed and added source/test file.                                                                                                                                                                     |
-| Repository lint       | `pnpm lint` is blocked by the existing ESLint 10 / eslint-plugin-import incompatibility (`getTokenOrCommentBefore`). A diagnostic run with the already installed ESLint 9 also found unrelated existing rule/configuration errors. |
-| Formatting            | Prettier passed for all changed source, test, and booking CSS files.                                                                                                                                                               |
-| Booking browser suite | 27 passed across Chromium, Firefox, and WebKit; three configured-URL handoff tests skipped because the real Booksy URL is missing.                                                                                                 |
-| Responsive checks     | All six widths passed in all three engines: 375, 430, 768, 1024, 1440, 1920px. Production screenshots were inspected. No horizontal overflow.                                                                                      |
-| Keyboard              | CTA focus and the in-page link passed. macOS WebKit uses Option+Tab to reach links.                                                                                                                                                |
-| Motion                | Reduced-motion and no-JavaScript tests passed. Normal reveal completion and a runtime preference change were also checked on the production page.                                                                                  |
-| Scheduling            | No iframes or scheduler network requests. External URL/security attributes and event metadata pass unit tests with an isolated test URL. The real destination remains unverified.                                                  |
-| Console               | No application runtime errors. The existing external HubSpot script is refused by the environment, so a completely clean network console cannot be claimed.                                                                        |
+| Check                 | Result                                                                                                                                                                                                                                                   |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TypeScript            | `pnpm typecheck` passed.                                                                                                                                                                                                                                 |
+| Unit tests            | `pnpm exec vitest run`: 39 passed across ten files.                                                                                                                                                                                                      |
+| Production build      | `pnpm build` passed; `/book` is statically prerendered.                                                                                                                                                                                                  |
+| Changed-file lint     | ESLint 10 passed for every changed and added source/test file.                                                                                                                                                                                           |
+| Repository lint       | `pnpm lint` is blocked by the existing ESLint 10 / eslint-plugin-import incompatibility (`getTokenOrCommentBefore`). A diagnostic run with the already installed ESLint 9 also found unrelated existing rule/configuration errors.                       |
+| Formatting            | Prettier passed for all changed source, test, and booking CSS files.                                                                                                                                                                                     |
+| Booking browser suite | 30 booking checks passed across Chromium, Firefox, and WebKit, including the configured Calendly handoff in each engine.                                                                                                                                 |
+| Responsive checks     | All six widths passed in all three engines: 375, 430, 768, 1024, 1440, 1920px. Production screenshots were inspected. No horizontal overflow.                                                                                                            |
+| Keyboard              | CTA focus and the in-page link passed. macOS WebKit uses Option+Tab to reach links.                                                                                                                                                                      |
+| Motion                | Reduced-motion and no-JavaScript tests passed. Normal reveal completion and a runtime preference change were also checked on the production page.                                                                                                        |
+| Scheduling            | No iframes or scheduler network requests. External URL/security attributes and event metadata pass unit tests. The configured destination opens securely in browser tests; the real Calendly page loads with the title “Calendly - Cynthia Higgins, MD.” |
+| Console               | No application runtime errors. The existing external HubSpot script is refused by the environment, so a completely clean network console cannot be claimed.                                                                                              |
 
-The full 39-case browser suite was also run. The existing contact-form assertions and boilerplate homepage-title assertion fail in all three engines. A booking keyboard timing issue from that run was corrected; the final booking-only suite passes as shown above. The contact/homepage tests were not rewritten as part of this redesign.
+Contact regression coverage now passes all 15 checks across the three browser engines in both development and the final production build. The earlier unrelated boilerplate homepage-title assertion remains outside this task. The Playwright base URL now uses `localhost`, matching the development server origin so Next.js accepts its development resources.
 
 Production Lighthouse results, measured locally with the default mobile simulation and desktop preset:
 
@@ -92,12 +92,22 @@ These are lab measurements, not field Core Web Vitals. Mobile LCP remains an imp
 
 The page uses optimized responsive Next.js images, fixed aspect ratios, a high-priority hero image, and lazy loading for the editorial photograph. AVIF reduced the measured mobile portrait transfer from approximately 94KB to 50KB and the atmospheric image from 42KB to 19KB. Correct logo sizing and disabling automatic navigation/footer prefetch avoid unnecessary downloads. No font or dependency was added.
 
-## Deliberate omissions and remaining input
+## Deliberate omissions
 
 No extra sticky booking bar: the existing fixed navigation and two prominent page actions provide a clear path without obstructing mobile content. No parallax, scroll hijacking, custom cursor, video, or elaborate hero entrance: typography, photography, and pacing carry the composition while the opening remains immediately usable. No stock photography, extra font, calendar recreation, or new analytics platform was introduced.
 
-The legacy Calendly dependency, environment variable, and program-specific links remain because changing unrelated program booking destinations requires their own confirmed scheduling URLs. They are not used by the redesigned `/book` page.
+The existing Calendly environment variable is reused. Program-specific links remain intact. The installed `react-calendly` dependency is retained to avoid unrelated lockfile changes, but it is no longer imported by the booking page and contributes no scheduler UI or JavaScript to it.
 
-Remaining input: the existing Booksy booking URL. Once configured, rebuild and run the existing handoff browser test to verify the actual destination before release. Nothing was deployed or published.
+The existing Calendly URL is configured locally and returns HTTP 200. Booking handoff tests intercept the external page to verify new-tab navigation without creating an appointment. Nothing was deployed or published.
 
-Review artifacts are in `/tmp/work-of-angels-book-review/`: `final-{width}.png`, `final-full-{width}.png`, and the final mobile/desktop Lighthouse HTML and JSON reports. The screenshots show the honest contact fallback while Booksy configuration is missing.
+Review artifacts are in `/tmp/work-of-angels-book-review/`: `final-{width}.png`, `final-full-{width}.png`, and the final mobile/desktop Lighthouse HTML and JSON reports. The initial screenshots predate confirmation of Calendly and show the contact fallback. Updated `calendly-375.png` and `calendly-1440.png` screenshots show the active Calendly scheduling CTA.
+
+## Contact submission repair
+
+The contact form sends inquiries to HubSpot, independently of Calendly. Its previous contact lookup required `crm.objects.contacts.read`, which the configured token lacks. The token already has `crm.objects.contacts.write`. The corrected flow updates contacts by email using that permission, creates missing contacts, and creates the message note with its contact association in one request. A failed note save now returns a delivery error instead of success.
+
+Modified files: `lib/hubspot.ts`, `app/api/contact/route.ts`, `components/marketing/ContactPage.tsx`, `e2e/contact.spec.ts`, and `playwright.config.ts`. Added files: `lib/hubspot.test.ts` and `app/api/contact/route.test.ts`.
+
+The form preserves input on failed delivery, distinguishes rate limiting from connection failures, announces feedback accessibly, and resets only after confirmed delivery. Topic selection can be omitted or reset. Fields wait for the form to initialize, preventing hydration from erasing a visitor's first input or allowing an unhandled browser submission. Analytics failures cannot change a successful delivery into an error. Provider diagnostics in server logs exclude message contents and credentials.
+
+Unit and browser tests simulate delivery; no test inquiry or appointment was created in the live services. A harmless update to a nonexistent contact confirmed HubSpot accepts the corrected endpoint with the existing token.

@@ -15,12 +15,12 @@ export function BookingCTA({ placement }: { placement: "hero" | "final" }) {
         rel={bookingUrl ? "noopener noreferrer" : undefined}
         className="booking-link"
         aria-describedby={noteId}
-        data-booking-link={bookingUrl ? "booksy" : "contact"}
+        data-booking-link={bookingUrl ? "calendly" : "contact"}
         // The shared gold pill stays still; only its arrow moves on this page.
         onMouseMove={undefined}
         onMouseLeave={undefined}
         onClick={() => {
-          if (bookingUrl) track("booking_started", { source: "book_page", provider: "booksy", placement })
+          if (bookingUrl) track("booking_started", { source: "book_page", provider: "calendly", placement })
         }}
       >
         <span>{bookingUrl ? "Schedule my consultation" : "Request a consultation"}</span>
@@ -31,7 +31,7 @@ export function BookingCTA({ placement }: { placement: "hero" | "final" }) {
       </Button>
       <p id={noteId} className="booking-scheduling-note">
         {bookingUrl
-          ? "Secure online scheduling powered by Booksy."
+          ? "Secure online scheduling powered by Calendly."
           : "Contact the practice to arrange your conversation."}
       </p>
     </div>

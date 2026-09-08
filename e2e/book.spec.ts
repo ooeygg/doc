@@ -8,7 +8,7 @@ test.describe("book page", () => {
       const schedulerRequests: string[] = []
       page.on("pageerror", (error) => errors.push(error.message))
       page.on("request", (request) => {
-        if (/booksy|calendly/i.test(request.url())) schedulerRequests.push(request.url())
+        if (/calendly/i.test(request.url())) schedulerRequests.push(request.url())
       })
       await page.goto("/book")
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Begin with a conversation.")
@@ -79,10 +79,10 @@ test.describe("book page", () => {
     await context.close()
   })
 
-  test("opens the configured Booksy URL in a new tab on keyboard activation", async ({ page, context }) => {
+  test("opens the configured Calendly URL in a new tab on keyboard activation", async ({ page, context }) => {
     await page.goto("/book")
-    const link = page.locator('[data-booking-link="booksy"]').first()
-    test.skip((await link.count()) === 0, "The existing Booksy URL has not been supplied.")
+    const link = page.locator('[data-booking-link="calendly"]').first()
+    test.skip((await link.count()) === 0, "The existing Calendly URL has not been supplied.")
     const destination = await link.getAttribute("href")
     expect(destination).toMatch(/^https:\/\//)
     await expect(link).toHaveAttribute("target", "_blank")

@@ -51,6 +51,14 @@ export function Footer() {
           <p className="font-body mt-4 max-w-xs text-sm opacity-70">
             Energy-medicine psychiatry transforms trauma, restores vitality, and integrates body, mind, and spirit.
           </p>
+          <address className="font-body mt-4 text-sm leading-relaxed not-italic opacity-70">
+            {siteConfig.office.name}
+            <br />
+            {siteConfig.office.address.streetAddress}
+            <br />
+            {siteConfig.office.address.addressLocality}, {siteConfig.office.address.addressRegion}{" "}
+            {siteConfig.office.address.postalCode}
+          </address>
           <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-2">
             <label htmlFor="footer-email" className="font-body text-gold text-xs tracking-widest uppercase">
               Stay in touch

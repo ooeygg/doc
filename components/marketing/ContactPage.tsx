@@ -7,6 +7,7 @@ import { Input } from "components/ui/Input/Input"
 import { Section } from "components/ui/Section/Section"
 import { Select } from "components/ui/Select/Select"
 import { Textarea } from "components/ui/Textarea/Textarea"
+import { siteConfig } from "config/site"
 import { track } from "lib/analytics"
 import { type ContactInput, contactSchema, contactTopics } from "lib/validations/contact"
 
@@ -28,7 +29,7 @@ export function ContactPage() {
     setValue,
     reset,
     watch,
-    formState: { errors },
+    formState: { errors, isReady },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: "", email: "", topic: undefined, message: "", hp: "" },
@@ -83,8 +84,25 @@ export function ContactPage() {
             For new-client inquiries, the fastest path is the booking page. For everything else programs, media,
             partnerships use this form and we'll be in touch within two business days.
           </p>
+          <div className="mt-8">
+            <h2 className="font-display text-2xl">Office location</h2>
+            <address className="font-body mt-3 text-base leading-relaxed not-italic">
+              Located in {siteConfig.office.name}
+              <br />
+              {siteConfig.office.address.streetAddress}
+              <br />
+              {siteConfig.office.address.addressLocality}, {siteConfig.office.address.addressRegion}{" "}
+              {siteConfig.office.address.postalCode}
+            </address>
+          </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 md:col-span-7" noValidate>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid gap-6 md:col-span-7"
+          aria-busy={!isReady || status === "submitting"}
+          noValidate
+        >
+          {/* Wait for form registration so hydration cannot erase the visitor's first input. */}
           <div className="grid gap-6 md:grid-cols-2">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-name" className="font-body text-sm font-medium">
@@ -93,6 +111,7 @@ export function ContactPage() {
               <Input
                 id="contact-name"
                 {...register("name")}
+                disabled={!isReady}
                 aria-invalid={errors.name ? "true" : undefined}
                 className="bg-surface"
               />
@@ -106,6 +125,7 @@ export function ContactPage() {
                 id="contact-email"
                 type="email"
                 {...register("email")}
+                disabled={!isReady}
                 aria-invalid={errors.email ? "true" : undefined}
                 className="bg-surface"
               />
@@ -116,6 +136,7 @@ export function ContactPage() {
           <Select
             label="What's this about?"
             options={TOPIC_OPTIONS}
+            disabled={!isReady}
             value={topicValue ?? ""}
             onValueChange={(v) =>
               setValue("topic", v ? (v as (typeof contactTopics)[number]) : undefined, { shouldValidate: true })
@@ -123,14 +144,14 @@ export function ContactPage() {
             error={errors.topic?.message}
           />
 
-          <Textarea label="Message" {...register("message")} error={errors.message?.message} />
+          <Textarea label="Message" {...register("message")} disabled={!isReady} error={errors.message?.message} />
 
           <input type="text" {...register("hp")} className="hidden" tabIndex={-1} aria-hidden autoComplete="off" />
 
           <div className="flex items-center gap-4">
             <button
               type="submit"
-              disabled={status === "submitting"}
+              disabled={!isReady || status === "submitting"}
               className="font-body bg-gold btn-gradient text-ink hover:enabled:bg-gold-hover inline-flex h-12 items-center rounded-full px-7 text-base font-medium shadow-[0_2px_12px_rgba(210,167,74,0.25)] transition-[transform,box-shadow,background-color] duration-200 hover:enabled:-translate-y-px disabled:opacity-50"
             >
               {status === "submitting" ? "Sending…" : "Send message"}
