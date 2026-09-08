@@ -16,7 +16,6 @@ export const env = createEnv({
     HUBSPOT_PRIVATE_APP_TOKEN: z.string().min(1).optional(),
   },
   client: {
-    NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
     NEXT_PUBLIC_CALENDLY_URL: z.preprocess(
       (value) => (typeof value === "string" ? value.trim() || undefined : value),
       z
@@ -39,7 +38,6 @@ export const env = createEnv({
 
     HUBSPOT_PRIVATE_APP_TOKEN: process.env.HUBSPOT_PRIVATE_APP_TOKEN,
 
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
     NEXT_PUBLIC_XPERIENCIFY_URL: process.env.NEXT_PUBLIC_XPERIENCIFY_URL,
     NEXT_PUBLIC_PLAUSIBLE_DOMAIN: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN,

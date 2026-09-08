@@ -1,8 +1,7 @@
-import { env } from "config/env"
-
 export const siteConfig = {
   name: "Dr. Cynthia Higgins",
-  url: new URL(env.NEXT_PUBLIC_SITE_URL ?? "https://www.workofangelsllc.com").origin,
+  // Keep canonical and sharing URLs on the public domain, including in preview deployments.
+  url: "https://www.workofangelsllc.com",
   description:
     "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD at Work of Angels, LLC. Explore care that integrates body, mind, and spirit.",
   office: {

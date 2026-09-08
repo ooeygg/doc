@@ -1,11 +1,11 @@
 "use client"
 
-import Link from "next/link"
-import { type FormEvent, useState } from "react"
-import { Input } from "components/ui/Input/Input"
-import { siteConfig } from "config/site"
-import { modalities } from "content/data/modalities"
-import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons"
+import { Input } from "components/ui/Input/Input";
+import { siteConfig } from "config/site";
+import { modalities } from "content/data/modalities";
+import Link from "next/link";
+import { type FormEvent, useState } from "react";
+import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons";
 
 const RESOURCES = [
   { label: "Speaking Events", href: "/speaking-events" },
@@ -169,7 +169,6 @@ export function Footer() {
               )}
             </div>
           </div>
-          <p className="font-body">Information on this site is educational, not medical advice.</p>
         </div>
       </div>
     </footer>
