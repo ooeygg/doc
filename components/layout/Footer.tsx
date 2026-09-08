@@ -1,10 +1,10 @@
 "use client"
 
+import Link from "next/link"
+import { type FormEvent, useState } from "react"
 import { Input } from "components/ui/Input/Input"
 import { siteConfig } from "config/site"
 import { modalities } from "content/data/modalities"
-import Link from "next/link"
-import { useState, type FormEvent } from "react"
 import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons"
 
 const RESOURCES = [
@@ -52,7 +52,7 @@ export function Footer() {
             Energy-medicine psychiatry transforms trauma, restores vitality, and integrates body, mind, and spirit.
           </p>
           <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-2">
-            <label htmlFor="footer-email" className="font-body text-xs uppercase tracking-widest text-gold">
+            <label htmlFor="footer-email" className="font-body text-gold text-xs tracking-widest uppercase">
               Stay in touch
             </label>
             <div className="flex gap-2">
@@ -63,19 +63,19 @@ export function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="flex-1 bg-surface text-ink"
+                className="bg-surface text-ink flex-1"
                 aria-invalid={state === "error" ? "true" : undefined}
               />
               <button
                 type="submit"
                 disabled={state === "submitting"}
-                className="font-body rounded-full bg-gold px-4 text-sm font-medium text-ink hover:bg-gold-hover disabled:opacity-50"
+                className="font-body bg-gold text-ink hover:bg-gold-hover rounded-full px-4 text-sm font-medium disabled:opacity-50"
               >
                 {state === "submitting" ? "..." : "Join"}
               </button>
             </div>
             {state === "success" ? (
-              <p className="font-body text-xs text-gold">Thank you. We'll be in touch.</p>
+              <p className="font-body text-gold text-xs">Thank you. We'll be in touch.</p>
             ) : state === "error" ? (
               <p className="font-body text-error text-xs">Something went wrong please try again.</p>
             ) : null}
@@ -84,7 +84,7 @@ export function Footer() {
 
         <FooterColumn title="Modalities">
           {modalities.map((m) => (
-            <Link key={m.slug} href={`/modalities#${m.slug}`} className="hover:text-gold">
+            <Link key={m.slug} href={`/modalities#${m.slug}`} prefetch={false} className="hover:text-gold">
               {m.name}
             </Link>
           ))}
@@ -92,7 +92,7 @@ export function Footer() {
 
         <FooterColumn title="Resources">
           {RESOURCES.map((r) => (
-            <Link key={r.href} href={r.href} className="hover:text-gold">
+            <Link key={r.href} href={r.href} prefetch={false} className="hover:text-gold">
               {r.label}
             </Link>
           ))}
@@ -100,7 +100,7 @@ export function Footer() {
 
         <FooterColumn title="Legal">
           {LEGAL.map((l) => (
-            <Link key={l.href} href={l.href} className="hover:text-gold">
+            <Link key={l.href} href={l.href} prefetch={false} className="hover:text-gold">
               {l.label}
             </Link>
           ))}
@@ -172,7 +172,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
   const items = Array.isArray(children) ? (children as React.ReactNode[]) : [children]
   return (
     <div>
-      <p className="font-body text-xs uppercase tracking-widest text-gold/70">{title}</p>
+      <p className="font-body text-gold/70 text-xs tracking-widest uppercase">{title}</p>
       <ul className="font-body mt-4 flex flex-col gap-2 text-sm">
         {items.map((c, i) => (
           <li key={i}>{c}</li>

@@ -1,12 +1,14 @@
 import { ModalitiesPage } from "components/marketing/ModalitiesPage"
+import { createPageMetadata } from "config/seo"
+import { siteConfig } from "config/site"
 import { modalities } from "content/data/modalities"
-import type { Metadata } from "next"
 
-export const metadata: Metadata = {
-  title: "Modalities",
+export const metadata = createPageMetadata({
+  title: `Modalities | ${siteConfig.name}`,
   description:
     "Integrated Energy Therapy®, EFT, Source Tapping™, Whole Life Integration™, and Instant Miracle Mastery™ the modalities used in the practice.",
-}
+  path: "/modalities",
+})
 
 export default function Page() {
   const jsonLd = {

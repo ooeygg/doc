@@ -5,6 +5,10 @@ import { env } from "./env.mjs"
 
 const config: NextConfig = {
   reactStrictMode: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    qualities: [60, 75],
+  },
   logging: {
     fetches: {
       fullUrl: true,

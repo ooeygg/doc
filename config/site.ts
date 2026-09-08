@@ -1,8 +1,10 @@
+import { env } from "config/env"
+
 export const siteConfig = {
   name: "Dr. Cynthia Higgins",
-  url: "https://drcynthiahiggins.com",
+  url: new URL(env.NEXT_PUBLIC_SITE_URL ?? "https://www.workofangelsllc.com").origin,
   description:
-    "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD. restore vitality, and integrate body, mind, and spirit.",
+    "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD at Work of Angels, LLC. Explore care that integrates body, mind, and spirit.",
   nav: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },

@@ -1,18 +1,13 @@
 import { ServicesPage } from "components/marketing/ServicesPage"
+import { createPageMetadata } from "config/seo"
 import { siteConfig } from "config/site"
-import type { Metadata } from "next"
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata = createPageMetadata({
+  title: `Services | ${siteConfig.name}`,
   description:
     "Traditional psychiatric care combined with energy medicine: diagnosis, treatment, and whole-person wellness with Dr. Cynthia Higgins, MD.",
-  openGraph: {
-    title: "Services | Dr. Cynthia Higgins",
-    description:
-      "Psychiatric evaluation, medication management, energy medicine sessions, and Whole Life Integration programs.",
-    images: [{ url: "/api/og/services?title=Services", width: 1200, height: 630 }],
-  },
-}
+  path: "/services",
+})
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -30,7 +25,10 @@ const jsonLd = {
     itemListElement: [
       { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Psychiatric Evaluation" } },
       { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Medication Management" } },
-      { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Energy Medicine Session", procedureType: "Therapeutic" } },
+      {
+        "@type": "Offer",
+        itemOffered: { "@type": "MedicalProcedure", name: "Energy Medicine Session", procedureType: "Therapeutic" },
+      },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Whole Life Integration Coaching" } },
     ],
   },

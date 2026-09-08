@@ -1,42 +1,17 @@
-"use client"
-
-import { Section } from "components/ui/Section/Section"
-import { env } from "config/env"
-import { track } from "lib/analytics"
-import { useEffect, useState } from "react"
-import { InlineWidget } from "react-calendly"
+import { BookingHero } from "components/marketing/booking/BookingHero"
+import { BookingSteps } from "components/marketing/booking/BookingSteps"
+import { ConsultationMeta } from "components/marketing/booking/ConsultationMeta"
+import { EditorialStatement } from "components/marketing/booking/EditorialStatement"
+import { FinalBookingSection } from "components/marketing/booking/FinalBookingSection"
 
 export function BookPage() {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    track("calendly_embed_loaded")
-  }, [])
-
   return (
-    <Section eyebrow="Book" heading="Schedule your consult" surface="bone">
-      <p className="font-body max-w-2xl text-lg leading-relaxed opacity-80">
-        A 30-minute conversation to share what brought you here, hear how Dr. Higgins works, and decide together whether
-        continuing makes sense.
-      </p>
-      <div className="bg-surface-alt mt-12 overflow-hidden rounded-3xl">
-        {mounted && env.NEXT_PUBLIC_CALENDLY_URL ? (
-          <InlineWidget
-            url={env.NEXT_PUBLIC_CALENDLY_URL}
-            styles={{ height: "780px" }}
-            pageSettings={{
-              backgroundColor: "F4F3F1",
-              primaryColor: "D2A74A",
-              textColor: "111111",
-              hideEventTypeDetails: false,
-              hideLandingPageDetails: false,
-            }}
-          />
-        ) : (
-          <div className="h-195" aria-hidden />
-        )}
-      </div>
-    </Section>
+    <div className="booking-page">
+      <BookingHero />
+      <ConsultationMeta />
+      <EditorialStatement />
+      <BookingSteps />
+      <FinalBookingSection />
+    </div>
   )
 }

@@ -2,6 +2,7 @@ export type AnalyticsEvent =
   | "cta_click_hero"
   | "cta_click_sticky"
   | "calendly_embed_loaded"
+  | "booking_started"
   | "contact_form_submitted"
   | "lead_form_submitted"
   | `program_link_click_${string}`

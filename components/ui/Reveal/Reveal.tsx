@@ -1,62 +1,81 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import { fadeUp, staggerContainer } from "lib/motion"
-import { useRef } from "react"
-import { twMerge } from "tailwind-merge"
+import { animate } from "framer-motion/dom/mini"
+import { useEffect, useRef } from "react"
+import { dur, ease } from "lib/motion"
 
 interface RevealProps {
   children: React.ReactNode
   className?: string
-  /** Delay before animation starts (seconds) */
+  /** Delay before animation starts, in seconds. */
   delay?: number
-  /** Custom variants  defaults to fadeUp */
-  variants?: Parameters<typeof motion.div>[0]["variants"]
-  /** If true, wraps children in a stagger container */
-  stagger?: boolean
-  /** Stagger delay between children (seconds) */
-  staggerDelay?: number
 }
 
 /**
- * Scroll-triggered reveal wrapper.
- * Animates children in with fadeUp once 10% of the element enters the viewport.
- * Fires once  does not repeat on scroll out.
- * Respects prefers-reduced-motion.
- *
- * Usage in server components:
- *   <Reveal><YourContent /></Reveal>
- *
- * Usage in stagger grids:
- *   <Reveal stagger staggerDelay={0.08}>
- *     {items.map(i => <motion.div key={i} variants={fadeUp}>...</motion.div>)}
- *   </Reveal>
+ * A once-only reveal using the existing Motion library's small native-animation
+ * entry point. Server HTML and above-the-fold content are always visible.
  */
-export function Reveal({
-  children,
-  className,
-  delay = 0,
-  variants,
-  stagger: isStagger = false,
-  staggerDelay = 0.1,
-}: RevealProps) {
+export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-8% 0px" })
 
-  const resolvedVariants = variants ?? (isStagger ? staggerContainer(staggerDelay) : fadeUp)
+  useEffect(() => {
+    const element = ref.current
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    if (
+      !element ||
+      reducedMotion.matches ||
+      !window.IntersectionObserver ||
+      element.getBoundingClientRect().top < window.innerHeight
+    )
+      return
 
-  const transition = delay > 0 ? { transitionDelay: `${delay}s` } : {}
+    let animation: ReturnType<typeof animate> | undefined
+    const show = () => {
+      animation?.stop()
+      element.style.opacity = "1"
+      element.style.transform = "none"
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return
+        observer.disconnect()
+        animation = animate(
+          element,
+          {
+            opacity: [0, 1],
+            transform: ["translateY(24px)", "translateY(0px)"],
+          },
+          { duration: dur.slow, ease: ease.expo, delay }
+        )
+      },
+      { rootMargin: "0px 0px -6% 0px" }
+    )
+
+    // Enhance only after hydration, keeping the no-JavaScript page usable.
+    element.style.opacity = "0"
+    element.style.transform = "translateY(24px)"
+    observer.observe(element)
+    const revealImmediately = () => {
+      observer.disconnect()
+      show()
+    }
+    const onMotionChange = () => {
+      if (reducedMotion.matches) revealImmediately()
+    }
+    element.addEventListener("focusin", revealImmediately)
+    reducedMotion.addEventListener("change", onMotionChange)
+
+    return () => {
+      observer.disconnect()
+      element.removeEventListener("focusin", revealImmediately)
+      reducedMotion.removeEventListener("change", onMotionChange)
+      show()
+    }
+  }, [delay])
 
   return (
-    <motion.div
-      ref={ref}
-      variants={resolvedVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      style={transition}
-      className={twMerge(className)}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   )
 }

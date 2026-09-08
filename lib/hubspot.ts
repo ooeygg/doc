@@ -24,6 +24,12 @@ export interface HubSpotSyncResult {
   skippedEmptyFields: string[]
   warnings: string[]
   errors: string[]
+  failure?: {
+    stage: "contact" | "note"
+    status?: number
+    category?: string
+    correlationId?: string
+  }
 }
 
 export function splitName(fullName: string): { firstname: string; lastname: string } {
@@ -37,15 +43,6 @@ function hsHeaders(token: string): HeadersInit {
   return {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
-  }
-}
-
-async function hsErrorDetail(res: Response): Promise<string> {
-  try {
-    const body = (await res.json()) as { message?: string; category?: string }
-    return body.message ? ` — ${body.message}` : ""
-  } catch {
-    return ` — ${await res.text().catch(() => "")}`
   }
 }
 
@@ -106,136 +103,82 @@ export async function syncHubSpotContact(raw: HubSpotSyncInput): Promise<HubSpot
     }
   }
 
-  // ── Contact lookup ─────────────────────────────────────────────────────────
-  // HubSpot explicitly does not support partial upserts when using email as
-  // idProperty (docs warning). We use a lookup-then-create-or-patch pattern
-  // instead: GET by email, then PATCH (existing) or POST (new).
-  // Required scope: crm.objects.contacts.read + crm.objects.contacts.write
-  const lookupRes = await fetch(
-    `https://api.hubapi.com/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email`,
-    { method: "GET", headers: hsHeaders(token) }
-  )
+  const context = { email, propertiesSent, skippedEmptyFields, warnings }
+  let stage: "contact" | "note" = "contact"
 
-  let contactId: string
-  let actionTaken: "created" | "updated"
-
-  if (lookupRes.ok) {
-    const existing = (await lookupRes.json()) as { id: string; createdAt: string; updatedAt: string }
-    contactId = existing.id
-    actionTaken = "updated"
-
-    const patchRes = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
-      method: "PATCH",
+  const request = (path: string, method: "POST" | "PATCH", body: unknown) =>
+    fetch(`https://api.hubapi.com${path}`, {
+      method,
       headers: hsHeaders(token),
-      body: JSON.stringify({ properties: propertiesSent }),
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(10_000),
     })
 
-    if (!patchRes.ok) {
-      const detail = await hsErrorDetail(patchRes)
-      return {
-        success: false,
-        email,
-        propertiesSent,
-        skippedEmptyFields,
-        warnings,
-        errors: [`HubSpot contact update failed (${patchRes.status})${detail}`],
-      }
-    }
-  } else if (lookupRes.status === 404) {
-    const createRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
-      method: "POST",
-      headers: hsHeaders(token),
-      body: JSON.stringify({ properties: propertiesSent }),
-    })
-
-    if (!createRes.ok) {
-      const detail = await hsErrorDetail(createRes)
-      return {
-        success: false,
-        email,
-        propertiesSent,
-        skippedEmptyFields,
-        warnings,
-        errors: [`HubSpot contact creation failed (${createRes.status})${detail}`],
-      }
-    }
-
-    const created = (await createRes.json()) as { id: string }
-    if (!created.id) {
-      return {
-        success: false,
-        email,
-        propertiesSent,
-        skippedEmptyFields,
-        warnings,
-        errors: ["HubSpot returned no contact ID after creation"],
-      }
-    }
-    contactId = created.id
-    actionTaken = "created"
-  } else {
-    const detail = await hsErrorDetail(lookupRes)
+  const failedResponse = async (response: Response): Promise<HubSpotSyncResult> => {
+    const detail = (await response.json().catch(() => null)) as { category?: string; correlationId?: string } | null
     return {
+      ...context,
       success: false,
-      email,
-      propertiesSent,
-      skippedEmptyFields,
-      warnings,
-      errors: [`HubSpot contact lookup failed (${lookupRes.status})${detail}`],
+      errors: [`HubSpot ${stage} save failed (${response.status})`],
+      // Diagnostic metadata only; never return upstream message text containing contact data.
+      failure: { stage, status: response.status, category: detail?.category, correlationId: detail?.correlationId },
     }
   }
 
-  let noteId: string | undefined
-
-  // ── Note creation (non-fatal) ───────────────────────────────────────────────
-  // Creates a timestamped note and attaches it to the contact's activity timeline.
-  // Failures are collected as warnings so the contact sync still returns success.
-  // Required scope: crm.objects.notes.write
-  if (messageToLog) {
-    const noteRes = await fetch("https://api.hubapi.com/crm/v3/objects/notes", {
-      method: "POST",
-      headers: hsHeaders(token),
-      body: JSON.stringify({
-        properties: {
-          hs_note_body: messageToLog,
-          hs_timestamp: new Date().toISOString(),
-        },
-      }),
-    })
-
-    if (!noteRes.ok) {
-      const detail = await hsErrorDetail(noteRes)
-      warnings.push(`Note creation failed (${noteRes.status})${detail}`)
-    } else {
-      const noteData = (await noteRes.json()) as { id: string }
-      noteId = noteData.id
-
-      // ── Note association ──────────────────────────────────────────────────
-      // Uses the v4 "default" association shorthand which resolves the correct
-      // note-to-contact association type automatically.
-      const assocRes = await fetch(
-        `https://api.hubapi.com/crm/v4/objects/notes/${noteId}/associations/default/contacts/${contactId}`,
-        { method: "PUT", headers: hsHeaders(token) }
-      )
-
-      if (!assocRes.ok) {
-        const detail = await hsErrorDetail(assocRes)
-        warnings.push(
-          `Note ${noteId} was created but could not be linked to contact ${contactId} (${assocRes.status})${detail}`
-        )
+  try {
+    // PATCH by email needs only crm.objects.contacts.write, which the website
+    // token already has. Unlike batch upsert by email, it supports partial updates.
+    const contactPath = `/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email`
+    const contactBody = { properties: propertiesSent }
+    let response = await request(contactPath, "PATCH", contactBody)
+    let actionTaken: "created" | "updated" = "updated"
+    if (response.status === 404) {
+      response = await request("/crm/v3/objects/contacts", "POST", contactBody)
+      actionTaken = "created"
+      // Another submission can create this email between PATCH and POST.
+      if (response.status === 409) {
+        response = await request(contactPath, "PATCH", contactBody)
+        actionTaken = "updated"
       }
     }
-  }
+    if (!response.ok) return await failedResponse(response)
 
-  return {
-    success: true,
-    actionTaken,
-    email,
-    contactId,
-    noteId,
-    propertiesSent,
-    skippedEmptyFields,
-    warnings,
-    errors: [],
+    const contact = (await response.json()) as { id?: string }
+    if (!contact.id) {
+      return { ...context, success: false, errors: ["HubSpot returned no contact ID"], failure: { stage } }
+    }
+
+    let noteId: string | undefined
+    if (messageToLog) {
+      stage = "note"
+      // Notes use rich text. Preserve the visitor's literal text and line breaks.
+      const noteBody = messageToLog
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\r?\n/g, "<br>")
+      const noteResponse = await request("/crm/v3/objects/notes", "POST", {
+        properties: { hs_note_body: noteBody, hs_timestamp: new Date().toISOString() },
+        // Create and associate together so an inquiry cannot become an orphan note.
+        associations: [
+          { to: { id: contact.id }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 202 }] },
+        ],
+      })
+      if (!noteResponse.ok) return await failedResponse(noteResponse)
+      const note = (await noteResponse.json()) as { id?: string }
+      if (!note.id) {
+        return { ...context, success: false, errors: ["HubSpot returned no note ID"], failure: { stage } }
+      }
+      noteId = note.id
+    }
+
+    return { ...context, success: true, actionTaken, contactId: contact.id, noteId, errors: [] }
+  } catch {
+    return {
+      ...context,
+      success: false,
+      errors: [`HubSpot ${stage} request could not be completed`],
+      failure: { stage },
+    }
   }
 }

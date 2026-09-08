@@ -1,14 +1,14 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { Input } from "components/ui/Input/Input"
 import { Section } from "components/ui/Section/Section"
 import { Select } from "components/ui/Select/Select"
 import { Textarea } from "components/ui/Textarea/Textarea"
 import { track } from "lib/analytics"
-import { contactSchema, contactTopics, type ContactInput } from "lib/validations/contact"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { type ContactInput, contactSchema, contactTopics } from "lib/validations/contact"
 
 const TOPIC_OPTIONS = [
   { value: "consult", label: "Booking a consult" },
@@ -21,6 +21,7 @@ type Status = "idle" | "submitting" | "success" | "error"
 
 export function ContactPage() {
   const [status, setStatus] = useState<Status>("idle")
+  const [submitError, setSubmitError] = useState("")
   const {
     register,
     handleSubmit,
@@ -37,18 +38,40 @@ export function ContactPage() {
 
   async function onSubmit(values: ContactInput) {
     setStatus("submitting")
+    setSubmitError("")
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       })
-      if (!res.ok) throw new Error()
-      setStatus("success")
-      track("contact_form_submitted")
-      reset()
+      const result = (await res.json().catch(() => null)) as { ok?: boolean } | null
+      if (!res.ok || result?.ok !== true) {
+        setSubmitError(
+          res.status === 429
+            ? "You've sent several messages recently. Please wait an hour before trying again."
+            : res.status === 400
+              ? "Please check your details and try again. Your message is still here."
+              : "We couldn't deliver your message. Your details are still here; please try again shortly."
+        )
+        setStatus("error")
+        return
+      }
     } catch {
+      setSubmitError(
+        "We couldn't confirm delivery. Please check your connection before trying again. Your message is still here."
+      )
       setStatus("error")
+      return
+    }
+
+    setStatus("success")
+    reset()
+    // A tracking failure must never make a successfully delivered inquiry look failed.
+    try {
+      track("contact_form_submitted")
+    } catch {
+      /* Delivery already succeeded. */
     }
   }
 
@@ -61,7 +84,7 @@ export function ContactPage() {
             partnerships use this form and we'll be in touch within two business days.
           </p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="md:col-span-7 grid gap-6" noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 md:col-span-7" noValidate>
           <div className="grid gap-6 md:grid-cols-2">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-name" className="font-body text-sm font-medium">
@@ -73,9 +96,7 @@ export function ContactPage() {
                 aria-invalid={errors.name ? "true" : undefined}
                 className="bg-surface"
               />
-              {errors.name ? (
-                <p className="font-body text-error text-xs">{errors.name.message}</p>
-              ) : null}
+              {errors.name ? <p className="font-body text-error text-xs">{errors.name.message}</p> : null}
             </div>
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-email" className="font-body text-sm font-medium">
@@ -88,17 +109,18 @@ export function ContactPage() {
                 aria-invalid={errors.email ? "true" : undefined}
                 className="bg-surface"
               />
-              {errors.email ? (
-                <p className="font-body text-error text-xs">{errors.email.message}</p>
-              ) : null}
+              {errors.email ? <p className="font-body text-error text-xs">{errors.email.message}</p> : null}
             </div>
           </div>
 
           <Select
             label="What's this about?"
             options={TOPIC_OPTIONS}
-            value={topicValue}
-            onValueChange={(v) => setValue("topic", v as (typeof contactTopics)[number])}
+            value={topicValue ?? ""}
+            onValueChange={(v) =>
+              setValue("topic", v ? (v as (typeof contactTopics)[number]) : undefined, { shouldValidate: true })
+            }
+            error={errors.topic?.message}
           />
 
           <Textarea label="Message" {...register("message")} error={errors.message?.message} />
@@ -109,14 +131,18 @@ export function ContactPage() {
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="font-body inline-flex h-12 items-center rounded-full bg-gold btn-gradient px-7 text-base font-medium text-ink shadow-[0_2px_12px_rgba(210,167,74,0.25)] hover:enabled:bg-gold-hover hover:enabled:-translate-y-px disabled:opacity-50 transition-[transform,box-shadow,background-color] duration-200"
+              className="font-body bg-gold btn-gradient text-ink hover:enabled:bg-gold-hover inline-flex h-12 items-center rounded-full px-7 text-base font-medium shadow-[0_2px_12px_rgba(210,167,74,0.25)] transition-[transform,box-shadow,background-color] duration-200 hover:enabled:-translate-y-px disabled:opacity-50"
             >
               {status === "submitting" ? "Sending…" : "Send message"}
             </button>
             {status === "success" ? (
-              <p className="font-body text-sm text-gold">Thank you we'll be in touch shortly.</p>
+              <p role="status" className="font-body text-ink text-sm">
+                Thank you. Your message has been sent.
+              </p>
             ) : status === "error" ? (
-              <p className="font-body text-error text-sm">Something went wrong. Please try again.</p>
+              <p role="alert" className="font-body text-ink-muted text-sm">
+                {submitError}
+              </p>
             ) : null}
           </div>
         </form>

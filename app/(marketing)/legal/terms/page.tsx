@@ -1,9 +1,14 @@
 import { Container } from "components/layout/Container"
+import { createPageMetadata } from "config/seo"
+import { siteConfig } from "config/site"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Terms of Use",
-  description: "Terms of use for drcynthiahiggins.com. By using this site you agree to these terms.",
+  ...createPageMetadata({
+    title: `Terms of Use | ${siteConfig.name}`,
+    description: "Terms of use for Work of Angels, LLC. By using this site you agree to these terms.",
+    path: "/legal/terms",
+  }),
   robots: { index: false, follow: false },
 }
 
@@ -13,8 +18,8 @@ export default function Page() {
       <h1 className="font-display text-4xl tracking-tight md:text-5xl">Terms of Use</h1>
       <div className="font-body mt-8 space-y-6 text-base leading-relaxed opacity-80">
         <p>
-          By using this site you agree to the following terms. The site is provided as-is. Information published here
-          is general education and is not a substitute for individualized medical or psychological care.
+          By using this site you agree to the following terms. The site is provided as-is. Information published here is
+          general education and is not a substitute for individualized medical or psychological care.
         </p>
         <p>
           Use of any service requires explicit written or scheduled engagement with Dr. Higgins's practice. Programs

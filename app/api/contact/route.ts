@@ -1,7 +1,7 @@
+import { NextResponse } from "next/server"
 import { syncHubSpotContact } from "lib/hubspot"
 import { clientIp, rateLimit } from "lib/rateLimit"
 import { contactSchema } from "lib/validations/contact"
-import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   const ip = clientIp(request)
@@ -13,10 +13,7 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as unknown
   const parsed = contactSchema.safeParse(body)
   if (!parsed.success) {
-    return NextResponse.json(
-      { ok: false, error: "invalid_input", issues: parsed.error.flatten() },
-      { status: 400 }
-    )
+    return NextResponse.json({ ok: false, error: "invalid_input", issues: parsed.error.flatten() }, { status: 400 })
   }
 
   if (parsed.data.hp && parsed.data.hp.length > 0) {
@@ -26,18 +23,13 @@ export async function POST(request: Request) {
   const { name, email, topic, message } = parsed.data
   const noteBody = topic ? `Topic: ${topic}\n\n${message}` : message
 
-  const result = await syncHubSpotContact({
-    email,
-    fullName: name,
-    message: noteBody,
-  })
-
-  if (!result.success) {
-    return NextResponse.json(
-      { ok: false, error: result.errors[0] ?? "sync_failed" },
-      { status: 502 }
-    )
+  try {
+    const result = await syncHubSpotContact({ email, fullName: name, message: noteBody })
+    if (result.success) return NextResponse.json({ ok: true })
+    console.error("Contact inquiry delivery failed", result.failure ?? { stage: "configuration" })
+  } catch {
+    console.error("Contact inquiry delivery failed", { stage: "request" })
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: false, error: "delivery_unavailable" }, { status: 502 })
 }

@@ -1,9 +1,15 @@
 import { Container } from "components/layout/Container"
+import { createPageMetadata } from "config/seo"
+import { siteConfig } from "config/site"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Medical Disclaimer",
-  description: "Important medical disclaimer for drcynthiahiggins.com. Content is for educational purposes only and does not constitute medical advice.",
+  ...createPageMetadata({
+    title: `Medical Disclaimer | ${siteConfig.name}`,
+    description:
+      "Medical disclaimer for Work of Angels, LLC. Content is for educational purposes only and does not constitute medical advice.",
+    path: "/legal/disclaimer",
+  }),
   robots: { index: false, follow: false },
 }
 
