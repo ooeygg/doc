@@ -40,14 +40,6 @@ function hsHeaders(token: string): HeadersInit {
   }
 }
 
-// batch/upsert doesn't return an explicit "created" vs "updated" flag.
-// If createdAt and updatedAt are within 5 seconds the record was just created.
-function inferActionTaken(createdAt: string, updatedAt: string): "created" | "updated" {
-  return Math.abs(new Date(updatedAt).getTime() - new Date(createdAt).getTime()) < 5_000
-    ? "created"
-    : "updated"
-}
-
 async function hsErrorDetail(res: Response): Promise<string> {
   try {
     const body = (await res.json()) as { message?: string; category?: string }
@@ -114,55 +106,85 @@ export async function syncHubSpotContact(raw: HubSpotSyncInput): Promise<HubSpot
     }
   }
 
-  // ── Contact upsert ─────────────────────────────────────────────────────────
-  // batch/upsert with idProperty "email" handles create and update in one call.
-  // Existing contacts are matched by email; only propertiesSent fields are written,
-  // so unrelated HubSpot properties set by your sales team are preserved.
-  // Required scope: crm.objects.contacts.write
-  const upsertRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts/batch/upsert", {
-    method: "POST",
-    headers: hsHeaders(token),
-    body: JSON.stringify({
-      inputs: [
-        {
-          idProperty: "email",
-          id: email,
-          properties: propertiesSent,
-        },
-      ],
-    }),
-  })
+  // ── Contact lookup ─────────────────────────────────────────────────────────
+  // HubSpot explicitly does not support partial upserts when using email as
+  // idProperty (docs warning). We use a lookup-then-create-or-patch pattern
+  // instead: GET by email, then PATCH (existing) or POST (new).
+  // Required scope: crm.objects.contacts.read + crm.objects.contacts.write
+  const lookupRes = await fetch(
+    `https://api.hubapi.com/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email`,
+    { method: "GET", headers: hsHeaders(token) }
+  )
 
-  if (!upsertRes.ok) {
-    const detail = await hsErrorDetail(upsertRes)
+  let contactId: string
+  let actionTaken: "created" | "updated"
+
+  if (lookupRes.ok) {
+    const existing = (await lookupRes.json()) as { id: string; createdAt: string; updatedAt: string }
+    contactId = existing.id
+    actionTaken = "updated"
+
+    const patchRes = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`, {
+      method: "PATCH",
+      headers: hsHeaders(token),
+      body: JSON.stringify({ properties: propertiesSent }),
+    })
+
+    if (!patchRes.ok) {
+      const detail = await hsErrorDetail(patchRes)
+      return {
+        success: false,
+        email,
+        propertiesSent,
+        skippedEmptyFields,
+        warnings,
+        errors: [`HubSpot contact update failed (${patchRes.status})${detail}`],
+      }
+    }
+  } else if (lookupRes.status === 404) {
+    const createRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
+      method: "POST",
+      headers: hsHeaders(token),
+      body: JSON.stringify({ properties: propertiesSent }),
+    })
+
+    if (!createRes.ok) {
+      const detail = await hsErrorDetail(createRes)
+      return {
+        success: false,
+        email,
+        propertiesSent,
+        skippedEmptyFields,
+        warnings,
+        errors: [`HubSpot contact creation failed (${createRes.status})${detail}`],
+      }
+    }
+
+    const created = (await createRes.json()) as { id: string }
+    if (!created.id) {
+      return {
+        success: false,
+        email,
+        propertiesSent,
+        skippedEmptyFields,
+        warnings,
+        errors: ["HubSpot returned no contact ID after creation"],
+      }
+    }
+    contactId = created.id
+    actionTaken = "created"
+  } else {
+    const detail = await hsErrorDetail(lookupRes)
     return {
       success: false,
       email,
       propertiesSent,
       skippedEmptyFields,
       warnings,
-      errors: [`HubSpot contact upsert failed (${upsertRes.status})${detail}`],
+      errors: [`HubSpot contact lookup failed (${lookupRes.status})${detail}`],
     }
   }
 
-  const upsertData = (await upsertRes.json()) as {
-    results?: Array<{ id: string; createdAt: string; updatedAt: string }>
-  }
-
-  const contact = upsertData.results?.[0]
-  if (!contact?.id) {
-    return {
-      success: false,
-      email,
-      propertiesSent,
-      skippedEmptyFields,
-      warnings,
-      errors: ["HubSpot returned no contact ID — unexpected response shape"],
-    }
-  }
-
-  const contactId = contact.id
-  const actionTaken = inferActionTaken(contact.createdAt, contact.updatedAt)
   let noteId: string | undefined
 
   // ── Note creation (non-fatal) ───────────────────────────────────────────────

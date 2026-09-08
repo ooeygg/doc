@@ -21,7 +21,11 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./*"
+      ]
+    },
     "ignoreDeprecations": "6.0",
     "types": [
       "node",
