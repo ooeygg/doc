@@ -117,7 +117,7 @@ Replace placeholder description, add proper OG image fallback (referencing the O
 **Type:** Task · **Parent:** DRH-2 · **Estimate:** S · **Priority:** P0 · **Labels:** config, env · **Status:** Done
 
 **Description**
-Add validated env vars per plan §6. Server: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_VERSION`, `SANITY_REVALIDATE_SECRET`. Client: `NEXT_PUBLIC_CALENDLY_URL`, `NEXT_PUBLIC_XPERIENCIFY_URL`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`.
+Add validated env vars per plan §6. Server: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_VERSION`, `SANITY_REVALIDATE_SECRET`. Client: `NEXT_PUBLIC_CALENDLY_URL`, `NEXT_PUBLIC_XPERIENCIFY_URL`, `NEXT_PUBLIC_SITE_URL`.
 
 **Acceptance criteria**
 - [x] All vars present with correct zod schemas + defaults.
@@ -595,7 +595,6 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 - [x] Inline embed via `react-calendly`'s `InlineWidget`.
 - [x] Calendly script not loaded on any other route (component is `"use client"` and only rendered on `/book`).
 - [x] Page loads with reserved height to prevent CLS.
-- [x] Tracks `calendly_embed_loaded` analytics event.
 
 **Files**
 - `components/marketing/BookPage.tsx` (new)
@@ -899,42 +898,17 @@ Single, focused conversion page. Lazily inject Calendly script. Reads URL from `
 
 ---
 
-## DRH-11 Epic: Analytics
+## DRH-11 Epic: Analytics (retired)
 
-### DRH-69 Plausible client + script ✅
-**Type:** Task · **Parent:** DRH-11 · **Estimate:** S · **Priority:** P1 · **Labels:** analytics · **Status:** Done
+### DRH-69 Client tracking script (retired)
+**Status:** Removed at the site owner's request.
 
-**Acceptance criteria**
-- [x] Script injected from `app/layout.tsx` only when `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` set.
-- [x] No cookies (privacy-first).
-- [x] `lib/analytics.ts` exposes typed `track(event, props?)`.
+The browser tracking script, adapter, event types, and environment configuration have been removed.
 
-**Files**
-- `lib/analytics.ts`
-- `app/layout.tsx`
+### DRH-70 CTA instrumentation (retired)
+**Status:** Removed at the site owner's request.
 
-**Depends on:** DRH-18
-
----
-
-### DRH-70 `useAnalytics` hook + CTA instrumentation ✅
-**Type:** Task · **Parent:** DRH-11 · **Estimate:** S · **Priority:** P1 · **Labels:** analytics · **Status:** Done
-
-**Acceptance criteria**
-- [x] Hook wraps `track` for client components.
-- [x] Event types declared; `calendly_embed_loaded` and `contact_form_submitted` instrumented.
-- [x] `cta_click_hero` fires from Hero primary CTA → `/book`.
-- [x] `cta_click_sticky` fires from Navbar Book CTA (desktop + mobile drawer); includes `scrolled` flag for the desktop sticky variant.
-- [x] `program_link_click_<slug>` fires from both the home `Programs` section and the `/programs` page (distinguished via `source` prop).
-
-**Files**
-- `lib/hooks/useAnalytics.ts`
-- `components/sections/Hero.tsx`
-- `components/layout/Navbar.tsx`
-- `components/sections/Programs.tsx`
-- `components/marketing/ProgramsPage.tsx`
-
-**Depends on:** DRH-69
+Booking, navigation, program links, and contact forms work without sending website analytics events.
 
 ---
 

@@ -19,7 +19,6 @@ Both consultation buttons say “Schedule my consultation,” open Calendly in a
 | [env.mjs](env.mjs)                                                     | Optional HTTPS Calendly URL validation; blank configuration becomes undefined.                                                                   |
 | [.env.example](.env.example)                                           | Documents the Calendly URL variable and missing-configuration behavior.                                                                          |
 | [lib/booking.ts](lib/booking.ts)                                       | Central booking destination reads validated configuration.                                                                                       |
-| [lib/analytics.ts](lib/analytics.ts)                                   | Adds the `booking_started` event to the existing analytics event type.                                                                           |
 | [e2e/book.spec.ts](e2e/book.spec.ts)                                   | Replaces the obsolete embedded-scheduler test with responsive, keyboard, reduced-motion, no-JavaScript, and external-handoff coverage.           |
 | [vitest.setup.ts](vitest.setup.ts)                                     | Supplies the missing IntersectionObserver stub for jsdom. Real viewport behavior is exercised in browser tests.                                  |
 | [package.json](package.json)                                           | Replaces removed `next lint` commands with ESLint CLI commands and adds a real TypeScript check script. No dependency changes.                   |
@@ -31,8 +30,8 @@ Both consultation buttons say “Schedule my consultation,” open Calendly in a
 | [components/marketing/booking/EditorialStatement.tsx](components/marketing/booking/EditorialStatement.tsx)   | Dark editorial pause using the existing sand-and-hands photograph.                                                       |
 | [components/marketing/booking/BookingSteps.tsx](components/marketing/booking/BookingSteps.tsx)               | Three numbered steps with fine rules and open spacing.                                                                   |
 | [components/marketing/booking/FinalBookingSection.tsx](components/marketing/booking/FinalBookingSection.tsx) | Spacious final invitation and repeated booking action.                                                                   |
-| [components/marketing/booking/BookingCTA.tsx](components/marketing/booking/BookingCTA.tsx)                   | Reuses the existing Button with secure external linking, accessible new-tab disclosure, and analytics.                   |
-| [components/marketing/booking/BookingCTA.test.tsx](components/marketing/booking/BookingCTA.test.tsx)         | Four tests for secure handoff attributes, both analytics placements, absent analytics, and absent booking configuration. |
+| [components/marketing/booking/BookingCTA.tsx](components/marketing/booking/BookingCTA.tsx)                   | Reuses the existing Button with secure external linking, accessible new-tab disclosure, and native navigation.                   |
+| [components/marketing/booking/BookingCTA.test.tsx](components/marketing/booking/BookingCTA.test.tsx)         | Three tests for secure handoff attributes at both placements and absent booking configuration. |
 | [styles/booking.css](styles/booking.css)                                                                     | Scoped editorial grid, typography, section tones, responsive layouts, focus, and restrained hover treatment.             |
 | [BOOKING-REDESIGN.md](BOOKING-REDESIGN.md)                                                                   | This handoff report.                                                                                                     |
 
@@ -50,11 +49,11 @@ On mobile, the CTA precedes an offset landscape portrait crop. The metadata beco
 
 Accessibility includes one H1, ordered H2/H3 structure, named sections, a semantic ordered sequence, descriptive portrait text, decorative image exclusion, visible amber focus outlines, and 60px consultation buttons. The “What to expect” anchor has a focusable destination with space below the fixed navigation. New-tab behavior is announced in the link name. The mobile dialog supports Escape and focus return.
 
-## Scheduling and analytics
+## Scheduling
 
 The page no longer imports `react-calendly`, renders an iframe, or loads a scheduler script. Calendly owns availability, intake, and appointment completion at the configured external URL. No API was inspected or reconstructed.
 
-Configured CTA clicks call the existing Plausible adapter with `booking_started` and `{ source: "book_page", provider: "calendly", placement: "hero" | "final" }`. There is no event on page load or on the unconfigured contact fallback. Booking still works when Plausible is absent. Existing analytics infrastructure is retained.
+CTA links open the configured booking destination directly, or fall back to the contact page when it is absent. Browser event tracking has been removed at the site owner’s request.
 
 ## Validation
 
@@ -70,7 +69,7 @@ Configured CTA clicks call the existing Plausible adapter with `booking_started`
 | Responsive checks     | All six widths passed in all three engines: 375, 430, 768, 1024, 1440, 1920px. Production screenshots were inspected. No horizontal overflow.                                                                                                            |
 | Keyboard              | CTA focus and the in-page link passed. macOS WebKit uses Option+Tab to reach links.                                                                                                                                                                      |
 | Motion                | Reduced-motion and no-JavaScript tests passed. Normal reveal completion and a runtime preference change were also checked on the production page.                                                                                                        |
-| Scheduling            | No iframes or scheduler network requests. External URL/security attributes and event metadata pass unit tests. The configured destination opens securely in browser tests; the real Calendly page loads with the title “Calendly - Cynthia Higgins, MD.” |
+| Scheduling            | No iframes or scheduler network requests. External URL/security attributes pass unit tests. The configured destination opens securely in browser tests; the real Calendly page loads with the title “Calendly - Cynthia Higgins, MD.” |
 | Console               | No application runtime errors. The existing external HubSpot script is refused by the environment, so a completely clean network console cannot be claimed.                                                                                              |
 
 Contact regression coverage now passes all 15 checks across the three browser engines in both development and the final production build. The earlier unrelated boilerplate homepage-title assertion remains outside this task. The Playwright base URL now uses `localhost`, matching the development server origin so Next.js accepts its development resources.

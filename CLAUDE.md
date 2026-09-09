@@ -62,7 +62,7 @@ There's no dedicated typecheck script; the `tsc` devDep is unrelated. To run a r
 
 ### Other top-level dirs
 
-- `lib/` shared logic. `api.ts`, `sanity.ts`, `booking.ts`, `analytics.ts`, `auth.ts`, `utils.ts`, plus `lib/hooks/{useAuth,useBooking,useAnalytics}.ts`. `lib/utils.ts` exports `cn(...)` (a `twMerge` helper) use it for conditional Tailwind classes.
+- `lib/` shared logic. `api.ts`, `sanity.ts`, `booking.ts`, `auth.ts`, `utils.ts`, plus `lib/hooks/{useAuth,useBooking}.ts`. `lib/utils.ts` exports `cn(...)` (a `twMerge` helper) use it for conditional Tailwind classes.
 - `config/` branding/static config: `site.ts` (name, URL, nav), `seo.ts` (default `Metadata`), `env.ts` (re-exports validated env from `env.mjs`).
 - `types/` shared types (`index.ts`, `api.ts`, `cms.ts`).
 - `content/blog/`, `content/pages/` reserved for MDX content if/when CMS isn't used.

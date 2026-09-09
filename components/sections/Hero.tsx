@@ -3,7 +3,6 @@
 import Image, { getImageProps } from "next/image"
 import { Button } from "components/ui/Button/Button"
 import { doctor } from "content/data/doctor"
-import { track } from "lib/analytics"
 
 const TICKER_ITEMS = [
   "27 Years Clinical Practice",
@@ -91,7 +90,7 @@ export function Hero() {
                 growth.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <Button href="/book" intent="primary" onClick={() => track("cta_click_hero", { target: "/book" })}>
+                <Button href="/book" intent="primary">
                   Book a consult
                 </Button>
                 <Button href="/about" intent="secondary">

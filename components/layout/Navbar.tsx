@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge"
 import workOfAngelsLogo from "assets/logos/workofangels.webp"
 import { Button } from "components/ui/Button/Button"
 import { siteConfig } from "config/site"
-import { track } from "lib/analytics"
 
 const PRIMARY_LINKS = siteConfig.nav.filter((item) => item.href !== "/book")
 
@@ -93,12 +92,7 @@ export function Navbar() {
               </Link>
             )
           })}
-          <Button
-            href="/book"
-            intent="primary"
-            size="sm"
-            onClick={() => track("cta_click_sticky", { source: "navbar-desktop", scrolled })}
-          >
+          <Button href="/book" intent="primary" size="sm">
             Book a consult
           </Button>
         </nav>
@@ -183,12 +177,7 @@ export function Navbar() {
               ))}
             </nav>
             <div className="mt-auto pt-8">
-              <Button
-                href="/book"
-                intent="primary"
-                className="w-full"
-                onClick={() => track("cta_click_sticky", { source: "navbar-mobile" })}
-              >
+              <Button href="/book" intent="primary" className="w-full">
                 Book a consult
               </Button>
             </div>

@@ -8,7 +8,6 @@ import { Section } from "components/ui/Section/Section"
 import { Select } from "components/ui/Select/Select"
 import { Textarea } from "components/ui/Textarea/Textarea"
 import { siteConfig } from "config/site"
-import { track } from "lib/analytics"
 import { type ContactInput, contactSchema, contactTopics } from "lib/validations/contact"
 
 const TOPIC_OPTIONS = [
@@ -68,12 +67,6 @@ export function ContactPage() {
 
     setStatus("success")
     reset()
-    // A tracking failure must never make a successfully delivered inquiry look failed.
-    try {
-      track("contact_form_submitted")
-    } catch {
-      /* Delivery already succeeded. */
-    }
   }
 
   return (

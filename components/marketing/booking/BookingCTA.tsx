@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "components/ui/Button/Button"
-import { track } from "lib/analytics"
 import { bookingUrl } from "lib/booking"
 
 export function BookingCTA({ placement }: { placement: "hero" | "final" }) {
@@ -19,9 +18,6 @@ export function BookingCTA({ placement }: { placement: "hero" | "final" }) {
         // The shared gold pill stays still; only its arrow moves on this page.
         onMouseMove={undefined}
         onMouseLeave={undefined}
-        onClick={() => {
-          if (bookingUrl) track("booking_started", { source: "book_page", provider: "calendly", placement })
-        }}
       >
         <span>{bookingUrl ? "Schedule my consultation" : "Request a consultation"}</span>
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="booking-link-arrow">
