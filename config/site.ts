@@ -2,6 +2,7 @@ export const siteConfig = {
   name: "Dr. Cynthia Higgins",
   // Keep canonical and sharing URLs on the public domain, including in preview deployments.
   url: "https://www.workofangelsllc.com",
+  googleAnalyticsId: "G-9G0FZQF6PT",
   description:
     "Energy-medicine psychiatry with Dr. Cynthia Higgins, MD at Work of Angels, LLC. Explore care that integrates body, mind, and spirit.",
   office: {
