@@ -1,10 +1,9 @@
 "use client"
 
-import * as Dialog from "@radix-ui/react-dialog"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { twMerge } from "tailwind-merge"
 import workOfAngelsLogo from "assets/logos/workofangels.webp"
 import { Button } from "components/ui/Button/Button"
@@ -17,6 +16,9 @@ export function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const previousPathname = useRef(pathname)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -26,8 +28,25 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
+    if (previousPathname.current === pathname) return
+    previousPathname.current = pathname
+    dialogRef.current?.close()
     setOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
+
+  const openMenu = () => {
+    dialogRef.current?.showModal()
+    setOpen(true)
+  }
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
 
@@ -84,72 +103,97 @@ export function Navbar() {
           </Button>
         </nav>
 
-        <Dialog.Root open={open} onOpenChange={setOpen}>
-          <Dialog.Trigger asChild>
-            <button
-              type="button"
-              aria-label="Open menu"
-              className="text-ink hover:bg-surface-alt focus-visible:ring-gold inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:outline-none lg:hidden"
-            >
-              <span aria-hidden className="block space-y-1.5">
-                <span
-                  className={twMerge(
-                    "block h-0.5 w-5 bg-current transition-transform duration-300",
-                    open && "translate-y-2 rotate-45"
-                  )}
-                />
-                <span
-                  className={twMerge("block h-0.5 w-5 bg-current transition-opacity duration-300", open && "opacity-0")}
-                />
-                <span
-                  className={twMerge(
-                    "block h-0.5 w-5 bg-current transition-transform duration-300",
-                    open && "-translate-y-2 -rotate-45"
-                  )}
-                />
-              </span>
-            </button>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Overlay className="bg-ink/60 fixed inset-0 z-50 backdrop-blur-sm" />
-            <Dialog.Content className="bg-surface fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col p-6 shadow-xl">
-              <div className="flex items-center justify-between">
-                <Dialog.Title className="font-display text-ink text-xl">Menu</Dialog.Title>
-                <Dialog.Close
-                  aria-label="Close menu"
-                  className="text-ink hover:bg-surface-alt focus-visible:ring-gold inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:outline-none"
+        <button
+          ref={menuButtonRef}
+          type="button"
+          aria-label="Open menu"
+          aria-haspopup="dialog"
+          aria-controls="mobile-menu"
+          aria-expanded={open}
+          onClick={openMenu}
+          className="text-ink hover:bg-surface-alt focus-visible:ring-gold inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:outline-none lg:hidden"
+        >
+          <span aria-hidden className="block space-y-1.5">
+            <span
+              className={twMerge(
+                "block h-0.5 w-5 bg-current transition-transform duration-300",
+                open && "translate-y-2 rotate-45"
+              )}
+            />
+            <span
+              className={twMerge("block h-0.5 w-5 bg-current transition-opacity duration-300", open && "opacity-0")}
+            />
+            <span
+              className={twMerge(
+                "block h-0.5 w-5 bg-current transition-transform duration-300",
+                open && "-translate-y-2 -rotate-45"
+              )}
+            />
+          </span>
+        </button>
+        <dialog
+          ref={dialogRef}
+          id="mobile-menu"
+          aria-labelledby="mobile-menu-title"
+          aria-describedby="mobile-menu-description"
+          onClose={() => {
+            setOpen(false)
+            menuButtonRef.current?.focus({ preventScroll: true })
+          }}
+          onClick={(event) => {
+            const bounds = event.currentTarget.getBoundingClientRect()
+            if (
+              event.clientX < bounds.left ||
+              event.clientX > bounds.right ||
+              event.clientY < bounds.top ||
+              event.clientY > bounds.bottom
+            ) {
+              event.currentTarget.close()
+            }
+          }}
+          className="bg-surface text-ink backdrop:bg-ink/60 fixed inset-y-0 right-0 left-auto m-0 h-dvh max-h-none w-full max-w-sm border-0 p-6 shadow-xl backdrop:backdrop-blur-sm"
+        >
+          <div className="flex h-full flex-col">
+            <div className="flex items-center justify-between">
+              <h2 id="mobile-menu-title" className="font-display text-ink text-xl">
+                Menu
+              </h2>
+              <button
+                type="button"
+                onClick={() => dialogRef.current?.close()}
+                aria-label="Close menu"
+                className="text-ink hover:bg-surface-alt focus-visible:ring-gold inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:outline-none"
+              >
+                ✕
+              </button>
+            </div>
+            <p id="mobile-menu-description" className="sr-only">
+              Explore Work of Angels and book a consultation.
+            </p>
+            <nav aria-label="Mobile" className="mt-8 flex flex-col gap-1">
+              {PRIMARY_LINKS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  prefetch={false}
+                  className="font-display text-ink hover:bg-surface-alt rounded-xl px-2 py-3 text-2xl"
                 >
-                  ✕
-                </Dialog.Close>
-              </div>
-              <Dialog.Description className="sr-only">
-                Explore Work of Angels and book a consultation.
-              </Dialog.Description>
-              <nav aria-label="Mobile" className="mt-8 flex flex-col gap-1">
-                {PRIMARY_LINKS.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    prefetch={false}
-                    className="font-display text-ink hover:bg-surface-alt rounded-xl px-2 py-3 text-2xl"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-              <div className="mt-auto pt-8">
-                <Button
-                  href="/book"
-                  intent="primary"
-                  className="w-full"
-                  onClick={() => track("cta_click_sticky", { source: "navbar-mobile" })}
-                >
-                  Book a consult
-                </Button>
-              </div>
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <div className="mt-auto pt-8">
+              <Button
+                href="/book"
+                intent="primary"
+                className="w-full"
+                onClick={() => track("cta_click_sticky", { source: "navbar-mobile" })}
+              >
+                Book a consult
+              </Button>
+            </div>
+          </div>
+        </dialog>
       </div>
     </header>
   )

@@ -1,8 +1,4 @@
-"use client"
-
-import { motion, useInView } from "framer-motion"
-import { fadeUp, staggerContainer } from "lib/motion"
-import { useRef } from "react"
+import { Reveal } from "components/ui/Reveal/Reveal"
 
 const PILLARS = [
   {
@@ -28,19 +24,16 @@ const PILLARS = [
 ] as const
 
 export function Approach() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-8% 0px" })
-
   return (
     <section className="bg-ink py-24 md:py-32 lg:py-40">
       <div className="mx-auto max-w-6xl px-8 md:px-12 lg:px-16">
         {/* section header */}
         <div className="mb-16 grid gap-4 md:grid-cols-12">
           <div className="md:col-span-4">
-            <p className="font-body text-[0.65rem] uppercase tracking-[0.25em] text-gold">Approach</p>
+            <p className="font-body text-gold text-[0.65rem] tracking-[0.25em] uppercase">Approach</p>
           </div>
           <div className="md:col-span-8">
-            <h2 className="font-display text-4xl leading-tight tracking-tight text-bone md:text-5xl lg:text-6xl">
+            <h2 className="font-display text-bone text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl">
               Where science
               <br />
               meets soul
@@ -49,37 +42,24 @@ export function Approach() {
         </div>
 
         {/* editorial row list */}
-        <motion.div
-          ref={ref}
-          variants={staggerContainer(0.08)}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
+        <div>
           {PILLARS.map((p) => (
-            <motion.div
+            <Reveal
               key={p.num}
-              variants={fadeUp}
-              className="group relative grid grid-cols-12 items-baseline gap-4 border-t border-bone/10 py-8 last:border-b last:border-bone/10"
+              className="group border-bone/10 last:border-bone/10 relative grid grid-cols-12 items-baseline gap-4 border-t py-8 last:border-b"
             >
-              {/* animated gold accent line that draws left-to-right on scroll-enter */}
-              <motion.div
-                className="pointer-events-none absolute left-0 top-0 h-px origin-left bg-gold"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              />
+              <div className="bg-gold pointer-events-none absolute top-0 left-0 h-px origin-left" aria-hidden />
 
-              <span className="font-body col-span-1 text-xs tabular-nums text-gold/60">{p.num}</span>
-              <h3 className="font-display col-span-11 text-2xl text-bone transition-colors duration-300 group-hover:text-gold md:col-span-5 md:text-3xl lg:text-4xl">
+              <span className="font-body text-gold/80 col-span-1 text-xs tabular-nums">{p.num}</span>
+              <h3 className="font-display text-bone group-hover:text-gold col-span-11 text-2xl transition-colors duration-300 md:col-span-5 md:text-3xl lg:text-4xl">
                 {p.title}
               </h3>
-              <p className="font-body col-span-11 col-start-2 text-sm leading-relaxed text-bone/50 md:col-span-6 md:col-start-7 md:text-base">
+              <p className="font-body text-bone/50 col-span-11 col-start-2 text-sm leading-relaxed md:col-span-6 md:col-start-7 md:text-base">
                 {p.description}
               </p>
-            </motion.div>
+            </Reveal>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

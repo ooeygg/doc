@@ -1,11 +1,10 @@
 "use client"
 
 import { cva, type VariantProps } from "class-variance-authority"
-import { Eyebrow } from "components/ui/Eyebrow/Eyebrow"
-import { motion, useInView } from "framer-motion"
-import { fadeUp, slideRight } from "lib/motion"
-import { useId, useRef } from "react"
+import { useId } from "react"
 import { twMerge } from "tailwind-merge"
+import { Eyebrow } from "components/ui/Eyebrow/Eyebrow"
+import { Reveal } from "components/ui/Reveal/Reveal"
 
 const section = cva(["py-24", "md:py-32", "lg:py-40"], {
   variants: {
@@ -37,8 +36,6 @@ export function Section({
   ...props
 }: SectionProps) {
   const headingId = useId()
-  const headerRef = useRef<HTMLElement>(null)
-  const isInView = useInView(headerRef, { once: true, margin: "-8% 0px" })
 
   return (
     <section
@@ -48,27 +45,18 @@ export function Section({
     >
       <div className={twMerge("mx-auto w-full max-w-6xl px-6", containerClassName)}>
         {(eyebrow || heading) && (
-          <header ref={headerRef} className="mb-12 max-w-3xl">
-            {eyebrow ? (
-              <motion.div
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                variants={slideRight}
-              >
-                <Eyebrow tone={surface === "ink" ? "bone" : "gold"}>{eyebrow}</Eyebrow>
-              </motion.div>
-            ) : null}
-            {heading ? (
-              <motion.h2
-                id={headingId}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                variants={fadeUp}
-                className="font-display mt-4 text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl"
-              >
-                {heading}
-              </motion.h2>
-            ) : null}
+          <header className="mb-12 max-w-3xl">
+            <Reveal>
+              {eyebrow ? <Eyebrow tone={surface === "ink" ? "bone" : "muted"}>{eyebrow}</Eyebrow> : null}
+              {heading ? (
+                <h2
+                  id={headingId}
+                  className="font-display mt-4 text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl"
+                >
+                  {heading}
+                </h2>
+              ) : null}
+            </Reveal>
           </header>
         )}
         {children}

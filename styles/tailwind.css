@@ -92,7 +92,8 @@
 /* ── Grain texture overlay ───────────────────────────────────────────────── */
 /* Applied to a fixed <div aria-hidden> in the root layout */
 @utility grain-texture {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  /* Pre-rendered from the original SVG filter to avoid runtime turbulence rasterization. */
+  background-image: url("/assets/images/grain.webp");
   background-repeat: repeat;
   background-size: 200px 200px;
   mix-blend-mode: multiply;
@@ -131,4 +132,17 @@
   &:hover img, &:hover [data-zoom] {
     transform: scale(1.04);
   }
+}
+
+/* Decorative tickers run on the compositor without a JavaScript animation loop. */
+@keyframes credential-marquee {
+  to { transform: translateX(calc(-50% - 2rem)); }
+}
+
+.credential-marquee {
+  animation: credential-marquee 30s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credential-marquee { animation: none; }
 }

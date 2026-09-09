@@ -35,14 +35,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             defer
             data-domain={env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
             src="https://plausible.io/js/script.js"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
         ) : null}
-        {env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID ? (
+        {env.NEXT_PUBLIC_HUBSPOT_TRACKING_ENABLED && env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID ? (
           <Script
             id="hs-script-loader"
             src={`https://js.hs-scripts.com/${env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID}.js`}
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
         ) : null}
       </body>

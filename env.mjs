@@ -27,6 +27,10 @@ export const env = createEnv({
     NEXT_PUBLIC_XPERIENCIFY_URL: z.string().url().optional(),
     NEXT_PUBLIC_PLAUSIBLE_DOMAIN: z.string().min(1).optional(),
     NEXT_PUBLIC_HUBSPOT_PORTAL_ID: z.string().min(1).optional(),
+    NEXT_PUBLIC_HUBSPOT_TRACKING_ENABLED: z
+      .enum(["true", "false"])
+      .default("false")
+      .transform((value) => value === "true"),
   },
   runtimeEnv: {
     ANALYZE: process.env.ANALYZE,
@@ -42,6 +46,7 @@ export const env = createEnv({
     NEXT_PUBLIC_XPERIENCIFY_URL: process.env.NEXT_PUBLIC_XPERIENCIFY_URL,
     NEXT_PUBLIC_PLAUSIBLE_DOMAIN: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN,
     NEXT_PUBLIC_HUBSPOT_PORTAL_ID: process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID,
+    NEXT_PUBLIC_HUBSPOT_TRACKING_ENABLED: process.env.NEXT_PUBLIC_HUBSPOT_TRACKING_ENABLED,
   },
   skipValidation: process.env.SKIP_ENV_VALIDATION === "true",
 })
