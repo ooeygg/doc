@@ -8,6 +8,7 @@ import { Section } from "components/ui/Section/Section"
 import { Select } from "components/ui/Select/Select"
 import { Textarea } from "components/ui/Textarea/Textarea"
 import { siteConfig } from "config/site"
+import { reportFieldChange, reportFormResult } from "lib/analytics"
 import { type ContactInput, contactSchema, contactTopics } from "lib/validations/contact"
 
 const TOPIC_OPTIONS = [
@@ -37,6 +38,7 @@ export function ContactPage() {
   const topicValue = watch("topic")
 
   async function onSubmit(values: ContactInput) {
+    const analyticsPage = window.location.pathname
     setStatus("submitting")
     setSubmitError("")
     try {
@@ -47,6 +49,12 @@ export function ContactPage() {
       })
       const result = (await res.json().catch(() => null)) as { ok?: boolean } | null
       if (!res.ok || result?.ok !== true) {
+        reportFormResult(
+          "contact",
+          res.status === 429 ? "rate_limited" : res.status === 400 ? "validation_error" : "server_error",
+          0,
+          analyticsPage
+        )
         setSubmitError(
           res.status === 429
             ? "You've sent several messages recently. Please wait an hour before trying again."
@@ -58,6 +66,7 @@ export function ContactPage() {
         return
       }
     } catch {
+      reportFormResult("contact", "network_error", 0, analyticsPage)
       setSubmitError(
         "We couldn't confirm delivery. Please check your connection before trying again. Your message is still here."
       )
@@ -66,6 +75,7 @@ export function ContactPage() {
     }
 
     setStatus("success")
+    reportFormResult("contact", "success", 0, analyticsPage)
     reset()
   }
 
@@ -90,7 +100,14 @@ export function ContactPage() {
           </div>
         </div>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          data-analytics-form="contact"
+          onSubmit={handleSubmit(onSubmit, (invalid) =>
+            reportFormResult(
+              "contact",
+              "validation_error",
+              Object.keys(invalid).filter((field) => field !== "hp").length
+            )
+          )}
           className="grid gap-6 md:col-span-7"
           aria-busy={!isReady || status === "submitting"}
           noValidate
@@ -103,6 +120,7 @@ export function ContactPage() {
               </label>
               <Input
                 id="contact-name"
+                data-analytics-field="name"
                 {...register("name")}
                 disabled={!isReady}
                 aria-invalid={errors.name ? "true" : undefined}
@@ -116,6 +134,7 @@ export function ContactPage() {
               </label>
               <Input
                 id="contact-email"
+                data-analytics-field="email"
                 type="email"
                 {...register("email")}
                 disabled={!isReady}
@@ -127,23 +146,34 @@ export function ContactPage() {
           </div>
 
           <Select
+            id="contact-topic"
+            analyticsField="topic"
             label="What's this about?"
             options={TOPIC_OPTIONS}
             disabled={!isReady}
             value={topicValue ?? ""}
-            onValueChange={(v) =>
+            onValueChange={(v) => {
+              reportFieldChange("contact", "topic", Boolean(v))
               setValue("topic", v ? (v as (typeof contactTopics)[number]) : undefined, { shouldValidate: true })
-            }
+            }}
             error={errors.topic?.message}
           />
 
-          <Textarea label="Message" {...register("message")} disabled={!isReady} error={errors.message?.message} />
+          <Textarea
+            id="contact-message"
+            data-analytics-field="message"
+            label="Message"
+            {...register("message")}
+            disabled={!isReady}
+            error={errors.message?.message}
+          />
 
           <input type="text" {...register("hp")} className="hidden" tabIndex={-1} aria-hidden autoComplete="off" />
 
           <div className="flex items-center gap-4">
             <button
               type="submit"
+              data-analytics-id="contact-submit"
               disabled={!isReady || status === "submitting"}
               className="font-body bg-gold btn-gradient text-ink hover:enabled:bg-gold-hover inline-flex h-12 items-center rounded-full px-7 text-base font-medium shadow-[0_2px_12px_rgba(210,167,74,0.25)] transition-[transform,box-shadow,background-color] duration-200 hover:enabled:-translate-y-px disabled:opacity-50"
             >

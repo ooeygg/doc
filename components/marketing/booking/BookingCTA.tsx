@@ -15,6 +15,7 @@ export function BookingCTA({ placement }: { placement: "hero" | "final" }) {
         className="booking-link"
         aria-describedby={noteId}
         data-booking-link={bookingUrl ? "calendly" : "contact"}
+        data-analytics-id={`booking-${placement}`}
         // The shared gold pill stays still; only its arrow moves on this page.
         onMouseMove={undefined}
         onMouseLeave={undefined}

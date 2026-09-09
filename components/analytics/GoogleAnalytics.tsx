@@ -1,4 +1,5 @@
 import Script from "next/script"
+import { BehaviorAnalytics } from "components/analytics/BehaviorAnalytics"
 import { siteConfig } from "config/site"
 
 export function GoogleAnalytics() {
@@ -6,6 +7,7 @@ export function GoogleAnalytics() {
 
   return (
     <>
+      <BehaviorAnalytics />
       <Script id="google-analytics-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];

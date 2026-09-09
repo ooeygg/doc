@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test"
+import { expect, test } from "./fixtures"
 
 test.describe("book page", () => {
   for (const width of [375, 430, 768, 1024, 1440, 1920]) {

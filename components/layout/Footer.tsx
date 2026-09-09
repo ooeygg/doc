@@ -1,11 +1,12 @@
 "use client"
 
-import { Input } from "components/ui/Input/Input";
-import { siteConfig } from "config/site";
-import { modalities } from "content/data/modalities";
-import Link from "next/link";
-import { type FormEvent, useState } from "react";
-import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "../ui/SocialIcons";
+import Link from "next/link"
+import { type FormEvent, useState } from "react"
+import { Input } from "components/ui/Input/Input"
+import { IconExternal, IconFacebook, IconLinkedin, IconYoutube } from "components/ui/SocialIcons"
+import { siteConfig } from "config/site"
+import { modalities } from "content/data/modalities"
+import { reportFormResult } from "lib/analytics"
 
 const RESOURCES = [
   { label: "Speaking Events", href: "/speaking-events" },
@@ -28,6 +29,7 @@ export function Footer() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const analyticsPage = window.location.pathname
     setState("submitting")
     try {
       const res = await fetch("/api/lead", {
@@ -35,10 +37,22 @@ export function Footer() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, source: "footer" }),
       })
-      if (!res.ok) throw new Error()
+      const result = (await res.json().catch(() => null)) as { ok?: boolean } | null
+      if (!res.ok || result?.ok !== true) {
+        reportFormResult(
+          "newsletter",
+          res.status === 429 ? "rate_limited" : res.status === 400 ? "validation_error" : "server_error",
+          0,
+          analyticsPage
+        )
+        setState("error")
+        return
+      }
       setState("success")
+      reportFormResult("newsletter", "success", 0, analyticsPage)
       setEmail("")
     } catch {
+      reportFormResult("newsletter", "network_error", 0, analyticsPage)
       setState("error")
     }
   }
@@ -59,13 +73,14 @@ export function Footer() {
             {siteConfig.office.address.addressLocality}, {siteConfig.office.address.addressRegion}{" "}
             {siteConfig.office.address.postalCode}
           </address>
-          <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-2">
+          <form data-analytics-form="newsletter" onSubmit={onSubmit} className="mt-6 flex flex-col gap-2">
             <label htmlFor="footer-email" className="font-body text-gold text-xs tracking-widest uppercase">
               Stay in touch
             </label>
             <div className="flex gap-2">
               <Input
                 id="footer-email"
+                data-analytics-field="email"
                 type="email"
                 required
                 value={email}
@@ -76,6 +91,7 @@ export function Footer() {
               />
               <button
                 type="submit"
+                data-analytics-id="newsletter-submit"
                 disabled={state === "submitting"}
                 className="font-body bg-gold text-ink hover:bg-gold-hover rounded-full px-4 text-sm font-medium disabled:opacity-50"
               >

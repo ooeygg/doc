@@ -90,10 +90,10 @@ export function Hero() {
                 growth.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <Button href="/book" intent="primary">
+                <Button href="/book" intent="primary" data-analytics-id="hero-book">
                   Book a consult
                 </Button>
-                <Button href="/about" intent="secondary">
+                <Button href="/about" intent="secondary" data-analytics-id="hero-about">
                   Meet Dr. Higgins
                 </Button>
               </div>

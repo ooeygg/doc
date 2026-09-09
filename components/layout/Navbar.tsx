@@ -92,7 +92,7 @@ export function Navbar() {
               </Link>
             )
           })}
-          <Button href="/book" intent="primary" size="sm">
+          <Button href="/book" intent="primary" size="sm" data-analytics-id="nav-book-desktop">
             Book a consult
           </Button>
         </nav>
@@ -101,6 +101,7 @@ export function Navbar() {
           ref={menuButtonRef}
           type="button"
           aria-label="Open menu"
+          data-analytics-id="menu-open"
           aria-haspopup="dialog"
           aria-controls="mobile-menu"
           aria-expanded={open}
@@ -156,6 +157,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label="Close menu"
+                data-analytics-id="menu-close"
                 className="text-ink hover:bg-surface-alt focus-visible:ring-gold inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:outline-none"
               >
                 ✕
@@ -177,7 +179,7 @@ export function Navbar() {
               ))}
             </nav>
             <div className="mt-auto pt-8">
-              <Button href="/book" intent="primary" className="w-full">
+              <Button href="/book" intent="primary" className="w-full" data-analytics-id="nav-book-mobile">
                 Book a consult
               </Button>
             </div>

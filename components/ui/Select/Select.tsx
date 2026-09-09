@@ -23,6 +23,7 @@ export interface SelectProps {
   required?: boolean
   disabled?: boolean
   className?: string
+  analyticsField?: string
 }
 
 export function Select({
@@ -39,6 +40,7 @@ export function Select({
   required,
   disabled,
   className,
+  analyticsField,
 }: SelectProps) {
   const reactId = useId()
   const fieldId = id ?? reactId
@@ -47,7 +49,7 @@ export function Select({
   return (
     <div className="flex flex-col gap-1.5">
       {label ? (
-        <label htmlFor={fieldId} className="font-body text-sm font-medium text-ink">
+        <label htmlFor={fieldId} className="font-body text-ink text-sm font-medium">
           {label}
         </label>
       ) : null}
@@ -60,12 +62,14 @@ export function Select({
         disabled={disabled}
       >
         <RadixSelect.Trigger
+          data-analytics-field={analyticsField}
+          data-analytics-filled={Boolean(value ?? defaultValue)}
           id={fieldId}
           aria-invalid={error ? "true" : undefined}
           aria-describedby={describedBy}
           className={twMerge(
-            "font-body inline-flex h-11 w-full items-center justify-between rounded-full border border-divider bg-surface px-4 text-left text-ink placeholder:text-ink-muted",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-1",
+            "font-body border-divider bg-surface text-ink placeholder:text-ink-muted inline-flex h-11 w-full items-center justify-between rounded-full border px-4 text-left",
+            "focus-visible:ring-gold focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none",
             "transition-[border-color,box-shadow] duration-200",
             error ? "border-error" : "",
             className
@@ -78,14 +82,14 @@ export function Select({
           <RadixSelect.Content
             position="popper"
             sideOffset={6}
-            className="font-body z-50 overflow-hidden rounded-2xl border border-divider bg-surface text-ink shadow-lg"
+            className="font-body border-divider bg-surface text-ink z-50 overflow-hidden rounded-2xl border shadow-lg"
           >
             <RadixSelect.Viewport className="p-1">
               {options.map((opt) => (
                 <RadixSelect.Item
                   key={opt.value}
                   value={opt.value}
-                  className="relative flex cursor-pointer select-none items-center rounded-xl px-3 py-2 text-sm outline-none data-highlighted:bg-surface-alt data-[state=checked]:font-medium"
+                  className="data-highlighted:bg-surface-alt relative flex cursor-pointer items-center rounded-xl px-3 py-2 text-sm outline-none select-none data-[state=checked]:font-medium"
                 >
                   <RadixSelect.ItemText>{opt.label}</RadixSelect.ItemText>
                 </RadixSelect.Item>
@@ -95,7 +99,7 @@ export function Select({
         </RadixSelect.Portal>
       </RadixSelect.Root>
       {error ? (
-        <p id={`${fieldId}-error`} className="font-body text-xs text-error">
+        <p id={`${fieldId}-error`} className="font-body text-error text-xs">
           {error}
         </p>
       ) : hint ? (
